@@ -76,6 +76,11 @@ from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
     set_current_update_set,
 )
+from servicenow_mcp.tools.instance_tools import (
+    get_current_instance,
+    list_instances,
+    select_instance,
+)
 from servicenow_mcp.tools.user_tools import (
     create_user,
     update_user,
@@ -199,6 +204,11 @@ __all__ = [
     # Current Update Set tools
     "get_current_update_set",
     "set_current_update_set",
+
+    # Instance selection tools
+    "list_instances",
+    "get_current_instance",
+    "select_instance",
     
     # Knowledge Base tools
     "create_knowledge_base",

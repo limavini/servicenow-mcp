@@ -117,6 +117,10 @@ platform_developer:
   # Current Update Set
   - get_current_update_set
   - set_current_update_set
+  # Instance Selection
+  - list_instances
+  - get_current_instance
+  - select_instance
 
 agile_management:
   # Story Management
@@ -215,6 +219,10 @@ full:
   # Current Update Set
   - get_current_update_set
   - set_current_update_set
+  # Instance Selection
+  - list_instances
+  - get_current_instance
+  - select_instance
   # Script Include
   - list_script_includes
   - get_script_include

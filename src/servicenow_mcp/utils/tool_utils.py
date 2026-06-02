@@ -237,6 +237,21 @@ from servicenow_mcp.tools.current_update_set_tools import (
 from servicenow_mcp.tools.current_update_set_tools import (
     set_current_update_set as set_current_update_set_tool,
 )
+from servicenow_mcp.tools.instance_tools import (
+    GetCurrentInstanceParams,
+    InstanceSelectionResponse,
+    ListInstancesParams,
+    SelectInstanceParams,
+)
+from servicenow_mcp.tools.instance_tools import (
+    get_current_instance as get_current_instance_tool,
+)
+from servicenow_mcp.tools.instance_tools import (
+    list_instances as list_instances_tool,
+)
+from servicenow_mcp.tools.instance_tools import (
+    select_instance as select_instance_tool,
+)
 from servicenow_mcp.tools.user_tools import (
     AddGroupMembersParams,
     CreateGroupParams,
@@ -797,6 +812,28 @@ def get_tool_definitions(
             SetCurrentUpdateSetParams,
             CurrentUpdateSetResponse,  # Expects Pydantic model
             "Set the current update set so changes are captured into it (not Global)",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        # Instance Selection Tools
+        "list_instances": (
+            list_instances_tool,
+            ListInstancesParams,
+            Dict[str, Any],  # Expects dict
+            "List the ServiceNow instances available to connect to (no secrets)",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "get_current_instance": (
+            get_current_instance_tool,
+            GetCurrentInstanceParams,
+            Dict[str, Any],  # Expects dict
+            "Get the ServiceNow instance the server is currently connected to",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "select_instance": (
+            select_instance_tool,
+            SelectInstanceParams,
+            InstanceSelectionResponse,  # Expects Pydantic model
+            "Switch the active ServiceNow instance for this session",
             "raw_pydantic",  # Tool returns Pydantic model
         ),
         # Knowledge Base Tools

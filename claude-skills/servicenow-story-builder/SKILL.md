@@ -23,6 +23,9 @@ of the story record) before doing anything else.
 
 ## Hard rules (non-negotiable)
 
+0. **Always select the target instance first (Phase 0), before anything else.** Never
+   read or write against ServiceNow until the user has explicitly chosen the instance
+   for this session via `select_instance`, confirmed with `get_current_instance`.
 1. **Never create or modify any record in the Global scope / Default ("global")
    update set.** Every change MUST be captured in a dedicated changeset in the
    correct application scope. This is the most important rule in this skill.
@@ -42,6 +45,19 @@ of the story record) before doing anything else.
 6. Respect every 🚦 GATE: present, then wait for explicit user approval.
 
 ---
+
+## Phase 0 — Select the instance 🚦 GATE
+
+Before reading the story or touching ServiceNow:
+
+1. Call `list_instances` to get the configured instances.
+2. Present them to the user (prefer the structured question tool) and let them choose
+   which instance this session targets. If exactly one exists you may still confirm it.
+3. Call `select_instance` with the chosen name, then `get_current_instance` to verify
+   the active connection is what the user picked.
+
+Do not proceed to Phase 1 until an instance is selected and verified. If the user
+later wants to switch, re-run this phase.
 
 ## Phase 1 — Read & restate the story
 
