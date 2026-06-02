@@ -65,7 +65,17 @@ of the story record) before doing anything else.
 5. If you cannot *prove* that changes will be captured into the intended non-global
    changeset (i.e. `get_current_update_set` does not return your update set in the
    right scope), **STOP and ask the user** — do not create records "to be safe."
-6. Respect every 🚦 GATE: present, then wait for explicit user approval.
+6. **Never modify a default / baseline platform record. Always clone it and modify the
+   clone.** A baseline record is anything shipped by ServiceNow / not authored in your
+   scope (e.g. OOB widgets, themes, business rules, UI scripts, script includes). Many
+   are protected and silently ignore writes anyway; editing them also breaks upgrades.
+   When a story requires changing baseline behavior:
+   - **🚦 Ask the user for the prefix** to use on the cloned record's name, then name
+     the clone `<PREFIX> <original name>` (e.g. prefix `RMT` → `RMT Approval Widget`).
+   - Create the clone in your scope/update set, repoint references to it (e.g. a Service
+     Portal page's `sp_instance` to the cloned widget), and make all edits there.
+   - Never let the plan or execution touch the original baseline record.
+7. Respect every 🚦 GATE: present, then wait for explicit user approval.
 
 ---
 
@@ -116,6 +126,9 @@ tool. Cover at least:
 - Exact table(s) and whether child/extended tables are in scope.
 - Trigger conditions, audience (UI type / roles), and edge cases.
 - Anything destructive (updates/deletes to existing records) and approval for it.
+- **If any baseline / default record must change, the clone prefix** (Hard rule #6):
+  identify which baseline records are involved and ask the user what prefix to use for
+  the clones (e.g. `RMT`). Record it; you will clone-and-rename, never edit the original.
 
 **Record the answers** verbatim into the plan you will present in Phase 6 (a "Scope
 decisions" section). These answers are the contract for the build.
