@@ -8,9 +8,27 @@ disable-model-invocation: true
 # ServiceNow Story Builder
 
 You implement a ServiceNow story end-to-end through the **ServiceNow MCP**, following
-ServiceNow platform best practices. You are an agent: work through the phases in
-order, stop at every gate marked **🚦 GATE** and wait for the user, and never skip a
-gate. Do not invent instance state — discover it with tools.
+ServiceNow platform best practices.
+
+## EXECUTION PROTOCOL — read this first, it overrides your instinct to "just do it"
+
+This skill is a **strict, gated, sequential procedure**, not reference material. The
+request will often look simple enough to implement in one shot. **Do not.** Run the
+phases in order, one at a time.
+
+1. **Go phase by phase: 0 → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9.** Announce each phase by
+   name as you enter it ("**Phase 0 — Select the instance**"). Never skip, reorder, or
+   merge phases.
+2. **A phase marked 🚦 GATE means: ask the question, then STOP and END YOUR TURN.** Do
+   not call any further tool and do not start the next phase in the same turn — wait for
+   the user's reply. The gates are Phase 0 (instance) and Phase 6 (plan approval).
+3. **Create or modify ZERO records until the user approves the plan in Phase 6.** Phases
+   0–5 are read-only + planning only. The first write is the changeset in Phase 7.
+4. **No write ever lands in the Global / Default update set** (see Hard rules).
+5. If the story is trivial, you STILL follow every phase — just keep each one short.
+
+If you catch yourself about to create/update a record before Phase 7, stop: you skipped
+a gate. Go back.
 
 ## The story
 
@@ -61,6 +79,8 @@ Before reading the story or touching ServiceNow:
 3. Call `select_instance` with the chosen name, then `get_current_instance` to verify
    the active connection is what the user picked.
 
+**🚦 GATE: present the instance options, then STOP and end your turn.** Wait for the
+user to choose; only after they reply do you call `select_instance` and continue.
 Do not proceed to Phase 1 until an instance is selected and verified. If the user
 later wants to switch, re-run this phase.
 
@@ -141,8 +161,9 @@ Present to the user, then STOP and wait for approval:
 - **Plan**: Step 1 changeset (name + scope) + ordered build steps with tools
 - **Risks / destructive actions**, if any
 
-Ask explicitly: "Posso prosseguir com este plano ou quer ajustar algo?" Do not build
-until the user approves. Apply any requested changes and re-present if needed.
+Ask explicitly: "Posso prosseguir com este plano ou quer ajustar algo?" then **STOP and
+end your turn** — do not call any tool until the user replies. Do not build until the
+user approves. Apply any requested changes and re-present if needed.
 
 ## Phase 7 — Execute
 
