@@ -203,6 +203,40 @@ from servicenow_mcp.tools.script_include_tools import (
 from servicenow_mcp.tools.script_include_tools import (
     update_script_include as update_script_include_tool,
 )
+from servicenow_mcp.tools.client_script_tools import (
+    ClientScriptResponse,
+    CreateClientScriptParams,
+    DeleteClientScriptParams,
+    GetClientScriptParams,
+    ListClientScriptsParams,
+    UpdateClientScriptParams,
+)
+from servicenow_mcp.tools.client_script_tools import (
+    create_client_script as create_client_script_tool,
+)
+from servicenow_mcp.tools.client_script_tools import (
+    delete_client_script as delete_client_script_tool,
+)
+from servicenow_mcp.tools.client_script_tools import (
+    get_client_script as get_client_script_tool,
+)
+from servicenow_mcp.tools.client_script_tools import (
+    list_client_scripts as list_client_scripts_tool,
+)
+from servicenow_mcp.tools.client_script_tools import (
+    update_client_script as update_client_script_tool,
+)
+from servicenow_mcp.tools.current_update_set_tools import (
+    CurrentUpdateSetResponse,
+    GetCurrentUpdateSetParams,
+    SetCurrentUpdateSetParams,
+)
+from servicenow_mcp.tools.current_update_set_tools import (
+    get_current_update_set as get_current_update_set_tool,
+)
+from servicenow_mcp.tools.current_update_set_tools import (
+    set_current_update_set as set_current_update_set_tool,
+)
 from servicenow_mcp.tools.user_tools import (
     AddGroupMembersParams,
     CreateGroupParams,
@@ -713,6 +747,57 @@ def get_tool_definitions(
             str,  # Expects JSON string
             "Delete a script include in ServiceNow",
             "json_dict",  # Tool returns Pydantic model
+        ),
+        # Client Script Tools
+        "list_client_scripts": (
+            list_client_scripts_tool,
+            ListClientScriptsParams,
+            Dict[str, Any],  # Expects dict
+            "List client scripts (sys_script_client) from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "get_client_script": (
+            get_client_script_tool,
+            GetClientScriptParams,
+            Dict[str, Any],  # Expects dict
+            "Get a specific client script from ServiceNow by sys_id or name",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "create_client_script": (
+            create_client_script_tool,
+            CreateClientScriptParams,
+            ClientScriptResponse,  # Expects Pydantic model
+            "Create a new client script (e.g. onLoad alert on a form) in ServiceNow",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "update_client_script": (
+            update_client_script_tool,
+            UpdateClientScriptParams,
+            ClientScriptResponse,  # Expects Pydantic model
+            "Update an existing client script in ServiceNow",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "delete_client_script": (
+            delete_client_script_tool,
+            DeleteClientScriptParams,
+            str,  # Expects JSON string
+            "Delete a client script in ServiceNow",
+            "json_dict",  # Tool returns Pydantic model
+        ),
+        # Current Update Set Tools
+        "get_current_update_set": (
+            get_current_update_set_tool,
+            GetCurrentUpdateSetParams,
+            Dict[str, Any],  # Expects dict
+            "Get the update set currently active for the authenticated user",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "set_current_update_set": (
+            set_current_update_set_tool,
+            SetCurrentUpdateSetParams,
+            CurrentUpdateSetResponse,  # Expects Pydantic model
+            "Set the current update set so changes are captured into it (not Global)",
+            "raw_pydantic",  # Tool returns Pydantic model
         ),
         # Knowledge Base Tools
         "create_knowledge_base": (

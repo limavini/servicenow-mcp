@@ -65,6 +65,17 @@ from servicenow_mcp.tools.script_include_tools import (
     list_script_includes,
     update_script_include,
 )
+from servicenow_mcp.tools.client_script_tools import (
+    create_client_script,
+    delete_client_script,
+    get_client_script,
+    list_client_scripts,
+    update_client_script,
+)
+from servicenow_mcp.tools.current_update_set_tools import (
+    get_current_update_set,
+    set_current_update_set,
+)
 from servicenow_mcp.tools.user_tools import (
     create_user,
     update_user,
@@ -177,6 +188,17 @@ __all__ = [
     "create_script_include",
     "update_script_include",
     "delete_script_include",
+
+    # Client Script tools
+    "list_client_scripts",
+    "get_client_script",
+    "create_client_script",
+    "update_client_script",
+    "delete_client_script",
+
+    # Current Update Set tools
+    "get_current_update_set",
+    "set_current_update_set",
     
     # Knowledge Base tools
     "create_knowledge_base",

@@ -83,6 +83,12 @@ platform_developer:
   - update_script_include
   - delete_script_include
   - execute_script_include
+  # Client Scripts
+  - list_client_scripts
+  - get_client_script
+  - create_client_script
+  - update_client_script
+  - delete_client_script
   # Workflows
   - list_workflows
   - get_workflow_details
@@ -108,6 +114,9 @@ platform_developer:
   - commit_changeset
   - publish_changeset
   - add_file_to_changeset
+  # Current Update Set
+  - get_current_update_set
+  - set_current_update_set
 
 agile_management:
   # Story Management
@@ -203,6 +212,9 @@ full:
   - commit_changeset
   - publish_changeset
   - add_file_to_changeset
+  # Current Update Set
+  - get_current_update_set
+  - set_current_update_set
   # Script Include
   - list_script_includes
   - get_script_include
@@ -210,6 +222,12 @@ full:
   - update_script_include
   - delete_script_include
   - execute_script_include
+  # Client Scripts
+  - list_client_scripts
+  - get_client_script
+  - create_client_script
+  - update_client_script
+  - delete_client_script
   # Knowledge Base
   - create_knowledge_base
   - list_knowledge_bases
