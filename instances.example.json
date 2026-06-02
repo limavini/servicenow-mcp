@@ -1,5 +1,6 @@
 {
   "dev-basic": {
+    "default": true,
     "instance_url": "https://devXXXXXX.service-now.com",
     "auth_type": "basic",
     "username": "admin",

@@ -6,6 +6,7 @@ import argparse
 import logging
 import os
 import sys
+from typing import Optional
 
 import anyio
 from dotenv import load_dotenv
@@ -116,6 +117,48 @@ def parse_args():
     return parser.parse_args()
 
 
+def _config_from_instances_file(args) -> Optional[ServerConfig]:
+    """Build a bootstrap ServerConfig from instances.json when no env/args creds.
+
+    Selection order: SERVICENOW_DEFAULT_INSTANCE env > an entry with "default": true >
+    the only entry > the first entry alphabetically. Returns None if no instances.
+    """
+    try:
+        from servicenow_mcp.tools.instance_tools import _build_auth_config, _load_instances
+    except Exception as e:  # pragma: no cover - defensive
+        logger.warning(f"Could not import instance loader: {e}")
+        return None
+
+    instances = _load_instances()
+    if not instances:
+        return None
+
+    preferred = os.getenv("SERVICENOW_DEFAULT_INSTANCE")
+    if preferred and preferred in instances:
+        chosen = preferred
+    else:
+        flagged = [n for n, d in instances.items() if d.get("default") in (True, "true", "True")]
+        if flagged:
+            chosen = flagged[0]
+        elif len(instances) == 1:
+            chosen = next(iter(instances))
+        else:
+            chosen = sorted(instances)[0]
+            logger.warning(
+                "Multiple instances and no SERVICENOW_DEFAULT_INSTANCE / \"default\" flag; "
+                f"bootstrapping with '{chosen}'. Use select_instance to switch at runtime."
+            )
+
+    auth_config, instance_url = _build_auth_config(instances[chosen])
+    logger.info(f"Bootstrapping from instances file with instance '{chosen}' ({instance_url})")
+    return ServerConfig(
+        instance_url=instance_url,
+        auth=auth_config,
+        debug=args.debug,
+        timeout=args.timeout,
+    )
+
+
 def create_config(args) -> ServerConfig:
     """
     Create server configuration from command-line arguments.
@@ -133,14 +176,17 @@ def create_config(args) -> ServerConfig:
     # The ServiceNowMCP class now expects a ServerConfig object matching this.
 
     # Instance URL validation
-    instance_url = args.instance_url
+    instance_url = args.instance_url or os.getenv("SERVICENOW_INSTANCE_URL")
     if not instance_url:
-        # Attempt to load from .env if not provided via args/env vars directly in parse_args
-        instance_url = os.getenv("SERVICENOW_INSTANCE_URL")
-        if not instance_url:
-            raise ValueError(
-                "ServiceNow instance URL is required (--instance-url or SERVICENOW_INSTANCE_URL env var)"
-            )
+        # No instance via args/env — bootstrap from instances.json instead, so the
+        # server can start without any credentials in the environment / .env.
+        cfg = _config_from_instances_file(args)
+        if cfg:
+            return cfg
+        raise ValueError(
+            "No ServiceNow instance configured. Provide --instance-url / "
+            "SERVICENOW_INSTANCE_URL, or add an instances.json (see instances.example.json)."
+        )
 
     # Create authentication configuration based on args
     auth_type = AuthType(args.auth_type.lower())

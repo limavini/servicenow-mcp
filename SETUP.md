@@ -61,6 +61,7 @@ Edit `instances.json` (e.g. `open -e instances.json`) so it has your instance(s)
 ```json
 {
   "your-instance": {
+    "default": true,
     "instance_url": "https://your-instance.service-now.com",
     "auth_type": "basic",
     "username": "your-username",
@@ -68,6 +69,11 @@ Edit `instances.json` (e.g. `open -e instances.json`) so it has your instance(s)
   }
 }
 ```
+
+This file is the single source of credentials — the server boots straight from it,
+so you do **not** need any ServiceNow values in the environment. With more than one
+instance, mark one with `"default": true` (or set the `SERVICENOW_DEFAULT_INSTANCE`
+env var) to choose which one the server starts on; switch any time at runtime.
 
 ## 5. Install Claude Code (if not already)
 
@@ -80,16 +86,11 @@ claude --version
 
 ## 6. Register the MCP server in Claude Code
 
-The server needs one instance's credentials to boot (bootstrap); you can switch
-to any other instance from `instances.json` at runtime later.
+No credentials needed here — the server reads them from `instances.json` (step 4):
 
 ```bash
 claude mcp add ServiceNow \
   --scope user \
-  --env SERVICENOW_INSTANCE_URL=https://your-instance.service-now.com \
-  --env SERVICENOW_USERNAME=your-username \
-  --env SERVICENOW_PASSWORD=your-password \
-  --env SERVICENOW_AUTH_TYPE=basic \
   -- "$HOME/servicenow-mcp/.venv/bin/servicenow-mcp"
 ```
 
