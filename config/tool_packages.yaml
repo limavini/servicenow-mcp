@@ -89,6 +89,12 @@ platform_developer:
   - create_client_script
   - update_client_script
   - delete_client_script
+  # Service Portal Widgets
+  - list_sp_widgets
+  - get_sp_widget
+  - create_sp_widget
+  - update_sp_widget
+  - delete_sp_widget
   # Workflows
   - list_workflows
   - get_workflow_details
@@ -236,6 +242,12 @@ full:
   - create_client_script
   - update_client_script
   - delete_client_script
+  # Service Portal Widgets
+  - list_sp_widgets
+  - get_sp_widget
+  - create_sp_widget
+  - update_sp_widget
+  - delete_sp_widget
   # Knowledge Base
   - create_knowledge_base
   - list_knowledge_bases

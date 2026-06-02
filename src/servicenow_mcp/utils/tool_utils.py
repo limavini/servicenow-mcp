@@ -226,6 +226,29 @@ from servicenow_mcp.tools.client_script_tools import (
 from servicenow_mcp.tools.client_script_tools import (
     update_client_script as update_client_script_tool,
 )
+from servicenow_mcp.tools.sp_widget_tools import (
+    CreateSpWidgetParams,
+    DeleteSpWidgetParams,
+    GetSpWidgetParams,
+    ListSpWidgetsParams,
+    SpWidgetResponse,
+    UpdateSpWidgetParams,
+)
+from servicenow_mcp.tools.sp_widget_tools import (
+    create_sp_widget as create_sp_widget_tool,
+)
+from servicenow_mcp.tools.sp_widget_tools import (
+    delete_sp_widget as delete_sp_widget_tool,
+)
+from servicenow_mcp.tools.sp_widget_tools import (
+    get_sp_widget as get_sp_widget_tool,
+)
+from servicenow_mcp.tools.sp_widget_tools import (
+    list_sp_widgets as list_sp_widgets_tool,
+)
+from servicenow_mcp.tools.sp_widget_tools import (
+    update_sp_widget as update_sp_widget_tool,
+)
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
     GetCurrentUpdateSetParams,
@@ -797,6 +820,42 @@ def get_tool_definitions(
             DeleteClientScriptParams,
             str,  # Expects JSON string
             "Delete a client script in ServiceNow",
+            "json_dict",  # Tool returns Pydantic model
+        ),
+        # Service Portal Widget Tools
+        "list_sp_widgets": (
+            list_sp_widgets_tool,
+            ListSpWidgetsParams,
+            Dict[str, Any],  # Expects dict
+            "List Service Portal widgets (sp_widget) from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "get_sp_widget": (
+            get_sp_widget_tool,
+            GetSpWidgetParams,
+            Dict[str, Any],  # Expects dict
+            "Get a Service Portal widget from ServiceNow by sys_id, widget id, or name",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "create_sp_widget": (
+            create_sp_widget_tool,
+            CreateSpWidgetParams,
+            SpWidgetResponse,  # Expects Pydantic model
+            "Create a new Service Portal widget in ServiceNow",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "update_sp_widget": (
+            update_sp_widget_tool,
+            UpdateSpWidgetParams,
+            SpWidgetResponse,  # Expects Pydantic model
+            "Update an existing Service Portal widget (template, css, scripts, etc.) in ServiceNow",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "delete_sp_widget": (
+            delete_sp_widget_tool,
+            DeleteSpWidgetParams,
+            str,  # Expects JSON string
+            "Delete a Service Portal widget in ServiceNow",
             "json_dict",  # Tool returns Pydantic model
         ),
         # Current Update Set Tools

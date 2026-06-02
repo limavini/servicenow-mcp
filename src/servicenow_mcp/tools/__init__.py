@@ -72,6 +72,13 @@ from servicenow_mcp.tools.client_script_tools import (
     list_client_scripts,
     update_client_script,
 )
+from servicenow_mcp.tools.sp_widget_tools import (
+    create_sp_widget,
+    delete_sp_widget,
+    get_sp_widget,
+    list_sp_widgets,
+    update_sp_widget,
+)
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
     set_current_update_set,
@@ -200,6 +207,13 @@ __all__ = [
     "create_client_script",
     "update_client_script",
     "delete_client_script",
+
+    # Service Portal Widget tools
+    "list_sp_widgets",
+    "get_sp_widget",
+    "create_sp_widget",
+    "update_sp_widget",
+    "delete_sp_widget",
 
     # Current Update Set tools
     "get_current_update_set",
