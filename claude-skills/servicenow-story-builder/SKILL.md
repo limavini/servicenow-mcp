@@ -26,6 +26,11 @@ of the story record) before doing anything else.
 0. **Always select the target instance first (Phase 0), before anything else.** Never
    read or write against ServiceNow until the user has explicitly chosen the instance
    for this session via `select_instance`, confirmed with `get_current_instance`.
+0b. **Read and follow the best-practices doc before planning or building.** Read
+   `~/.claude/skills/servicenow-story-builder/best-practices.md` (e.g. use widget
+   Options/system properties instead of hardcoding, never edit baseline widgets, no
+   hardcoded sys_ids). The plan and every record you create/update must comply; if the
+   story conflicts with a best practice, surface the trade-off to the user.
 1. **Never create or modify any record in the Global scope / Default ("global")
    update set.** Every change MUST be captured in a dedicated changeset in the
    correct application scope. This is the most important rule in this skill.
@@ -78,6 +83,11 @@ always the scope your changeset must target.
 
 Summarize what you found (conventions, relevant existing records, target scope).
 
+Also **read `~/.claude/skills/servicenow-story-builder/best-practices.md` now** and
+keep it in mind for the rest of the phases — it governs how the change is designed
+and built (Service Portal options vs hardcoding, no baseline edits, no hardcoded
+sys_ids, etc.).
+
 ## Phase 3 — Scope the change (Q&A — record the answers)
 
 Ask the user targeted questions to remove ambiguity. Prefer the structured question
@@ -118,7 +128,10 @@ and verify** — in this exact order, before any other record:
 Only after this 3-step block passes do you create any other record.
 
 The rest of the plan: ordered build steps (one per artifact), each naming the MCP tool,
-target table, and key fields — sequenced to satisfy the acceptance criteria.
+target table, and key fields — sequenced to satisfy the acceptance criteria. Each step
+must comply with `best-practices.md` (e.g. expose configurable values as widget options
+/ system properties, clone instead of editing baseline). Call out in the plan where a
+best practice shaped a decision.
 
 ## Phase 6 — Present the plan 🚦 GATE
 
@@ -135,9 +148,10 @@ until the user approves. Apply any requested changes and re-present if needed.
 
 Execute the approved plan in order: changeset first (Phase 5 gate satisfied), then each
 build step. After each create/update, capture the returned `sys_id`. If any step fails,
-stop and report — don't continue blindly. Follow ServiceNow best practices (clear names,
-descriptions, minimal scope, no hardcoded sys_ids in scripts, client scripts isolated to
-their table unless extension is explicitly requested).
+stop and report — don't continue blindly. Follow `best-practices.md` to the letter
+(configurable values as widget options / system properties, clone instead of editing
+baseline, no hardcoded sys_ids, scoped CSS, server data via `data`/Script Includes,
+client scripts isolated to their table unless extension is explicitly requested).
 
 ## Phase 8 — Summarize with record URLs
 
