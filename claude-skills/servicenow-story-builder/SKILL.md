@@ -126,9 +126,10 @@ their table unless extension is explicitly requested).
 ## Phase 8 — Summarize with record URLs
 
 Report everything created/changed. For **every** record include a clickable link
-(per the ServiceNow links preference): `<instance>/<table>.do?sys_id=<sys_id>`
-(instance `https://dev185907.service-now.com`). Include the changeset link too, e.g.
-`https://dev185907.service-now.com/sys_update_set.do?sys_id=<id>`. Use a table:
+(per the ServiceNow links preference): `<instance>/<table>.do?sys_id=<sys_id>`, where
+`<instance>` is the connected server's `SERVICENOW_INSTANCE_URL` (resolve it from the
+Claude MCP config: `grep -A6 '"ServiceNow"' ~/.claude.json`). Include the changeset
+link too: `<instance>/sys_update_set.do?sys_id=<id>`. Use a table:
 artifact → table → sys_id → link.
 
 ## Phase 9 — Manual QA guide

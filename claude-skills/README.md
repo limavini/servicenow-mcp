@@ -24,13 +24,11 @@ Open Claude Code and the skills are available (e.g. `/servicenow-story-builder`)
 
 ## Machine-specific values
 
-These skills contain values specific to the author's setup that you must adjust
-on a new machine:
+The skills are machine-agnostic: they resolve the instance URL and the repo path at
+runtime from your Claude MCP config (`~/.claude.json`) — the ServiceNow server's
+`SERVICENOW_INSTANCE_URL` env and the parent of its `command` path. Nothing to edit
+by hand.
 
-- **Instance URL** — `https://dev185907.service-now.com` appears in the skills for
-  building record links. Change it to your own ServiceNow instance.
-- **Repo path** — `servicenow-mcp-tool` references the local checkout path
-  `/Users/vinicius.almeida/repos/servicenow-mcp`. Point it at your own clone.
-
-The MCP server connection itself (instance URL, credentials) is configured in your
-Claude Code MCP settings, not here.
+The only prerequisite is that the **ServiceNow MCP server is configured and connected**
+in your Claude Code (instance URL + credentials live there, in a local `.env` /
+MCP settings — never committed).

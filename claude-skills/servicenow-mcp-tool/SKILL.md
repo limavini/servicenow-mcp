@@ -7,8 +7,10 @@ argument-hint: "[table name or feature, e.g. 'business rules (sys_script)']"
 # ServiceNow MCP — Add Tools for a New Table
 
 You are extending the user's **local** ServiceNow MCP server so it can manage a new
-ServiceNow table. The server lives at `/Users/vinicius.almeida/repos/servicenow-mcp`
-and exposes tools backed by the ServiceNow Table API (`/api/now/table/<table>`).
+ServiceNow table. It exposes tools backed by the ServiceNow Table API
+(`/api/now/table/<table>`). This guide refers to the local checkout of the
+servicenow-mcp repo as **`$SN_MCP`** — resolve its real path in "Before you start"
+(do not assume a hardcoded path).
 
 ## What the user wants
 
@@ -20,9 +22,12 @@ operations they need (default: full CRUD — list, get, create, update, delete).
 
 ## Before you start
 
-1. Confirm the project still exists at `/Users/vinicius.almeida/repos/servicenow-mcp`.
-   If the config moved, find it with:
-   `grep -A6 '"ServiceNow"' ~/.claude.json` (look at the `command` path).
+1. Resolve `$SN_MCP` (the repo path) from the Claude MCP config — it is the parent
+   of the `command` path of the ServiceNow server:
+   `grep -A6 '"ServiceNow"' ~/.claude.json` (the `command` is `<$SN_MCP>/.venv/bin/python`).
+   Likewise resolve `<instance>` from the server's `SERVICENOW_INSTANCE_URL` env in
+   the same config. Use these resolved values everywhere below — never a hardcoded path
+   or instance.
 2. **Read `src/servicenow_mcp/tools/script_include_tools.py` as your template.**
    It is the canonical CRUD module (operates on `sys_script_include`). The
    `client_script_tools.py` module (on `sys_script_client`) is a second worked
@@ -86,10 +91,10 @@ Follow `script_include_tools.py` precisely:
 
 ## Validate before declaring done
 
-Run with the project venv (`/Users/vinicius.almeida/repos/servicenow-mcp/.venv/bin/python`):
+Run with the project venv (`$SN_MCP/.venv/bin/python`):
 
 ```bash
-cd /Users/vinicius.almeida/repos/servicenow-mcp
+cd "$SN_MCP"
 .venv/bin/python -c "
 from servicenow_mcp.tools.knowledge_base import create_category, list_categories
 from servicenow_mcp.utils.tool_utils import get_tool_definitions
@@ -112,9 +117,8 @@ tool's schema via ToolSearch (`select:mcp__ServiceNow__<tool>`) and call it.
 ## Always send the record link
 
 Whenever you create a record via one of these tools, include a clickable link to
-it in your response (not just the sys_id):
-`<instance>/<table>.do?sys_id=<sys_id>`
-e.g. `https://dev185907.service-now.com/sys_script_client.do?sys_id=<id>`.
+it in your response (not just the sys_id): `<instance>/<table>.do?sys_id=<sys_id>`,
+where `<instance>` is the resolved `SERVICENOW_INSTANCE_URL` (see "Before you start").
 
 ## Commit & push to the fork (hard rule)
 
