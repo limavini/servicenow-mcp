@@ -1,0 +1,17 @@
+{
+  "dev-basic": {
+    "instance_url": "https://devXXXXXX.service-now.com",
+    "auth_type": "basic",
+    "username": "admin",
+    "password": "REPLACE_ME"
+  },
+  "prod-oauth": {
+    "instance_url": "https://acme.service-now.com",
+    "auth_type": "oauth",
+    "client_id": "REPLACE_ME",
+    "client_secret": "REPLACE_ME",
+    "username": "integration.user",
+    "password": "REPLACE_ME",
+    "token_url": "https://acme.service-now.com/oauth_token.do"
+  }
+}

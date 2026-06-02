@@ -1,7 +1,0 @@
-{
-  "name": "dev-example",
-  "instance_url": "https://devXXXXXX.service-now.com",
-  "auth_type": "basic",
-  "username": "admin",
-  "password": "REPLACE_ME"
-}

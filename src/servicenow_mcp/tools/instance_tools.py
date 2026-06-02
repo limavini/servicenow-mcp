@@ -2,25 +2,32 @@
 Instance selection tools for the ServiceNow MCP server.
 
 These tools let a single running MCP server switch between multiple ServiceNow
-instances at runtime. Credentials for each instance live as JSON files in a
-directory (default `<repo>/instances`, override with the SERVICENOW_INSTANCES_DIR
-env var). `list_instances` enumerates them (without exposing secrets) and
-`select_instance` swaps the active connection for the session by mutating the
-shared config/auth manager in place.
+instances at runtime. All instances live in ONE JSON file (default
+`<repo>/instances.json`, override with the SERVICENOW_INSTANCES_FILE env var).
+`list_instances` enumerates them (without exposing secrets) and `select_instance`
+swaps the active connection for the session by mutating the shared config/auth
+manager in place.
 
-Each instance file is JSON, e.g.:
+The file is a JSON object keyed by instance name, e.g.:
 
     {
-        "name": "dev185907",
-        "instance_url": "https://dev185907.service-now.com",
-        "auth_type": "basic",
-        "username": "admin",
-        "password": "..."
+        "dev185907": {
+            "instance_url": "https://dev185907.service-now.com",
+            "auth_type": "basic",
+            "username": "admin",
+            "password": "..."
+        },
+        "prod": {
+            "instance_url": "https://acme.service-now.com",
+            "auth_type": "oauth",
+            "client_id": "...", "client_secret": "...",
+            "username": "...", "password": "..."
+        }
     }
 
-For OAuth use `"auth_type": "oauth"` with client_id/client_secret/username/password
-(and optional token_url); for API key use `"auth_type": "api_key"` with api_key
-(and optional api_key_header).
+A top-level "instances" wrapper and a list of objects (each with a "name") are also
+accepted. For API key use `"auth_type": "api_key"` with api_key (and optional
+api_key_header).
 """
 
 import json
@@ -77,32 +84,39 @@ class InstanceSelectionResponse(BaseModel):
     instance_url: Optional[str] = Field(None, description="URL of the now-active instance")
 
 
-def _instances_dir() -> Path:
-    """Resolve the directory holding per-instance credential files."""
-    env_dir = os.getenv("SERVICENOW_INSTANCES_DIR")
-    if env_dir:
-        return Path(env_dir).expanduser()
-    # Default: <repo_root>/instances (this file is src/servicenow_mcp/tools/instance_tools.py)
-    return Path(__file__).resolve().parents[3] / "instances"
+def _instances_file() -> Path:
+    """Resolve the single JSON file holding all instance credentials."""
+    env_file = os.getenv("SERVICENOW_INSTANCES_FILE")
+    if env_file:
+        return Path(env_file).expanduser()
+    # Default: <repo_root>/instances.json (this file is src/servicenow_mcp/tools/instance_tools.py)
+    return Path(__file__).resolve().parents[3] / "instances.json"
 
 
-def _load_instance_files() -> Dict[str, Dict[str, Any]]:
-    """Load all instance JSON files keyed by their resolved name."""
-    directory = _instances_dir()
+def _load_instances() -> Dict[str, Dict[str, Any]]:
+    """Load all instances from the single JSON file, keyed by name."""
+    path = _instances_file()
     instances: Dict[str, Dict[str, Any]] = {}
-    if not directory.is_dir():
+    if not path.is_file():
         return instances
-    for path in sorted(directory.glob("*.json")):
-        if path.name.endswith(".example.json"):
-            continue  # skip template files
-        try:
-            data = json.loads(path.read_text())
-        except Exception as e:
-            logger.warning(f"Skipping unreadable instance file {path.name}: {e}")
-            continue
-        name = data.get("name") or path.stem
-        data["name"] = name
-        instances[name] = data
+    try:
+        raw = json.loads(path.read_text())
+    except Exception as e:
+        logger.warning(f"Could not parse instances file {path}: {e}")
+        return instances
+
+    # Unwrap an optional top-level "instances" key.
+    if isinstance(raw, dict) and "instances" in raw:
+        raw = raw["instances"]
+
+    if isinstance(raw, dict):
+        for name, data in raw.items():
+            if isinstance(data, dict):
+                instances[name] = {**data, "name": data.get("name") or name}
+    elif isinstance(raw, list):
+        for data in raw:
+            if isinstance(data, dict) and data.get("name"):
+                instances[data["name"]] = data
     return instances
 
 
@@ -162,8 +176,8 @@ def list_instances(
     Secrets (passwords, client secrets, API keys) are never returned.
     """
     try:
-        directory = _instances_dir()
-        files = _load_instance_files()
+        path = _instances_file()
+        files = _load_instances()
         instances: List[Dict[str, Any]] = []
         for name, data in files.items():
             instances.append(
@@ -176,15 +190,15 @@ def list_instances(
                 }
             )
         message = (
-            f"Found {len(instances)} instance(s) in {directory}"
+            f"Found {len(instances)} instance(s) in {path}"
             if instances
-            else f"No instance files found in {directory}. Add <name>.json files there."
+            else f"No instances found in {path}. Create it from instances.example.json."
         )
         return {
             "success": True,
             "message": message,
             "instances": instances,
-            "instances_dir": str(directory),
+            "instances_file": str(path),
             "current_instance_url": config.instance_url,
         }
     except Exception as e:
@@ -199,7 +213,7 @@ def get_current_instance(
 ) -> Dict[str, Any]:
     """Get the instance the server is currently connected to."""
     name = None
-    for n, data in _load_instance_files().items():
+    for n, data in _load_instances().items():
         if data.get("instance_url") == config.instance_url:
             name = n
             break
@@ -223,7 +237,7 @@ def select_instance(
     call targets the selected instance.
     """
     try:
-        files = _load_instance_files()
+        files = _load_instances()
         if params.name not in files:
             available = ", ".join(files) or "(none)"
             return InstanceSelectionResponse(

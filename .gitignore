@@ -182,7 +182,6 @@ cython_debug/
 .env.test
 .env.production
 
-# ServiceNow instance credential files (real secrets) — never commit.
-# Tracked: README.md and *.example.json templates only.
-/instances/*.json
-!/instances/*.example.json
+# ServiceNow instance credentials (real secrets) — never commit.
+# instances.example.json (template) stays tracked.
+/instances.json
