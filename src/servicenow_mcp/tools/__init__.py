@@ -191,6 +191,13 @@ from servicenow_mcp.tools.data_policy_rule_tools import (
     list_data_policy_rules,
     update_data_policy_rule,
 )
+from servicenow_mcp.tools.role_tools import (
+    create_role,
+    delete_role,
+    get_role,
+    list_roles,
+    update_role,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -423,6 +430,12 @@ __all__ = [
     "create_data_policy_rule",
     "update_data_policy_rule",
     "delete_data_policy_rule",
+    # Role tools
+    "list_roles",
+    "get_role",
+    "create_role",
+    "update_role",
+    "delete_role",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools

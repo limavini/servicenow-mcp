@@ -197,6 +197,12 @@ platform_developer:
   - create_data_policy_rule
   - update_data_policy_rule
   - delete_data_policy_rule
+  # Role
+  - list_roles
+  - get_role
+  - create_role
+  - update_role
+  - delete_role
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -447,6 +453,12 @@ full:
   - create_data_policy_rule
   - update_data_policy_rule
   - delete_data_policy_rule
+  # Role
+  - list_roles
+  - get_role
+  - create_role
+  - update_role
+  - delete_role
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base

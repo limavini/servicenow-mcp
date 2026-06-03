@@ -542,6 +542,24 @@ from servicenow_mcp.tools.data_policy_rule_tools import (
 from servicenow_mcp.tools.data_policy_rule_tools import (
     update_data_policy_rule as update_data_policy_rule_tool,
 )
+from servicenow_mcp.tools.role_tools import (
+    RoleResponse, CreateRoleParams, DeleteRoleParams, GetRoleParams, ListRolesParams, UpdateRoleParams,
+)
+from servicenow_mcp.tools.role_tools import (
+    create_role as create_role_tool,
+)
+from servicenow_mcp.tools.role_tools import (
+    delete_role as delete_role_tool,
+)
+from servicenow_mcp.tools.role_tools import (
+    get_role as get_role_tool,
+)
+from servicenow_mcp.tools.role_tools import (
+    list_roles as list_roles_tool,
+)
+from servicenow_mcp.tools.role_tools import (
+    update_role as update_role_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -2002,6 +2020,42 @@ def get_tool_definitions(
             DeleteDataPolicyRuleParams,
             str,
             "Delete a data policy rule in ServiceNow",
+            "json_dict",
+        ),
+        # Role Tools
+        "list_roles": (
+            list_roles_tool,
+            ListRolesParams,
+            Dict[str, Any],
+            "List roles (sys_user_role) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_role": (
+            get_role_tool,
+            GetRoleParams,
+            Dict[str, Any],
+            "Get a specific role from ServiceNow",
+            "raw_dict",
+        ),
+        "create_role": (
+            create_role_tool,
+            CreateRoleParams,
+            RoleResponse,
+            "Create a new role (sys_user_role) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_role": (
+            update_role_tool,
+            UpdateRoleParams,
+            RoleResponse,
+            "Update an existing role in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_role": (
+            delete_role_tool,
+            DeleteRoleParams,
+            str,
+            "Delete a role in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__
