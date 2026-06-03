@@ -13,6 +13,7 @@ class AuthType(str, Enum):
 
     BASIC = "basic"
     OAUTH = "oauth"
+    OAUTH_AUTHORIZATION_CODE = "oauth_authorization_code"
     API_KEY = "api_key"
 
 
@@ -24,13 +25,23 @@ class BasicAuthConfig(BaseModel):
 
 
 class OAuthConfig(BaseModel):
-    """Configuration for OAuth authentication."""
+    """Configuration for OAuth authentication.
+
+    Supports both the legacy password / client_credentials grants (username +
+    password) and the authorization_code grant (redirect_uri + refresh_token),
+    used for SSO instances where the token must represent the real user.
+    """
 
     client_id: str
     client_secret: str
-    username: str
-    password: str
+    username: Optional[str] = None
+    password: Optional[str] = None
     token_url: Optional[str] = None
+    # authorization_code / refresh_token flow (SSO "act as the user")
+    redirect_uri: Optional[str] = None
+    refresh_token: Optional[str] = None
+    # where to persist the refresh token across restarts (per instance)
+    token_file: Optional[str] = None
 
 
 class ApiKeyConfig(BaseModel):
