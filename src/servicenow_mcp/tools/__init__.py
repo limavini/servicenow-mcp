@@ -226,6 +226,13 @@ from servicenow_mcp.tools.db_table_tools import (
     list_db_tables,
     update_db_table,
 )
+from servicenow_mcp.tools.event_registration_tools import (
+    create_event_registration,
+    delete_event_registration,
+    get_event_registration,
+    list_event_registrations,
+    update_event_registration,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -488,6 +495,12 @@ __all__ = [
     "create_db_table",
     "update_db_table",
     "delete_db_table",
+    # Event Registration tools
+    "list_event_registrations",
+    "get_event_registration",
+    "create_event_registration",
+    "update_event_registration",
+    "delete_event_registration",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools

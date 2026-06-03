@@ -632,6 +632,24 @@ from servicenow_mcp.tools.db_table_tools import (
 from servicenow_mcp.tools.db_table_tools import (
     update_db_table as update_db_table_tool,
 )
+from servicenow_mcp.tools.event_registration_tools import (
+    EventRegistrationResponse, CreateEventRegistrationParams, DeleteEventRegistrationParams, GetEventRegistrationParams, ListEventRegistrationsParams, UpdateEventRegistrationParams,
+)
+from servicenow_mcp.tools.event_registration_tools import (
+    create_event_registration as create_event_registration_tool,
+)
+from servicenow_mcp.tools.event_registration_tools import (
+    delete_event_registration as delete_event_registration_tool,
+)
+from servicenow_mcp.tools.event_registration_tools import (
+    get_event_registration as get_event_registration_tool,
+)
+from servicenow_mcp.tools.event_registration_tools import (
+    list_event_registrations as list_event_registrations_tool,
+)
+from servicenow_mcp.tools.event_registration_tools import (
+    update_event_registration as update_event_registration_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -2272,6 +2290,42 @@ def get_tool_definitions(
             DeleteDbTableParams,
             str,
             "Delete a table in ServiceNow",
+            "json_dict",
+        ),
+        # Event Registration Tools
+        "list_event_registrations": (
+            list_event_registrations_tool,
+            ListEventRegistrationsParams,
+            Dict[str, Any],
+            "List event registrations (sysevent_register) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_event_registration": (
+            get_event_registration_tool,
+            GetEventRegistrationParams,
+            Dict[str, Any],
+            "Get a specific event registration from ServiceNow",
+            "raw_dict",
+        ),
+        "create_event_registration": (
+            create_event_registration_tool,
+            CreateEventRegistrationParams,
+            EventRegistrationResponse,
+            "Create a new event registration (sysevent_register) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_event_registration": (
+            update_event_registration_tool,
+            UpdateEventRegistrationParams,
+            EventRegistrationResponse,
+            "Update an existing event registration in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_event_registration": (
+            delete_event_registration_tool,
+            DeleteEventRegistrationParams,
+            str,
+            "Delete a event registration in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__

@@ -227,6 +227,12 @@ platform_developer:
   - create_db_table
   - update_db_table
   - delete_db_table
+  # Event Registration
+  - list_event_registrations
+  - get_event_registration
+  - create_event_registration
+  - update_event_registration
+  - delete_event_registration
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -507,6 +513,12 @@ full:
   - create_db_table
   - update_db_table
   - delete_db_table
+  # Event Registration
+  - list_event_registrations
+  - get_event_registration
+  - create_event_registration
+  - update_event_registration
+  - delete_event_registration
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base
