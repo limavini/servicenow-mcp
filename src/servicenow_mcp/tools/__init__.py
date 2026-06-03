@@ -205,6 +205,13 @@ from servicenow_mcp.tools.catalog_client_script_tools import (
     list_catalog_client_scripts,
     update_catalog_client_script,
 )
+from servicenow_mcp.tools.catalog_ui_policy_tools import (
+    create_catalog_ui_policy,
+    delete_catalog_ui_policy,
+    get_catalog_ui_policy,
+    list_catalog_ui_policies,
+    update_catalog_ui_policy,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -449,6 +456,12 @@ __all__ = [
     "create_catalog_client_script",
     "update_catalog_client_script",
     "delete_catalog_client_script",
+    # Catalog UI Policy tools
+    "list_catalog_ui_policies",
+    "get_catalog_ui_policy",
+    "create_catalog_ui_policy",
+    "update_catalog_ui_policy",
+    "delete_catalog_ui_policy",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools

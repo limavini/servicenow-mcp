@@ -209,6 +209,12 @@ platform_developer:
   - create_catalog_client_script
   - update_catalog_client_script
   - delete_catalog_client_script
+  # Catalog UI Policy
+  - list_catalog_ui_policies
+  - get_catalog_ui_policy
+  - create_catalog_ui_policy
+  - update_catalog_ui_policy
+  - delete_catalog_ui_policy
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -471,6 +477,12 @@ full:
   - create_catalog_client_script
   - update_catalog_client_script
   - delete_catalog_client_script
+  # Catalog UI Policy
+  - list_catalog_ui_policies
+  - get_catalog_ui_policy
+  - create_catalog_ui_policy
+  - update_catalog_ui_policy
+  - delete_catalog_ui_policy
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base
