@@ -163,6 +163,13 @@ from servicenow_mcp.tools.sp_page_tools import (
     list_sp_pages,
     update_sp_page,
 )
+from servicenow_mcp.tools.ui_script_tools import (
+    create_ui_script,
+    delete_ui_script,
+    get_ui_script,
+    list_ui_scripts,
+    update_ui_script,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -371,6 +378,12 @@ __all__ = [
     "create_sp_page",
     "update_sp_page",
     "delete_sp_page",
+    # UI Script tools
+    "list_ui_scripts",
+    "get_ui_script",
+    "create_ui_script",
+    "update_ui_script",
+    "delete_ui_script",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools

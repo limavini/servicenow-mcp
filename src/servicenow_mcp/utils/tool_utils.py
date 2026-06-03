@@ -470,6 +470,24 @@ from servicenow_mcp.tools.sp_page_tools import (
 from servicenow_mcp.tools.sp_page_tools import (
     update_sp_page as update_sp_page_tool,
 )
+from servicenow_mcp.tools.ui_script_tools import (
+    UiScriptResponse, CreateUiScriptParams, DeleteUiScriptParams, GetUiScriptParams, ListUiScriptsParams, UpdateUiScriptParams,
+)
+from servicenow_mcp.tools.ui_script_tools import (
+    create_ui_script as create_ui_script_tool,
+)
+from servicenow_mcp.tools.ui_script_tools import (
+    delete_ui_script as delete_ui_script_tool,
+)
+from servicenow_mcp.tools.ui_script_tools import (
+    get_ui_script as get_ui_script_tool,
+)
+from servicenow_mcp.tools.ui_script_tools import (
+    list_ui_scripts as list_ui_scripts_tool,
+)
+from servicenow_mcp.tools.ui_script_tools import (
+    update_ui_script as update_ui_script_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -1786,6 +1804,42 @@ def get_tool_definitions(
             DeleteSpPageParams,
             str,
             "Delete a Service Portal page in ServiceNow",
+            "json_dict",
+        ),
+        # UI Script Tools
+        "list_ui_scripts": (
+            list_ui_scripts_tool,
+            ListUiScriptsParams,
+            Dict[str, Any],
+            "List UI scripts (sys_ui_script) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_ui_script": (
+            get_ui_script_tool,
+            GetUiScriptParams,
+            Dict[str, Any],
+            "Get a specific UI script from ServiceNow",
+            "raw_dict",
+        ),
+        "create_ui_script": (
+            create_ui_script_tool,
+            CreateUiScriptParams,
+            UiScriptResponse,
+            "Create a new UI script (sys_ui_script) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_ui_script": (
+            update_ui_script_tool,
+            UpdateUiScriptParams,
+            UiScriptResponse,
+            "Update an existing UI script in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_ui_script": (
+            delete_ui_script_tool,
+            DeleteUiScriptParams,
+            str,
+            "Delete a UI script in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__

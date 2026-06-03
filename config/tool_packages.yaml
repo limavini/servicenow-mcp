@@ -173,6 +173,12 @@ platform_developer:
   - create_sp_page
   - update_sp_page
   - delete_sp_page
+  # UI Script
+  - list_ui_scripts
+  - get_ui_script
+  - create_ui_script
+  - update_ui_script
+  - delete_ui_script
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -399,6 +405,12 @@ full:
   - create_sp_page
   - update_sp_page
   - delete_sp_page
+  # UI Script
+  - list_ui_scripts
+  - get_ui_script
+  - create_ui_script
+  - update_ui_script
+  - delete_ui_script
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base
