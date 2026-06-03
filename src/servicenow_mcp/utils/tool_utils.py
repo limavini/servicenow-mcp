@@ -452,6 +452,24 @@ from servicenow_mcp.tools.sp_instance_tools import (
 from servicenow_mcp.tools.sp_instance_tools import (
     update_sp_instance as update_sp_instance_tool,
 )
+from servicenow_mcp.tools.sp_page_tools import (
+    SpPageResponse, CreateSpPageParams, DeleteSpPageParams, GetSpPageParams, ListSpPagesParams, UpdateSpPageParams,
+)
+from servicenow_mcp.tools.sp_page_tools import (
+    create_sp_page as create_sp_page_tool,
+)
+from servicenow_mcp.tools.sp_page_tools import (
+    delete_sp_page as delete_sp_page_tool,
+)
+from servicenow_mcp.tools.sp_page_tools import (
+    get_sp_page as get_sp_page_tool,
+)
+from servicenow_mcp.tools.sp_page_tools import (
+    list_sp_pages as list_sp_pages_tool,
+)
+from servicenow_mcp.tools.sp_page_tools import (
+    update_sp_page as update_sp_page_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -1732,6 +1750,42 @@ def get_tool_definitions(
             DeleteSpInstanceParams,
             str,
             "Delete a Service Portal widget instance in ServiceNow",
+            "json_dict",
+        ),
+        # Service Portal Page Tools
+        "list_sp_pages": (
+            list_sp_pages_tool,
+            ListSpPagesParams,
+            Dict[str, Any],
+            "List Service Portal pages (sp_page) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_sp_page": (
+            get_sp_page_tool,
+            GetSpPageParams,
+            Dict[str, Any],
+            "Get a specific Service Portal page from ServiceNow",
+            "raw_dict",
+        ),
+        "create_sp_page": (
+            create_sp_page_tool,
+            CreateSpPageParams,
+            SpPageResponse,
+            "Create a new Service Portal page (sp_page) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_sp_page": (
+            update_sp_page_tool,
+            UpdateSpPageParams,
+            SpPageResponse,
+            "Update an existing Service Portal page in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_sp_page": (
+            delete_sp_page_tool,
+            DeleteSpPageParams,
+            str,
+            "Delete a Service Portal page in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__

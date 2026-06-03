@@ -167,6 +167,12 @@ platform_developer:
   - create_sp_instance
   - update_sp_instance
   - delete_sp_instance
+  # Service Portal Page
+  - list_sp_pages
+  - get_sp_page
+  - create_sp_page
+  - update_sp_page
+  - delete_sp_page
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -387,6 +393,12 @@ full:
   - create_sp_instance
   - update_sp_instance
   - delete_sp_instance
+  # Service Portal Page
+  - list_sp_pages
+  - get_sp_page
+  - create_sp_page
+  - update_sp_page
+  - delete_sp_page
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base

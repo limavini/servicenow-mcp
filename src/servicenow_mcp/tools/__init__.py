@@ -156,6 +156,13 @@ from servicenow_mcp.tools.sp_instance_tools import (
     list_sp_instances,
     update_sp_instance,
 )
+from servicenow_mcp.tools.sp_page_tools import (
+    create_sp_page,
+    delete_sp_page,
+    get_sp_page,
+    list_sp_pages,
+    update_sp_page,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -358,6 +365,12 @@ __all__ = [
     "create_sp_instance",
     "update_sp_instance",
     "delete_sp_instance",
+    # Service Portal Page tools
+    "list_sp_pages",
+    "get_sp_page",
+    "create_sp_page",
+    "update_sp_page",
+    "delete_sp_page",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools
