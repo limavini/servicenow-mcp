@@ -245,6 +245,12 @@ platform_developer:
   - create_transform_map
   - update_transform_map
   - delete_transform_map
+  # Transform Entry
+  - list_transform_entries
+  - get_transform_entry
+  - create_transform_entry
+  - update_transform_entry
+  - delete_transform_entry
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -543,6 +549,12 @@ full:
   - create_transform_map
   - update_transform_map
   - delete_transform_map
+  # Transform Entry
+  - list_transform_entries
+  - get_transform_entry
+  - create_transform_entry
+  - update_transform_entry
+  - delete_transform_entry
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base

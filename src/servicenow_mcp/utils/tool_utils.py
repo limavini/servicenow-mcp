@@ -686,6 +686,24 @@ from servicenow_mcp.tools.transform_map_tools import (
 from servicenow_mcp.tools.transform_map_tools import (
     update_transform_map as update_transform_map_tool,
 )
+from servicenow_mcp.tools.transform_entry_tools import (
+    TransformEntryResponse, CreateTransformEntryParams, DeleteTransformEntryParams, GetTransformEntryParams, ListTransformEntrysParams, UpdateTransformEntryParams,
+)
+from servicenow_mcp.tools.transform_entry_tools import (
+    create_transform_entry as create_transform_entry_tool,
+)
+from servicenow_mcp.tools.transform_entry_tools import (
+    delete_transform_entry as delete_transform_entry_tool,
+)
+from servicenow_mcp.tools.transform_entry_tools import (
+    get_transform_entry as get_transform_entry_tool,
+)
+from servicenow_mcp.tools.transform_entry_tools import (
+    list_transform_entries as list_transform_entries_tool,
+)
+from servicenow_mcp.tools.transform_entry_tools import (
+    update_transform_entry as update_transform_entry_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -2434,6 +2452,42 @@ def get_tool_definitions(
             DeleteTransformMapParams,
             str,
             "Delete a transform map in ServiceNow",
+            "json_dict",
+        ),
+        # Transform Entry Tools
+        "list_transform_entries": (
+            list_transform_entries_tool,
+            ListTransformEntrysParams,
+            Dict[str, Any],
+            "List transform map fields (sys_transform_entry) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_transform_entry": (
+            get_transform_entry_tool,
+            GetTransformEntryParams,
+            Dict[str, Any],
+            "Get a specific transform map field from ServiceNow",
+            "raw_dict",
+        ),
+        "create_transform_entry": (
+            create_transform_entry_tool,
+            CreateTransformEntryParams,
+            TransformEntryResponse,
+            "Create a new transform map field (sys_transform_entry) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_transform_entry": (
+            update_transform_entry_tool,
+            UpdateTransformEntryParams,
+            TransformEntryResponse,
+            "Update an existing transform map field in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_transform_entry": (
+            delete_transform_entry_tool,
+            DeleteTransformEntryParams,
+            str,
+            "Delete a transform map field in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__

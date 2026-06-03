@@ -247,6 +247,13 @@ from servicenow_mcp.tools.transform_map_tools import (
     list_transform_maps,
     update_transform_map,
 )
+from servicenow_mcp.tools.transform_entry_tools import (
+    create_transform_entry,
+    delete_transform_entry,
+    get_transform_entry,
+    list_transform_entries,
+    update_transform_entry,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -527,6 +534,12 @@ __all__ = [
     "create_transform_map",
     "update_transform_map",
     "delete_transform_map",
+    # Transform Entry tools
+    "list_transform_entries",
+    "get_transform_entry",
+    "create_transform_entry",
+    "update_transform_entry",
+    "delete_transform_entry",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools
