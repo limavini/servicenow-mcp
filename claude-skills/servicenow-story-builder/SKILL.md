@@ -1,6 +1,6 @@
 ---
 name: servicenow-story-builder
-description: "Builds a ServiceNow feature/fix/adjustment from a story description using platform best practices: reads the story, learns instance context, scopes via Q&A, plans, gates on a non-global changeset, executes via the ServiceNow MCP, then summarizes with record URLs and a manual QA guide."
+description: "Builds a ServiceNow feature/fix/adjustment from a story description using platform best practices: reads the story, learns instance context, scopes via Q&A, plans, gates on a non-global update set, executes via the ServiceNow MCP, then summarizes with record URLs and a manual QA guide."
 argument-hint: "<story text, story URL, or sys_id of an rm_story / story record>"
 disable-model-invocation: true
 ---
@@ -23,7 +23,7 @@ phases in order, one at a time.
    not call any further tool and do not start the next phase in the same turn — wait for
    the user's reply. The gates are Phase 0 (instance) and Phase 6 (plan approval).
 3. **Create or modify ZERO records until the user approves the plan in Phase 6.** Phases
-   0–5 are read-only + planning only. The first write is the changeset in Phase 7.
+   0–5 are read-only + planning only. The first write is the update set in Phase 7.
 4. **No write ever lands in the Global / Default update set** (see Hard rules).
 5. If the story is trivial, you STILL follow every phase — just keep each one short.
 
@@ -50,9 +50,9 @@ of the story record) before doing anything else.
    hardcoded sys_ids). The plan and every record you create/update must comply; if the
    story conflicts with a best practice, surface the trade-off to the user.
 1. **Never create or modify any record in the Global scope / Default ("global")
-   update set.** Every change MUST be captured in a dedicated changeset in the
+   update set.** Every change MUST be captured in a dedicated update set in the
    correct application scope. This is the most important rule in this skill.
-2. **The very first development action is always creating the changeset** (Phase 5),
+2. **The very first development action is always creating the update set** (Phase 5),
    before any other record is created or updated.
 3. **The created update set MUST always be set as the current update set** (via
    `set_current_update_set`) and verified (via `get_current_update_set`) before any
@@ -61,9 +61,9 @@ of the story record) before doing anything else.
 4. **The update set name MUST start with the task/story number, then a very short
    description.** Format: `<NUMBER> - <short description>`, e.g.
    `STRY123 - Update client script`. Derive `<NUMBER>` from the story; if you can't,
-   ask the user before creating the changeset.
+   ask the user before creating the update set.
 5. If you cannot *prove* that changes will be captured into the intended non-global
-   changeset (i.e. `get_current_update_set` does not return your update set in the
+   update set (i.e. `get_current_update_set` does not return your update set in the
    right scope), **STOP and ask the user** — do not create records "to be safe."
 6. **Never modify a default / baseline platform record. Always clone it and modify the
    clone.** A baseline record is anything shipped by ServiceNow / not authored in your
@@ -109,7 +109,7 @@ MCP tools (`list_*`, `get_*`) to inspect existing, comparable records — e.g. e
 client scripts / business rules / catalog items / workflows on the target table.
 Goal: match existing naming conventions, scopes, and patterns rather than inventing
 new ones. Note the application scope the related records live in — that is almost
-always the scope your changeset must target.
+always the scope your update set must target.
 
 Summarize what you found (conventions, relevant existing records, target scope).
 
@@ -122,7 +122,7 @@ sys_ids, etc.).
 
 Ask the user targeted questions to remove ambiguity. Prefer the structured question
 tool. Cover at least:
-- Target **application scope** for the changeset (confirm it is NOT Global).
+- Target **application scope** for the update set (confirm it is NOT Global).
 - Exact table(s) and whether child/extended tables are in scope.
 - Trigger conditions, audience (UI type / roles), and edge cases.
 - Anything destructive (updates/deletes to existing records) and approval for it.
@@ -145,16 +145,16 @@ already exposes a tool:
   invoke that skill, then have the user reconnect the MCP (`/mcp`) so the new tool
   loads, then resume here. If no, replan around available tools or stop.
 
-## Phase 5 — Changeset-first plan (the changeset is step 1)
+## Phase 5 — Update-set-first plan (the update set is step 1)
 
-Draft the development plan. **Step 1 is always: create the changeset, set it current,
+Draft the development plan. **Step 1 is always: create the update set, set it current,
 and verify** — in this exact order, before any other record:
 
 1. `create_changeset` with `application` = the confirmed non-global scope and
    `name` = `<NUMBER> - <short description>` (Hard Rule #4), e.g.
    `STRY123 - Update client script`.
-2. `set_current_update_set` with the new changeset's sys_id (Hard Rule #3).
-3. `get_current_update_set` to verify the current update set is your changeset and its
+2. `set_current_update_set` with the new update set's sys_id (Hard Rule #3).
+3. `get_current_update_set` to verify the current update set is your update set and its
    scope is **not** Global (`is_global` must be false). If it doesn't match, **STOP**
    (Hard Rule #5) and surface the problem to the user — do not build.
 
@@ -171,7 +171,7 @@ best practice shaped a decision.
 Present to the user, then STOP and wait for approval:
 - **Story & acceptance criteria** (from Phase 1)
 - **Scope decisions** (recorded answers from Phase 3)
-- **Plan**: Step 1 changeset (name + scope) + ordered build steps with tools
+- **Plan**: Step 1 update set (name + scope) + ordered build steps with tools
 - **Risks / destructive actions**, if any
 
 Ask explicitly: "Posso prosseguir com este plano ou quer ajustar algo?" then **STOP and
@@ -180,7 +180,7 @@ user approves. Apply any requested changes and re-present if needed.
 
 ## Phase 7 — Execute
 
-Execute the approved plan in order: changeset first (Phase 5 gate satisfied), then each
+Execute the approved plan in order: update set first (Phase 5 gate satisfied), then each
 build step. After each create/update, capture the returned `sys_id`. If any step fails,
 stop and report — don't continue blindly. Follow `best-practices.md` to the letter
 (configurable values as widget options / system properties, clone instead of editing
@@ -192,7 +192,7 @@ client scripts isolated to their table unless extension is explicitly requested)
 Report everything created/changed. For **every** record include a clickable link
 (per the ServiceNow links preference): `<instance>/<table>.do?sys_id=<sys_id>`, where
 `<instance>` is the connected server's `SERVICENOW_INSTANCE_URL` (resolve it from the
-Claude MCP config: `grep -A6 '"ServiceNow"' ~/.claude.json`). Include the changeset
+Claude MCP config: `grep -A6 '"ServiceNow"' ~/.claude.json`). Include the update set
 link too: `<instance>/sys_update_set.do?sys_id=<id>`. Use a table:
 artifact → table → sys_id → link.
 
@@ -202,7 +202,7 @@ Provide a step-by-step manual test guide the user can follow in the instance, de
 from the acceptance criteria. For each acceptance criterion give: setup, the exact user
 action (which form/record to open, what to do), and the expected result. Include negative
 cases (where it should NOT fire) and, if relevant, how to verify the change is captured
-in the changeset (and how to roll back by backing out the update set).
+in the update set (and how to roll back by backing out the update set).
 
 ---
 

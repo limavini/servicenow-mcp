@@ -6,7 +6,7 @@ alongside the server itself.
 | Skill | What it does |
 |-------|--------------|
 | `servicenow-mcp-tool` | Adds a new CRUD toolset to this MCP server for a ServiceNow table that isn't covered yet. |
-| `servicenow-story-builder` | Builds a ServiceNow feature/fix from a story end-to-end (context → scope Q&A → changeset-first plan → execute → QA guide). Manual-invoke only. |
+| `servicenow-story-builder` | Builds a ServiceNow feature/fix from a story end-to-end (context → scope Q&A → update-set-first plan → execute → QA guide). Manual-invoke only. |
 
 ## Install (on any machine)
 
