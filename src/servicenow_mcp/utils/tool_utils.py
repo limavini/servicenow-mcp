@@ -398,6 +398,24 @@ from servicenow_mcp.tools.choice_tools import (
 from servicenow_mcp.tools.choice_tools import (
     update_choice as update_choice_tool,
 )
+from servicenow_mcp.tools.email_notification_tools import (
+    EmailNotificationResponse, CreateEmailNotificationParams, DeleteEmailNotificationParams, GetEmailNotificationParams, ListEmailNotificationsParams, UpdateEmailNotificationParams,
+)
+from servicenow_mcp.tools.email_notification_tools import (
+    create_email_notification as create_email_notification_tool,
+)
+from servicenow_mcp.tools.email_notification_tools import (
+    delete_email_notification as delete_email_notification_tool,
+)
+from servicenow_mcp.tools.email_notification_tools import (
+    get_email_notification as get_email_notification_tool,
+)
+from servicenow_mcp.tools.email_notification_tools import (
+    list_email_notifications as list_email_notifications_tool,
+)
+from servicenow_mcp.tools.email_notification_tools import (
+    update_email_notification as update_email_notification_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -1570,6 +1588,42 @@ def get_tool_definitions(
             DeleteChoiceParams,
             str,
             "Delete a choice in ServiceNow",
+            "json_dict",
+        ),
+        # Email Notification Tools
+        "list_email_notifications": (
+            list_email_notifications_tool,
+            ListEmailNotificationsParams,
+            Dict[str, Any],
+            "List email notifications (sysevent_email_action) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_email_notification": (
+            get_email_notification_tool,
+            GetEmailNotificationParams,
+            Dict[str, Any],
+            "Get a specific email notification from ServiceNow",
+            "raw_dict",
+        ),
+        "create_email_notification": (
+            create_email_notification_tool,
+            CreateEmailNotificationParams,
+            EmailNotificationResponse,
+            "Create a new email notification (sysevent_email_action) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_email_notification": (
+            update_email_notification_tool,
+            UpdateEmailNotificationParams,
+            EmailNotificationResponse,
+            "Update an existing email notification in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_email_notification": (
+            delete_email_notification_tool,
+            DeleteEmailNotificationParams,
+            str,
+            "Delete a email notification in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__

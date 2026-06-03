@@ -135,6 +135,13 @@ from servicenow_mcp.tools.choice_tools import (
     list_choices,
     update_choice,
 )
+from servicenow_mcp.tools.email_notification_tools import (
+    create_email_notification,
+    delete_email_notification,
+    get_email_notification,
+    list_email_notifications,
+    update_email_notification,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -319,6 +326,12 @@ __all__ = [
     "create_choice",
     "update_choice",
     "delete_choice",
+    # Email Notification tools
+    "list_email_notifications",
+    "get_email_notification",
+    "create_email_notification",
+    "update_email_notification",
+    "delete_email_notification",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools

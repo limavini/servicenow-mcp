@@ -149,6 +149,12 @@ platform_developer:
   - create_choice
   - update_choice
   - delete_choice
+  # Email Notification
+  - list_email_notifications
+  - get_email_notification
+  - create_email_notification
+  - update_email_notification
+  - delete_email_notification
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -351,6 +357,12 @@ full:
   - create_choice
   - update_choice
   - delete_choice
+  # Email Notification
+  - list_email_notifications
+  - get_email_notification
+  - create_email_notification
+  - update_email_notification
+  - delete_email_notification
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base
