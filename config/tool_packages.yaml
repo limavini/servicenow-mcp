@@ -161,6 +161,12 @@ platform_developer:
   - create_acl
   - update_acl
   - delete_acl
+  # Service Portal Widget Instance
+  - list_sp_instances
+  - get_sp_instance
+  - create_sp_instance
+  - update_sp_instance
+  - delete_sp_instance
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -375,6 +381,12 @@ full:
   - create_acl
   - update_acl
   - delete_acl
+  # Service Portal Widget Instance
+  - list_sp_instances
+  - get_sp_instance
+  - create_sp_instance
+  - update_sp_instance
+  - delete_sp_instance
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base

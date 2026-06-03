@@ -149,6 +149,13 @@ from servicenow_mcp.tools.acl_tools import (
     list_acls,
     update_acl,
 )
+from servicenow_mcp.tools.sp_instance_tools import (
+    create_sp_instance,
+    delete_sp_instance,
+    get_sp_instance,
+    list_sp_instances,
+    update_sp_instance,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -345,6 +352,12 @@ __all__ = [
     "create_acl",
     "update_acl",
     "delete_acl",
+    # Service Portal Widget Instance tools
+    "list_sp_instances",
+    "get_sp_instance",
+    "create_sp_instance",
+    "update_sp_instance",
+    "delete_sp_instance",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools

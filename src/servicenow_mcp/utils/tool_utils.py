@@ -434,6 +434,24 @@ from servicenow_mcp.tools.acl_tools import (
 from servicenow_mcp.tools.acl_tools import (
     update_acl as update_acl_tool,
 )
+from servicenow_mcp.tools.sp_instance_tools import (
+    SpInstanceResponse, CreateSpInstanceParams, DeleteSpInstanceParams, GetSpInstanceParams, ListSpInstancesParams, UpdateSpInstanceParams,
+)
+from servicenow_mcp.tools.sp_instance_tools import (
+    create_sp_instance as create_sp_instance_tool,
+)
+from servicenow_mcp.tools.sp_instance_tools import (
+    delete_sp_instance as delete_sp_instance_tool,
+)
+from servicenow_mcp.tools.sp_instance_tools import (
+    get_sp_instance as get_sp_instance_tool,
+)
+from servicenow_mcp.tools.sp_instance_tools import (
+    list_sp_instances as list_sp_instances_tool,
+)
+from servicenow_mcp.tools.sp_instance_tools import (
+    update_sp_instance as update_sp_instance_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -1678,6 +1696,42 @@ def get_tool_definitions(
             DeleteAclParams,
             str,
             "Delete a ACL in ServiceNow",
+            "json_dict",
+        ),
+        # Service Portal Widget Instance Tools
+        "list_sp_instances": (
+            list_sp_instances_tool,
+            ListSpInstancesParams,
+            Dict[str, Any],
+            "List Service Portal widget instances (sp_instance) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_sp_instance": (
+            get_sp_instance_tool,
+            GetSpInstanceParams,
+            Dict[str, Any],
+            "Get a specific Service Portal widget instance from ServiceNow",
+            "raw_dict",
+        ),
+        "create_sp_instance": (
+            create_sp_instance_tool,
+            CreateSpInstanceParams,
+            SpInstanceResponse,
+            "Create a new Service Portal widget instance (sp_instance) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_sp_instance": (
+            update_sp_instance_tool,
+            UpdateSpInstanceParams,
+            SpInstanceResponse,
+            "Update an existing Service Portal widget instance in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_sp_instance": (
+            delete_sp_instance_tool,
+            DeleteSpInstanceParams,
+            str,
+            "Delete a Service Portal widget instance in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__
