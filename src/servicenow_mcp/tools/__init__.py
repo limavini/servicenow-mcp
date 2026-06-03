@@ -240,6 +240,13 @@ from servicenow_mcp.tools.sla_definition_tools import (
     list_sla_definitions,
     update_sla_definition,
 )
+from servicenow_mcp.tools.transform_map_tools import (
+    create_transform_map,
+    delete_transform_map,
+    get_transform_map,
+    list_transform_maps,
+    update_transform_map,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -514,6 +521,12 @@ __all__ = [
     "create_sla_definition",
     "update_sla_definition",
     "delete_sla_definition",
+    # Transform Map tools
+    "list_transform_maps",
+    "get_transform_map",
+    "create_transform_map",
+    "update_transform_map",
+    "delete_transform_map",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools

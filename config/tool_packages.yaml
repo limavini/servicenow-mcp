@@ -239,6 +239,12 @@ platform_developer:
   - create_sla_definition
   - update_sla_definition
   - delete_sla_definition
+  # Transform Map
+  - list_transform_maps
+  - get_transform_map
+  - create_transform_map
+  - update_transform_map
+  - delete_transform_map
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -531,6 +537,12 @@ full:
   - create_sla_definition
   - update_sla_definition
   - delete_sla_definition
+  # Transform Map
+  - list_transform_maps
+  - get_transform_map
+  - create_transform_map
+  - update_transform_map
+  - delete_transform_map
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base

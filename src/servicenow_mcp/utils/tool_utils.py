@@ -668,6 +668,24 @@ from servicenow_mcp.tools.sla_definition_tools import (
 from servicenow_mcp.tools.sla_definition_tools import (
     update_sla_definition as update_sla_definition_tool,
 )
+from servicenow_mcp.tools.transform_map_tools import (
+    TransformMapResponse, CreateTransformMapParams, DeleteTransformMapParams, GetTransformMapParams, ListTransformMapsParams, UpdateTransformMapParams,
+)
+from servicenow_mcp.tools.transform_map_tools import (
+    create_transform_map as create_transform_map_tool,
+)
+from servicenow_mcp.tools.transform_map_tools import (
+    delete_transform_map as delete_transform_map_tool,
+)
+from servicenow_mcp.tools.transform_map_tools import (
+    get_transform_map as get_transform_map_tool,
+)
+from servicenow_mcp.tools.transform_map_tools import (
+    list_transform_maps as list_transform_maps_tool,
+)
+from servicenow_mcp.tools.transform_map_tools import (
+    update_transform_map as update_transform_map_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -2380,6 +2398,42 @@ def get_tool_definitions(
             DeleteSlaDefinitionParams,
             str,
             "Delete a SLA definition in ServiceNow",
+            "json_dict",
+        ),
+        # Transform Map Tools
+        "list_transform_maps": (
+            list_transform_maps_tool,
+            ListTransformMapsParams,
+            Dict[str, Any],
+            "List transform maps (sys_transform_map) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_transform_map": (
+            get_transform_map_tool,
+            GetTransformMapParams,
+            Dict[str, Any],
+            "Get a specific transform map from ServiceNow",
+            "raw_dict",
+        ),
+        "create_transform_map": (
+            create_transform_map_tool,
+            CreateTransformMapParams,
+            TransformMapResponse,
+            "Create a new transform map (sys_transform_map) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_transform_map": (
+            update_transform_map_tool,
+            UpdateTransformMapParams,
+            TransformMapResponse,
+            "Update an existing transform map in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_transform_map": (
+            delete_transform_map_tool,
+            DeleteTransformMapParams,
+            str,
+            "Delete a transform map in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__
