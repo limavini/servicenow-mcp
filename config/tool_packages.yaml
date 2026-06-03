@@ -251,6 +251,10 @@ platform_developer:
   - create_transform_entry
   - update_transform_entry
   - delete_transform_entry
+  # OAuth Session
+  - get_auth_status
+  - get_oauth_authorize_url
+  - set_oauth_token
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -555,6 +559,10 @@ full:
   - create_transform_entry
   - update_transform_entry
   - delete_transform_entry
+  # OAuth Session
+  - get_auth_status
+  - get_oauth_authorize_url
+  - set_oauth_token
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base

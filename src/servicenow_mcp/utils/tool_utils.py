@@ -704,6 +704,21 @@ from servicenow_mcp.tools.transform_entry_tools import (
 from servicenow_mcp.tools.transform_entry_tools import (
     update_transform_entry as update_transform_entry_tool,
 )
+from servicenow_mcp.tools.oauth_tools import (
+    GetAuthStatusParams,
+    GetOAuthAuthorizeUrlParams,
+    SetOAuthTokenParams,
+    SetOAuthTokenResponse,
+)
+from servicenow_mcp.tools.oauth_tools import (
+    get_auth_status as get_auth_status_tool,
+)
+from servicenow_mcp.tools.oauth_tools import (
+    get_oauth_authorize_url as get_oauth_authorize_url_tool,
+)
+from servicenow_mcp.tools.oauth_tools import (
+    set_oauth_token as set_oauth_token_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -2489,6 +2504,28 @@ def get_tool_definitions(
             str,
             "Delete a transform map field in ServiceNow",
             "json_dict",
+        ),
+        # OAuth Session Tools
+        "get_auth_status": (
+            get_auth_status_tool,
+            GetAuthStatusParams,
+            Dict[str, Any],
+            "Report the current auth type and whether an interactive OAuth token is needed",
+            "raw_dict",
+        ),
+        "get_oauth_authorize_url": (
+            get_oauth_authorize_url_tool,
+            GetOAuthAuthorizeUrlParams,
+            Dict[str, Any],
+            "Get the SSO authorize URL for the OAuth authorization_code flow",
+            "raw_dict",
+        ),
+        "set_oauth_token": (
+            set_oauth_token_tool,
+            SetOAuthTokenParams,
+            SetOAuthTokenResponse,
+            "Inject an OAuth token (authorization_code, refresh_token, or access_token) so calls act as the user",
+            "raw_pydantic",
         ),
         # __GEN_TU_DEFS__
     }

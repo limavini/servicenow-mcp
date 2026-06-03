@@ -254,6 +254,11 @@ from servicenow_mcp.tools.transform_entry_tools import (
     list_transform_entries,
     update_transform_entry,
 )
+from servicenow_mcp.tools.oauth_tools import (
+    get_auth_status,
+    get_oauth_authorize_url,
+    set_oauth_token,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -540,6 +545,10 @@ __all__ = [
     "create_transform_entry",
     "update_transform_entry",
     "delete_transform_entry",
+    # OAuth session tools
+    "get_auth_status",
+    "get_oauth_authorize_url",
+    "set_oauth_token",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools

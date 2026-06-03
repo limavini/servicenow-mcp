@@ -92,6 +92,21 @@ def parse_args():
         help="OAuth token URL",
         default=os.environ.get("SERVICENOW_TOKEN_URL"),
     )
+    oauth_group.add_argument(
+        "--redirect-uri",
+        help="OAuth redirect URI (authorization_code flow)",
+        default=os.environ.get("SERVICENOW_REDIRECT_URI"),
+    )
+    oauth_group.add_argument(
+        "--refresh-token",
+        help="OAuth refresh token (authorization_code flow)",
+        default=os.environ.get("SERVICENOW_REFRESH_TOKEN"),
+    )
+    oauth_group.add_argument(
+        "--token-file",
+        help="Path to persist the OAuth refresh token (authorization_code flow)",
+        default=os.environ.get("SERVICENOW_TOKEN_FILE"),
+    )
 
     # API Key
     api_key_group = parser.add_argument_group("API Key Authentication")
@@ -235,6 +250,24 @@ def create_config(args) -> ServerConfig:
             token_url=token_url,
         )
         # Create the main AuthConfig wrapper
+        final_auth_config = AuthConfig(type=auth_type, oauth=oauth_cfg)
+
+    elif auth_type == AuthType.OAUTH_AUTHORIZATION_CODE:
+        client_id = args.client_id or os.getenv("SERVICENOW_CLIENT_ID")
+        client_secret = args.client_secret or os.getenv("SERVICENOW_CLIENT_SECRET")
+        if not client_id or not client_secret:
+            raise ValueError(
+                "client_id and client_secret are required for oauth_authorization_code"
+                " (--client-id/SERVICENOW_CLIENT_ID, --client-secret/SERVICENOW_CLIENT_SECRET)"
+            )
+        oauth_cfg = OAuthConfig(
+            client_id=client_id,
+            client_secret=client_secret,
+            token_url=args.token_url or os.getenv("SERVICENOW_TOKEN_URL"),
+            redirect_uri=args.redirect_uri or os.getenv("SERVICENOW_REDIRECT_URI"),
+            refresh_token=args.refresh_token or os.getenv("SERVICENOW_REFRESH_TOKEN"),
+            token_file=args.token_file or os.getenv("SERVICENOW_TOKEN_FILE"),
+        )
         final_auth_config = AuthConfig(type=auth_type, oauth=oauth_cfg)
 
     elif auth_type == AuthType.API_KEY:

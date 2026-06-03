@@ -151,6 +151,21 @@ def _build_auth_config(data: Dict[str, Any]) -> Tuple[AuthConfig, str]:
             ),
         ), instance_url
 
+    if auth_type == AuthType.OAUTH_AUTHORIZATION_CODE:
+        if not all(data.get(k) for k in ("client_id", "client_secret")):
+            raise ValueError("oauth_authorization_code requires client_id and client_secret")
+        return AuthConfig(
+            type=auth_type,
+            oauth=OAuthConfig(
+                client_id=data["client_id"],
+                client_secret=data["client_secret"],
+                token_url=data.get("token_url"),
+                redirect_uri=data.get("redirect_uri"),
+                refresh_token=data.get("refresh_token"),
+                token_file=data.get("token_file"),
+            ),
+        ), instance_url
+
     if auth_type == AuthType.API_KEY:
         api_key = data.get("api_key")
         if not api_key:
@@ -254,6 +269,14 @@ def select_instance(
         auth_manager.instance_url = instance_url
         auth_manager.token = None  # reset any cached OAuth token
         auth_manager.token_type = None
+        auth_manager.expires_at = 0.0
+        # For the authorization_code flow, re-seed the refresh token from config /
+        # the persisted token file so a previously authorized instance stays usable.
+        auth_manager.refresh_token = None
+        if auth_config.type == AuthType.OAUTH_AUTHORIZATION_CODE and auth_config.oauth:
+            auth_manager.refresh_token = (
+                auth_config.oauth.refresh_token or auth_manager._load_persisted_refresh_token()
+            )
 
         return InstanceSelectionResponse(
             success=True,
