@@ -179,6 +179,12 @@ platform_developer:
   - create_ui_script
   - update_ui_script
   - delete_ui_script
+  # Scheduled Job
+  - list_scheduled_jobs
+  - get_scheduled_job
+  - create_scheduled_job
+  - update_scheduled_job
+  - delete_scheduled_job
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -411,6 +417,12 @@ full:
   - create_ui_script
   - update_ui_script
   - delete_ui_script
+  # Scheduled Job
+  - list_scheduled_jobs
+  - get_scheduled_job
+  - create_scheduled_job
+  - update_scheduled_job
+  - delete_scheduled_job
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base

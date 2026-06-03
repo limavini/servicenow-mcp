@@ -170,6 +170,13 @@ from servicenow_mcp.tools.ui_script_tools import (
     list_ui_scripts,
     update_ui_script,
 )
+from servicenow_mcp.tools.scheduled_job_tools import (
+    create_scheduled_job,
+    delete_scheduled_job,
+    get_scheduled_job,
+    list_scheduled_jobs,
+    update_scheduled_job,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -384,6 +391,12 @@ __all__ = [
     "create_ui_script",
     "update_ui_script",
     "delete_ui_script",
+    # Scheduled Job tools
+    "list_scheduled_jobs",
+    "get_scheduled_job",
+    "create_scheduled_job",
+    "update_scheduled_job",
+    "delete_scheduled_job",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools

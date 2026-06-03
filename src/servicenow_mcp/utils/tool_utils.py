@@ -488,6 +488,24 @@ from servicenow_mcp.tools.ui_script_tools import (
 from servicenow_mcp.tools.ui_script_tools import (
     update_ui_script as update_ui_script_tool,
 )
+from servicenow_mcp.tools.scheduled_job_tools import (
+    ScheduledJobResponse, CreateScheduledJobParams, DeleteScheduledJobParams, GetScheduledJobParams, ListScheduledJobsParams, UpdateScheduledJobParams,
+)
+from servicenow_mcp.tools.scheduled_job_tools import (
+    create_scheduled_job as create_scheduled_job_tool,
+)
+from servicenow_mcp.tools.scheduled_job_tools import (
+    delete_scheduled_job as delete_scheduled_job_tool,
+)
+from servicenow_mcp.tools.scheduled_job_tools import (
+    get_scheduled_job as get_scheduled_job_tool,
+)
+from servicenow_mcp.tools.scheduled_job_tools import (
+    list_scheduled_jobs as list_scheduled_jobs_tool,
+)
+from servicenow_mcp.tools.scheduled_job_tools import (
+    update_scheduled_job as update_scheduled_job_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -1840,6 +1858,42 @@ def get_tool_definitions(
             DeleteUiScriptParams,
             str,
             "Delete a UI script in ServiceNow",
+            "json_dict",
+        ),
+        # Scheduled Job Tools
+        "list_scheduled_jobs": (
+            list_scheduled_jobs_tool,
+            ListScheduledJobsParams,
+            Dict[str, Any],
+            "List scheduled jobs (sysauto_script) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_scheduled_job": (
+            get_scheduled_job_tool,
+            GetScheduledJobParams,
+            Dict[str, Any],
+            "Get a specific scheduled job from ServiceNow",
+            "raw_dict",
+        ),
+        "create_scheduled_job": (
+            create_scheduled_job_tool,
+            CreateScheduledJobParams,
+            ScheduledJobResponse,
+            "Create a new scheduled job (sysauto_script) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_scheduled_job": (
+            update_scheduled_job_tool,
+            UpdateScheduledJobParams,
+            ScheduledJobResponse,
+            "Update an existing scheduled job in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_scheduled_job": (
+            delete_scheduled_job_tool,
+            DeleteScheduledJobParams,
+            str,
+            "Delete a scheduled job in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__
