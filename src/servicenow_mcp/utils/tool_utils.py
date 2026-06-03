@@ -86,35 +86,35 @@ from servicenow_mcp.tools.change_tools import (
 from servicenow_mcp.tools.change_tools import (
     update_change_request as update_change_request_tool,
 )
-from servicenow_mcp.tools.changeset_tools import (
-    AddFileToChangesetParams,
-    CommitChangesetParams,
-    CreateChangesetParams,
-    GetChangesetDetailsParams,
-    ListChangesetsParams,
-    PublishChangesetParams,
-    UpdateChangesetParams,
+from servicenow_mcp.tools.update_set_tools import (
+    AddFileToUpdateSetParams,
+    CommitUpdateSetParams,
+    CreateUpdateSetParams,
+    GetUpdateSetDetailsParams,
+    ListUpdateSetsParams,
+    PublishUpdateSetParams,
+    UpdateUpdateSetParams,
 )
-from servicenow_mcp.tools.changeset_tools import (
-    add_file_to_changeset as add_file_to_changeset_tool,
+from servicenow_mcp.tools.update_set_tools import (
+    add_file_to_update_set as add_file_to_update_set_tool,
 )
-from servicenow_mcp.tools.changeset_tools import (
-    commit_changeset as commit_changeset_tool,
+from servicenow_mcp.tools.update_set_tools import (
+    commit_update_set as commit_update_set_tool,
 )
-from servicenow_mcp.tools.changeset_tools import (
-    create_changeset as create_changeset_tool,
+from servicenow_mcp.tools.update_set_tools import (
+    create_update_set as create_update_set_tool,
 )
-from servicenow_mcp.tools.changeset_tools import (
-    get_changeset_details as get_changeset_details_tool,
+from servicenow_mcp.tools.update_set_tools import (
+    get_update_set_details as get_update_set_details_tool,
 )
-from servicenow_mcp.tools.changeset_tools import (
-    list_changesets as list_changesets_tool,
+from servicenow_mcp.tools.update_set_tools import (
+    list_update_sets as list_update_sets_tool,
 )
-from servicenow_mcp.tools.changeset_tools import (
-    publish_changeset as publish_changeset_tool,
+from servicenow_mcp.tools.update_set_tools import (
+    publish_update_set as publish_update_set_tool,
 )
-from servicenow_mcp.tools.changeset_tools import (
-    update_changeset as update_changeset_tool,
+from servicenow_mcp.tools.update_set_tools import (
+    update_update_set as update_update_set_tool,
 )
 from servicenow_mcp.tools.incident_tools import (
     AddCommentParams,
@@ -723,54 +723,54 @@ def get_tool_definitions(
             "Reorder activities in a workflow",
             "str",  # Tool returns simple message
         ),
-        # Changeset Management Tools
-        "list_changesets": (
-            list_changesets_tool,
-            ListChangesetsParams,
+        # Update set Management Tools
+        "list_update_sets": (
+            list_update_sets_tool,
+            ListUpdateSetsParams,
             str,  # Expects JSON string
-            "List changesets from ServiceNow",
+            "List update sets from ServiceNow",
             "json",  # Tool returns list/dict
         ),
-        "get_changeset_details": (
-            get_changeset_details_tool,
-            GetChangesetDetailsParams,
+        "get_update_set_details": (
+            get_update_set_details_tool,
+            GetUpdateSetDetailsParams,
             str,  # Expects JSON string
-            "Get detailed information about a specific changeset",
+            "Get detailed information about a specific update set",
             "json",  # Tool returns list/dict
         ),
-        "create_changeset": (
-            create_changeset_tool,
-            CreateChangesetParams,
+        "create_update_set": (
+            create_update_set_tool,
+            CreateUpdateSetParams,
             str,  # Expects JSON string
-            "Create a new changeset in ServiceNow",
+            "Create a new update set in ServiceNow",
             "json_dict",  # Tool returns Pydantic model
         ),
-        "update_changeset": (
-            update_changeset_tool,
-            UpdateChangesetParams,
+        "update_update_set": (
+            update_update_set_tool,
+            UpdateUpdateSetParams,
             str,  # Expects JSON string
-            "Update an existing changeset in ServiceNow",
+            "Update an existing update set in ServiceNow",
             "json_dict",  # Tool returns Pydantic model
         ),
-        "commit_changeset": (
-            commit_changeset_tool,
-            CommitChangesetParams,
+        "commit_update_set": (
+            commit_update_set_tool,
+            CommitUpdateSetParams,
             str,
-            "Commit a changeset in ServiceNow",
+            "Commit an update set in ServiceNow",
             "str",  # Tool returns simple message
         ),
-        "publish_changeset": (
-            publish_changeset_tool,
-            PublishChangesetParams,
+        "publish_update_set": (
+            publish_update_set_tool,
+            PublishUpdateSetParams,
             str,
-            "Publish a changeset in ServiceNow",
+            "Publish an update set in ServiceNow",
             "str",  # Tool returns simple message
         ),
-        "add_file_to_changeset": (
-            add_file_to_changeset_tool,
-            AddFileToChangesetParams,
+        "add_file_to_update_set": (
+            add_file_to_update_set_tool,
+            AddFileToUpdateSetParams,
             str,
-            "Add a file to a changeset in ServiceNow",
+            "Add a file to an update set in ServiceNow",
             "str",  # Tool returns simple message
         ),
         # Script Include Tools

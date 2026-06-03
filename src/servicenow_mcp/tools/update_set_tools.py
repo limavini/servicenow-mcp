@@ -1,7 +1,7 @@
 """
-Changeset tools for the ServiceNow MCP server.
+Update set tools for the ServiceNow MCP server.
 
-This module provides tools for managing changesets in ServiceNow.
+This module provides tools for managing update sets in ServiceNow.
 """
 
 import logging
@@ -19,8 +19,8 @@ logger = logging.getLogger(__name__)
 T = TypeVar('T', bound=BaseModel)
 
 
-class ListChangesetsParams(BaseModel):
-    """Parameters for listing changesets."""
+class ListUpdateSetsParams(BaseModel):
+    """Parameters for listing update sets."""
 
     limit: Optional[int] = Field(10, description="Maximum number of records to return")
     offset: Optional[int] = Field(0, description="Offset to start from")
@@ -31,49 +31,49 @@ class ListChangesetsParams(BaseModel):
     query: Optional[str] = Field(None, description="Additional query string")
 
 
-class GetChangesetDetailsParams(BaseModel):
-    """Parameters for getting changeset details."""
+class GetUpdateSetDetailsParams(BaseModel):
+    """Parameters for getting update set details."""
 
-    changeset_id: str = Field(..., description="Changeset ID or sys_id")
-
-
-class CreateChangesetParams(BaseModel):
-    """Parameters for creating a changeset."""
-
-    name: str = Field(..., description="Name of the changeset")
-    description: Optional[str] = Field(None, description="Description of the changeset")
-    application: str = Field(..., description="Application the changeset belongs to")
-    developer: Optional[str] = Field(None, description="Developer responsible for the changeset")
+    update_set_id: str = Field(..., description="Update set ID or sys_id")
 
 
-class UpdateChangesetParams(BaseModel):
-    """Parameters for updating a changeset."""
+class CreateUpdateSetParams(BaseModel):
+    """Parameters for creating an update set."""
 
-    changeset_id: str = Field(..., description="Changeset ID or sys_id")
-    name: Optional[str] = Field(None, description="Name of the changeset")
-    description: Optional[str] = Field(None, description="Description of the changeset")
-    state: Optional[str] = Field(None, description="State of the changeset")
-    developer: Optional[str] = Field(None, description="Developer responsible for the changeset")
+    name: str = Field(..., description="Name of the update set")
+    description: Optional[str] = Field(None, description="Description of the update set")
+    application: str = Field(..., description="Application the update set belongs to")
+    developer: Optional[str] = Field(None, description="Developer responsible for the update set")
 
 
-class CommitChangesetParams(BaseModel):
-    """Parameters for committing a changeset."""
+class UpdateUpdateSetParams(BaseModel):
+    """Parameters for updating an update set."""
 
-    changeset_id: str = Field(..., description="Changeset ID or sys_id")
+    update_set_id: str = Field(..., description="Update set ID or sys_id")
+    name: Optional[str] = Field(None, description="Name of the update set")
+    description: Optional[str] = Field(None, description="Description of the update set")
+    state: Optional[str] = Field(None, description="State of the update set")
+    developer: Optional[str] = Field(None, description="Developer responsible for the update set")
+
+
+class CommitUpdateSetParams(BaseModel):
+    """Parameters for committing an update set."""
+
+    update_set_id: str = Field(..., description="Update set ID or sys_id")
     commit_message: Optional[str] = Field(None, description="Commit message")
 
 
-class PublishChangesetParams(BaseModel):
-    """Parameters for publishing a changeset."""
+class PublishUpdateSetParams(BaseModel):
+    """Parameters for publishing an update set."""
 
-    changeset_id: str = Field(..., description="Changeset ID or sys_id")
+    update_set_id: str = Field(..., description="Update set ID or sys_id")
     publish_notes: Optional[str] = Field(None, description="Notes for publishing")
 
 
-class AddFileToChangesetParams(BaseModel):
-    """Parameters for adding a file to a changeset."""
+class AddFileToUpdateSetParams(BaseModel):
+    """Parameters for adding a file to an update set."""
 
-    changeset_id: str = Field(..., description="Changeset ID or sys_id")
+    update_set_id: str = Field(..., description="Update set ID or sys_id")
     file_path: str = Field(..., description="Path of the file to add")
     file_content: str = Field(..., description="Content of the file")
 
@@ -189,24 +189,24 @@ def _get_headers(auth_manager: AuthManager, server_config: ServerConfig) -> Opti
     return None
 
 
-def list_changesets(
+def list_update_sets(
     auth_manager: AuthManager,
     server_config: ServerConfig,
-    params: Union[Dict[str, Any], ListChangesetsParams],
+    params: Union[Dict[str, Any], ListUpdateSetsParams],
 ) -> Dict[str, Any]:
     """
-    List changesets from ServiceNow.
+    List update sets from ServiceNow.
 
     Args:
         auth_manager: The authentication manager.
         server_config: The server configuration.
-        params: The parameters for listing changesets. Can be a dictionary or a ListChangesetsParams object.
+        params: The parameters for listing update sets. Can be a dictionary or a ListUpdateSetsParams object.
 
     Returns:
-        A list of changesets.
+        A list of update sets.
     """
     # Unwrap and validate parameters
-    result = _unwrap_and_validate_params(params, ListChangesetsParams)
+    result = _unwrap_and_validate_params(params, ListUpdateSetsParams)
     
     if not result["success"]:
         return result
@@ -272,38 +272,38 @@ def list_changesets(
         
         return {
             "success": True,
-            "changesets": result.get("result", []),
+            "update_sets": result.get("result", []),
             "count": len(result.get("result", [])),
         }
     except requests.exceptions.RequestException as e:
-        logger.error(f"Error listing changesets: {e}")
+        logger.error(f"Error listing update sets: {e}")
         return {
             "success": False,
-            "message": f"Error listing changesets: {str(e)}",
+            "message": f"Error listing update sets: {str(e)}",
         }
 
 
-def get_changeset_details(
+def get_update_set_details(
     auth_manager: AuthManager,
     server_config: ServerConfig,
-    params: Union[Dict[str, Any], GetChangesetDetailsParams],
+    params: Union[Dict[str, Any], GetUpdateSetDetailsParams],
 ) -> Dict[str, Any]:
     """
-    Get detailed information about a specific changeset.
+    Get detailed information about a specific update set.
 
     Args:
         auth_manager: The authentication manager.
         server_config: The server configuration.
-        params: The parameters for getting changeset details. Can be a dictionary or a GetChangesetDetailsParams object.
+        params: The parameters for getting update set details. Can be a dictionary or a GetUpdateSetDetailsParams object.
 
     Returns:
-        Detailed information about the changeset.
+        Detailed information about the update set.
     """
     # Unwrap and validate parameters
     result = _unwrap_and_validate_params(
         params, 
-        GetChangesetDetailsParams, 
-        required_fields=["changeset_id"]
+        GetUpdateSetDetailsParams, 
+        required_fields=["update_set_id"]
     )
     
     if not result["success"]:
@@ -328,7 +328,7 @@ def get_changeset_details(
         }
     
     # Make the API request
-    url = f"{instance_url}/api/now/table/sys_update_set/{validated_params.changeset_id}"
+    url = f"{instance_url}/api/now/table/sys_update_set/{validated_params.update_set_id}"
     
     try:
         response = requests.get(url, headers=headers)
@@ -336,13 +336,13 @@ def get_changeset_details(
         
         result = response.json()
         
-        # Get the changeset details
-        changeset = result.get("result", {})
+        # Get the update set details
+        update_set = result.get("result", {})
         
-        # Get the changes in this changeset
+        # Get the changes in this update set
         changes_url = f"{instance_url}/api/now/table/sys_update_xml"
         changes_params = {
-            "sysparm_query": f"update_set={validated_params.changeset_id}",
+            "sysparm_query": f"update_set={validated_params.update_set_id}",
         }
         
         changes_response = requests.get(changes_url, params=changes_params, headers=headers)
@@ -353,38 +353,38 @@ def get_changeset_details(
         
         return {
             "success": True,
-            "changeset": changeset,
+            "update_set": update_set,
             "changes": changes,
             "change_count": len(changes),
         }
     except requests.exceptions.RequestException as e:
-        logger.error(f"Error getting changeset details: {e}")
+        logger.error(f"Error getting update set details: {e}")
         return {
             "success": False,
-            "message": f"Error getting changeset details: {str(e)}",
+            "message": f"Error getting update set details: {str(e)}",
         }
 
 
-def create_changeset(
+def create_update_set(
     auth_manager: AuthManager,
     server_config: ServerConfig,
-    params: Union[Dict[str, Any], CreateChangesetParams],
+    params: Union[Dict[str, Any], CreateUpdateSetParams],
 ) -> Dict[str, Any]:
     """
-    Create a new changeset in ServiceNow.
+    Create a new update set in ServiceNow.
 
     Args:
         auth_manager: The authentication manager.
         server_config: The server configuration.
-        params: The parameters for creating a changeset. Can be a dictionary or a CreateChangesetParams object.
+        params: The parameters for creating an update set. Can be a dictionary or a CreateUpdateSetParams object.
 
     Returns:
-        The created changeset.
+        The created update set.
     """
     # Unwrap and validate parameters
     result = _unwrap_and_validate_params(
         params, 
-        CreateChangesetParams, 
+        CreateUpdateSetParams, 
         required_fields=["name", "application"]
     )
     
@@ -435,38 +435,38 @@ def create_changeset(
         
         return {
             "success": True,
-            "message": "Changeset created successfully",
-            "changeset": result["result"],
+            "message": "Update set created successfully",
+            "update_set": result["result"],
         }
     except requests.exceptions.RequestException as e:
-        logger.error(f"Error creating changeset: {e}")
+        logger.error(f"Error creating update set: {e}")
         return {
             "success": False,
-            "message": f"Error creating changeset: {str(e)}",
+            "message": f"Error creating update set: {str(e)}",
         }
 
 
-def update_changeset(
+def update_update_set(
     auth_manager: AuthManager,
     server_config: ServerConfig,
-    params: Union[Dict[str, Any], UpdateChangesetParams],
+    params: Union[Dict[str, Any], UpdateUpdateSetParams],
 ) -> Dict[str, Any]:
     """
-    Update an existing changeset in ServiceNow.
+    Update an existing update set in ServiceNow.
 
     Args:
         auth_manager: The authentication manager.
         server_config: The server configuration.
-        params: The parameters for updating a changeset. Can be a dictionary or a UpdateChangesetParams object.
+        params: The parameters for updating an update set. Can be a dictionary or a UpdateUpdateSetParams object.
 
     Returns:
-        The updated changeset.
+        The updated update set.
     """
     # Unwrap and validate parameters
     result = _unwrap_and_validate_params(
         params, 
-        UpdateChangesetParams, 
-        required_fields=["changeset_id"]
+        UpdateUpdateSetParams, 
+        required_fields=["update_set_id"]
     )
     
     if not result["success"]:
@@ -514,7 +514,7 @@ def update_changeset(
     headers["Content-Type"] = "application/json"
     
     # Make the API request
-    url = f"{instance_url}/api/now/table/sys_update_set/{validated_params.changeset_id}"
+    url = f"{instance_url}/api/now/table/sys_update_set/{validated_params.update_set_id}"
     
     try:
         response = requests.patch(url, json=data, headers=headers)
@@ -524,38 +524,38 @@ def update_changeset(
         
         return {
             "success": True,
-            "message": "Changeset updated successfully",
-            "changeset": result["result"],
+            "message": "Update set updated successfully",
+            "update_set": result["result"],
         }
     except requests.exceptions.RequestException as e:
-        logger.error(f"Error updating changeset: {e}")
+        logger.error(f"Error updating update set: {e}")
         return {
             "success": False,
-            "message": f"Error updating changeset: {str(e)}",
+            "message": f"Error updating update set: {str(e)}",
         }
 
 
-def commit_changeset(
+def commit_update_set(
     auth_manager: AuthManager,
     server_config: ServerConfig,
-    params: Union[Dict[str, Any], CommitChangesetParams],
+    params: Union[Dict[str, Any], CommitUpdateSetParams],
 ) -> Dict[str, Any]:
     """
-    Commit a changeset in ServiceNow.
+    Commit an update set in ServiceNow.
 
     Args:
         auth_manager: The authentication manager.
         server_config: The server configuration.
-        params: The parameters for committing a changeset. Can be a dictionary or a CommitChangesetParams object.
+        params: The parameters for committing an update set. Can be a dictionary or a CommitUpdateSetParams object.
 
     Returns:
-        The committed changeset.
+        The committed update set.
     """
     # Unwrap and validate parameters
     result = _unwrap_and_validate_params(
         params, 
-        CommitChangesetParams, 
-        required_fields=["changeset_id"]
+        CommitUpdateSetParams, 
+        required_fields=["update_set_id"]
     )
     
     if not result["success"]:
@@ -592,7 +592,7 @@ def commit_changeset(
     headers["Content-Type"] = "application/json"
     
     # Make the API request
-    url = f"{instance_url}/api/now/table/sys_update_set/{validated_params.changeset_id}"
+    url = f"{instance_url}/api/now/table/sys_update_set/{validated_params.update_set_id}"
     
     try:
         response = requests.patch(url, json=data, headers=headers)
@@ -602,38 +602,38 @@ def commit_changeset(
         
         return {
             "success": True,
-            "message": "Changeset committed successfully",
-            "changeset": result["result"],
+            "message": "Update set committed successfully",
+            "update_set": result["result"],
         }
     except requests.exceptions.RequestException as e:
-        logger.error(f"Error committing changeset: {e}")
+        logger.error(f"Error committing update set: {e}")
         return {
             "success": False,
-            "message": f"Error committing changeset: {str(e)}",
+            "message": f"Error committing update set: {str(e)}",
         }
 
 
-def publish_changeset(
+def publish_update_set(
     auth_manager: AuthManager,
     server_config: ServerConfig,
-    params: Union[Dict[str, Any], PublishChangesetParams],
+    params: Union[Dict[str, Any], PublishUpdateSetParams],
 ) -> Dict[str, Any]:
     """
-    Publish a changeset in ServiceNow.
+    Publish an update set in ServiceNow.
 
     Args:
         auth_manager: The authentication manager.
         server_config: The server configuration.
-        params: The parameters for publishing a changeset. Can be a dictionary or a PublishChangesetParams object.
+        params: The parameters for publishing an update set. Can be a dictionary or a PublishUpdateSetParams object.
 
     Returns:
-        The published changeset.
+        The published update set.
     """
     # Unwrap and validate parameters
     result = _unwrap_and_validate_params(
         params, 
-        PublishChangesetParams, 
-        required_fields=["changeset_id"]
+        PublishUpdateSetParams, 
+        required_fields=["update_set_id"]
     )
     
     if not result["success"]:
@@ -670,7 +670,7 @@ def publish_changeset(
         data["description"] = validated_params.publish_notes
     
     # Make the API request
-    url = f"{instance_url}/api/now/table/sys_update_set/{validated_params.changeset_id}"
+    url = f"{instance_url}/api/now/table/sys_update_set/{validated_params.update_set_id}"
     
     try:
         response = requests.patch(url, json=data, headers=headers)
@@ -680,29 +680,29 @@ def publish_changeset(
         
         return {
             "success": True,
-            "message": "Changeset published successfully",
-            "changeset": result["result"],
+            "message": "Update set published successfully",
+            "update_set": result["result"],
         }
     except requests.exceptions.RequestException as e:
-        logger.error(f"Error publishing changeset: {e}")
+        logger.error(f"Error publishing update set: {e}")
         return {
             "success": False,
-            "message": f"Error publishing changeset: {str(e)}",
+            "message": f"Error publishing update set: {str(e)}",
         }
 
 
-def add_file_to_changeset(
+def add_file_to_update_set(
     auth_manager: AuthManager,
     server_config: ServerConfig,
-    params: Union[Dict[str, Any], AddFileToChangesetParams],
+    params: Union[Dict[str, Any], AddFileToUpdateSetParams],
 ) -> Dict[str, Any]:
     """
-    Add a file to a changeset in ServiceNow.
+    Add a file to an update set in ServiceNow.
 
     Args:
         auth_manager: The authentication manager.
         server_config: The server configuration.
-        params: The parameters for adding a file to a changeset. Can be a dictionary or a AddFileToChangesetParams object.
+        params: The parameters for adding a file to an update set. Can be a dictionary or a AddFileToUpdateSetParams object.
 
     Returns:
         The result of the add file operation.
@@ -710,8 +710,8 @@ def add_file_to_changeset(
     # Unwrap and validate parameters
     result = _unwrap_and_validate_params(
         params, 
-        AddFileToChangesetParams, 
-        required_fields=["changeset_id", "file_path", "file_content"]
+        AddFileToUpdateSetParams, 
+        required_fields=["update_set_id", "file_path", "file_content"]
     )
     
     if not result["success"]:
@@ -740,7 +740,7 @@ def add_file_to_changeset(
     
     # Prepare the request data for adding a file
     data = {
-        "update_set": validated_params.changeset_id,
+        "update_set": validated_params.update_set_id,
         "name": validated_params.file_path,
         "payload": validated_params.file_content,
         "type": "file",
@@ -757,12 +757,12 @@ def add_file_to_changeset(
         
         return {
             "success": True,
-            "message": "File added to changeset successfully",
+            "message": "File added to update set successfully",
             "file": result["result"],
         }
     except requests.exceptions.RequestException as e:
-        logger.error(f"Error adding file to changeset: {e}")
+        logger.error(f"Error adding file to update set: {e}")
         return {
             "success": False,
-            "message": f"Error adding file to changeset: {str(e)}",
+            "message": f"Error adding file to update set: {str(e)}",
         } 

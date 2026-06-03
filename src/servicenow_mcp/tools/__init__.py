@@ -30,14 +30,14 @@ from servicenow_mcp.tools.change_tools import (
     submit_change_for_approval,
     update_change_request,
 )
-from servicenow_mcp.tools.changeset_tools import (
-    add_file_to_changeset,
-    commit_changeset,
-    create_changeset,
-    get_changeset_details,
-    list_changesets,
-    publish_changeset,
-    update_changeset,
+from servicenow_mcp.tools.update_set_tools import (
+    add_file_to_update_set,
+    commit_update_set,
+    create_update_set,
+    get_update_set_details,
+    list_update_sets,
+    publish_update_set,
+    update_update_set,
 )
 from servicenow_mcp.tools.incident_tools import (
     add_comment,
@@ -192,14 +192,14 @@ __all__ = [
     "delete_workflow_activity",
     "reorder_workflow_activities",
     
-    # Changeset tools
-    "list_changesets",
-    "get_changeset_details",
-    "create_changeset",
-    "update_changeset",
-    "commit_changeset",
-    "publish_changeset",
-    "add_file_to_changeset",
+    # Update set tools
+    "list_update_sets",
+    "get_update_set_details",
+    "create_update_set",
+    "update_update_set",
+    "commit_update_set",
+    "publish_update_set",
+    "add_file_to_update_set",
     
     # Script Include tools
     "list_script_includes",

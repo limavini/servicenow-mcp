@@ -157,7 +157,7 @@ already exposes a tool:
 Draft the development plan. **Step 1 is always: create the update set, set it current,
 and verify** — in this exact order, before any other record:
 
-1. `create_changeset` with `application` = **Global** (default; only another scope if a
+1. `create_update_set` with `application` = **Global** (default; only another scope if a
    record you must edit already lives there) and `name` = `<NUMBER> - <short description>`
    (Hard Rule #4), e.g. `STRY123 - Update client script`.
 2. `set_current_update_set` with the new update set's sys_id (Hard Rule #3).
