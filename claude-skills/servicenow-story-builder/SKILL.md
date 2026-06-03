@@ -1,6 +1,6 @@
 ---
 name: servicenow-story-builder
-description: "Builds a ServiceNow feature/fix/adjustment from a story description using platform best practices: reads the story, learns instance context, scopes via Q&A, plans, gates on a non-global update set, executes via the ServiceNow MCP, then summarizes with record URLs and a manual QA guide."
+description: "Builds a ServiceNow feature/fix/adjustment from a story description using platform best practices: reads the story, learns instance context, scopes via Q&A, plans, gates on a named (non-Default) update set — Global by default, executes via the ServiceNow MCP, then summarizes with record URLs and a manual QA guide."
 argument-hint: "<story text, story URL, or sys_id of an rm_story / story record>"
 disable-model-invocation: true
 ---
@@ -24,7 +24,7 @@ phases in order, one at a time.
    the user's reply. The gates are Phase 0 (instance) and Phase 6 (plan approval).
 3. **Create or modify ZERO records until the user approves the plan in Phase 6.** Phases
    0–5 are read-only + planning only. The first write is the update set in Phase 7.
-4. **No write ever lands in the Global / Default update set** (see Hard rules).
+4. **No write ever lands in any Default update set; new work defaults to the Global scope** (see Hard rules).
 5. If the story is trivial, you STILL follow every phase — just keep each one short.
 
 If you catch yourself about to create/update a record before Phase 7, stop: you skipped
@@ -49,22 +49,28 @@ of the story record) before doing anything else.
    Options/system properties instead of hardcoding, never edit baseline widgets, no
    hardcoded sys_ids). The plan and every record you create/update must comply; if the
    story conflicts with a best practice, surface the trade-off to the user.
-1. **Never create or modify any record in the Global scope / Default ("global")
-   update set.** Every change MUST be captured in a dedicated update set in the
-   correct application scope. This is the most important rule in this skill.
+1. **Never let a change land in any application's Default update set.** Every change
+   MUST be captured in a dedicated **named** update set. **Prefer the Global scope** — a
+   single Global named update set captures changes across scopes, so one set normally
+   covers the whole story. This is the most important rule in this skill.
+1b. **Start in the Global application scope and stay there by default.** Create the update
+   set in **Global** and keep new artifacts global. Only target another application scope
+   when a record you must edit *already lives* in that scope (e.g. a scoped widget or
+   table) — then use an update set in that record's application for those edits. Never
+   default to a non-Global scope "just in case".
 2. **The very first development action is always creating the update set** (Phase 5),
    before any other record is created or updated.
 3. **The created update set MUST always be set as the current update set** (via
    `set_current_update_set`) and verified (via `get_current_update_set`) before any
    other record is created. Customizations are only captured into the *current*
-   update set — skipping this silently dumps changes into Global.
+   update set — skipping this silently dumps changes into the Default update set.
 4. **The update set name MUST start with the task/story number, then a very short
    description.** Format: `<NUMBER> - <short description>`, e.g.
    `STRY123 - Update client script`. Derive `<NUMBER>` from the story; if you can't,
    ask the user before creating the update set.
-5. If you cannot *prove* that changes will be captured into the intended non-global
-   update set (i.e. `get_current_update_set` does not return your update set in the
-   right scope), **STOP and ask the user** — do not create records "to be safe."
+5. If you cannot *prove* that changes will be captured into the intended **named**
+   update set (i.e. `get_current_update_set` does not return your update set, or it
+   returns a Default set), **STOP and ask the user** — do not create records "to be safe."
 6. **Never modify a default / baseline platform record. Always clone it and modify the
    clone.** A baseline record is anything shipped by ServiceNow / not authored in your
    scope (e.g. OOB widgets, themes, business rules, UI scripts, script includes). Many
@@ -108,8 +114,9 @@ Before proposing anything, learn how *this* instance already does it. Use read-o
 MCP tools (`list_*`, `get_*`) to inspect existing, comparable records — e.g. existing
 client scripts / business rules / catalog items / workflows on the target table.
 Goal: match existing naming conventions, scopes, and patterns rather than inventing
-new ones. Note the application scope the related records live in — that is almost
-always the scope your update set must target.
+new ones. Note the application scope the related records live in: new artifacts default
+to **Global**, but if you must edit a record that already lives in another application,
+those edits belong in an update set in *that* application (Hard rule #1b).
 
 Summarize what you found (conventions, relevant existing records, target scope).
 
@@ -122,7 +129,7 @@ sys_ids, etc.).
 
 Ask the user targeted questions to remove ambiguity. Prefer the structured question
 tool. Cover at least:
-- Target **application scope** for the update set (confirm it is NOT Global).
+- **Update set**: a named set, **Global by default** (never a Default set). Flag any record that already lives in another application — only those edits switch scope (Hard rule #1b).
 - Exact table(s) and whether child/extended tables are in scope.
 - Trigger conditions, audience (UI type / roles), and edge cases.
 - Anything destructive (updates/deletes to existing records) and approval for it.
@@ -150,13 +157,13 @@ already exposes a tool:
 Draft the development plan. **Step 1 is always: create the update set, set it current,
 and verify** — in this exact order, before any other record:
 
-1. `create_changeset` with `application` = the confirmed non-global scope and
-   `name` = `<NUMBER> - <short description>` (Hard Rule #4), e.g.
-   `STRY123 - Update client script`.
+1. `create_changeset` with `application` = **Global** (default; only another scope if a
+   record you must edit already lives there) and `name` = `<NUMBER> - <short description>`
+   (Hard Rule #4), e.g. `STRY123 - Update client script`.
 2. `set_current_update_set` with the new update set's sys_id (Hard Rule #3).
-3. `get_current_update_set` to verify the current update set is your update set and its
-   scope is **not** Global (`is_global` must be false). If it doesn't match, **STOP**
-   (Hard Rule #5) and surface the problem to the user — do not build.
+3. `get_current_update_set` to verify the current update set is your named set and is
+   **not** a Default set. If it doesn't match, **STOP** (Hard Rule #5) and surface the
+   problem to the user — do not build.
 
 Only after this 3-step block passes do you create any other record.
 
@@ -171,7 +178,7 @@ best practice shaped a decision.
 Present to the user, then STOP and wait for approval:
 - **Story & acceptance criteria** (from Phase 1)
 - **Scope decisions** (recorded answers from Phase 3)
-- **Plan**: Step 1 update set (name + scope) + ordered build steps with tools
+- **Plan**: Step 1 update set (name + Global scope, or the record's scope if forced) + ordered build steps with tools
 - **Risks / destructive actions**, if any
 
 Ask explicitly: "Posso prosseguir com este plano ou quer ajustar algo?" then **STOP and

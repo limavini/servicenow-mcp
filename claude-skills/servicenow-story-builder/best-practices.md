@@ -67,8 +67,10 @@ user instead of silently violating them.
 
 ## Platform-wide (applies to any change)
 
-- **Scope & update set:** every change is captured in a dedicated, non-global update
-  set in the correct application scope (the skill enforces this in Phase 0/5).
+- **Scope & update set:** every change is captured in a dedicated, **named** update set
+  — **Global by default** (one Global named set captures changes across scopes); never
+  any application's **Default** update set. Only switch to another application scope for
+  records that already live there (the skill enforces this in Phase 0/5).
 - **Configuration over customization:** prefer no-code/low-code (UI Policies, Data
   Policies, Flow Designer) over scripts when they achieve the requirement.
 - **Client scripts:** fetch server data via **GlideAjax + client-callable Script
@@ -92,7 +94,7 @@ user instead of silently violating them.
       widget **option** or a **system property**.
 - [ ] Am I editing a **baseline** record? → clone instead.
 - [ ] Any hardcoded **sys_id / URL / instance**? → resolve dynamically.
-- [ ] Is the change captured in the right **non-global update set**?
+- [ ] Is the change captured in a **named update set** (Global by default, never Default)?
 - [ ] Server data via `data`/Script Include (not DOM, not sync client calls)?
 - [ ] CSS scoped to the widget and using theme variables?
 - [ ] ACLs respected and `input` validated server-side?
