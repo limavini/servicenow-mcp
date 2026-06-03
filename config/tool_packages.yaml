@@ -185,6 +185,12 @@ platform_developer:
   - create_scheduled_job
   - update_scheduled_job
   - delete_scheduled_job
+  # Data Policy
+  - list_data_policies
+  - get_data_policy
+  - create_data_policy
+  - update_data_policy
+  - delete_data_policy
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -423,6 +429,12 @@ full:
   - create_scheduled_job
   - update_scheduled_job
   - delete_scheduled_job
+  # Data Policy
+  - list_data_policies
+  - get_data_policy
+  - create_data_policy
+  - update_data_policy
+  - delete_data_policy
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base

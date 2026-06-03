@@ -506,6 +506,24 @@ from servicenow_mcp.tools.scheduled_job_tools import (
 from servicenow_mcp.tools.scheduled_job_tools import (
     update_scheduled_job as update_scheduled_job_tool,
 )
+from servicenow_mcp.tools.data_policy_tools import (
+    DataPolicyResponse, CreateDataPolicyParams, DeleteDataPolicyParams, GetDataPolicyParams, ListDataPolicysParams, UpdateDataPolicyParams,
+)
+from servicenow_mcp.tools.data_policy_tools import (
+    create_data_policy as create_data_policy_tool,
+)
+from servicenow_mcp.tools.data_policy_tools import (
+    delete_data_policy as delete_data_policy_tool,
+)
+from servicenow_mcp.tools.data_policy_tools import (
+    get_data_policy as get_data_policy_tool,
+)
+from servicenow_mcp.tools.data_policy_tools import (
+    list_data_policies as list_data_policies_tool,
+)
+from servicenow_mcp.tools.data_policy_tools import (
+    update_data_policy as update_data_policy_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -1894,6 +1912,42 @@ def get_tool_definitions(
             DeleteScheduledJobParams,
             str,
             "Delete a scheduled job in ServiceNow",
+            "json_dict",
+        ),
+        # Data Policy Tools
+        "list_data_policies": (
+            list_data_policies_tool,
+            ListDataPolicysParams,
+            Dict[str, Any],
+            "List data policies (sys_data_policy2) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_data_policy": (
+            get_data_policy_tool,
+            GetDataPolicyParams,
+            Dict[str, Any],
+            "Get a specific data policy from ServiceNow",
+            "raw_dict",
+        ),
+        "create_data_policy": (
+            create_data_policy_tool,
+            CreateDataPolicyParams,
+            DataPolicyResponse,
+            "Create a new data policy (sys_data_policy2) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_data_policy": (
+            update_data_policy_tool,
+            UpdateDataPolicyParams,
+            DataPolicyResponse,
+            "Update an existing data policy in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_data_policy": (
+            delete_data_policy_tool,
+            DeleteDataPolicyParams,
+            str,
+            "Delete a data policy in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__

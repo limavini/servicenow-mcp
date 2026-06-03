@@ -177,6 +177,13 @@ from servicenow_mcp.tools.scheduled_job_tools import (
     list_scheduled_jobs,
     update_scheduled_job,
 )
+from servicenow_mcp.tools.data_policy_tools import (
+    create_data_policy,
+    delete_data_policy,
+    get_data_policy,
+    list_data_policies,
+    update_data_policy,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -397,6 +404,12 @@ __all__ = [
     "create_scheduled_job",
     "update_scheduled_job",
     "delete_scheduled_job",
+    # Data Policy tools
+    "list_data_policies",
+    "get_data_policy",
+    "create_data_policy",
+    "update_data_policy",
+    "delete_data_policy",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools
