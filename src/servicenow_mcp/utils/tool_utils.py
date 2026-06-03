@@ -524,6 +524,24 @@ from servicenow_mcp.tools.data_policy_tools import (
 from servicenow_mcp.tools.data_policy_tools import (
     update_data_policy as update_data_policy_tool,
 )
+from servicenow_mcp.tools.data_policy_rule_tools import (
+    DataPolicyRuleResponse, CreateDataPolicyRuleParams, DeleteDataPolicyRuleParams, GetDataPolicyRuleParams, ListDataPolicyRulesParams, UpdateDataPolicyRuleParams,
+)
+from servicenow_mcp.tools.data_policy_rule_tools import (
+    create_data_policy_rule as create_data_policy_rule_tool,
+)
+from servicenow_mcp.tools.data_policy_rule_tools import (
+    delete_data_policy_rule as delete_data_policy_rule_tool,
+)
+from servicenow_mcp.tools.data_policy_rule_tools import (
+    get_data_policy_rule as get_data_policy_rule_tool,
+)
+from servicenow_mcp.tools.data_policy_rule_tools import (
+    list_data_policy_rules as list_data_policy_rules_tool,
+)
+from servicenow_mcp.tools.data_policy_rule_tools import (
+    update_data_policy_rule as update_data_policy_rule_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -1948,6 +1966,42 @@ def get_tool_definitions(
             DeleteDataPolicyParams,
             str,
             "Delete a data policy in ServiceNow",
+            "json_dict",
+        ),
+        # Data Policy Rule Tools
+        "list_data_policy_rules": (
+            list_data_policy_rules_tool,
+            ListDataPolicyRulesParams,
+            Dict[str, Any],
+            "List data policy rules (sys_data_policy_rule) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_data_policy_rule": (
+            get_data_policy_rule_tool,
+            GetDataPolicyRuleParams,
+            Dict[str, Any],
+            "Get a specific data policy rule from ServiceNow",
+            "raw_dict",
+        ),
+        "create_data_policy_rule": (
+            create_data_policy_rule_tool,
+            CreateDataPolicyRuleParams,
+            DataPolicyRuleResponse,
+            "Create a new data policy rule (sys_data_policy_rule) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_data_policy_rule": (
+            update_data_policy_rule_tool,
+            UpdateDataPolicyRuleParams,
+            DataPolicyRuleResponse,
+            "Update an existing data policy rule in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_data_policy_rule": (
+            delete_data_policy_rule_tool,
+            DeleteDataPolicyRuleParams,
+            str,
+            "Delete a data policy rule in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__
