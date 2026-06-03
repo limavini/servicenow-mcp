@@ -650,6 +650,24 @@ from servicenow_mcp.tools.event_registration_tools import (
 from servicenow_mcp.tools.event_registration_tools import (
     update_event_registration as update_event_registration_tool,
 )
+from servicenow_mcp.tools.sla_definition_tools import (
+    SlaDefinitionResponse, CreateSlaDefinitionParams, DeleteSlaDefinitionParams, GetSlaDefinitionParams, ListSlaDefinitionsParams, UpdateSlaDefinitionParams,
+)
+from servicenow_mcp.tools.sla_definition_tools import (
+    create_sla_definition as create_sla_definition_tool,
+)
+from servicenow_mcp.tools.sla_definition_tools import (
+    delete_sla_definition as delete_sla_definition_tool,
+)
+from servicenow_mcp.tools.sla_definition_tools import (
+    get_sla_definition as get_sla_definition_tool,
+)
+from servicenow_mcp.tools.sla_definition_tools import (
+    list_sla_definitions as list_sla_definitions_tool,
+)
+from servicenow_mcp.tools.sla_definition_tools import (
+    update_sla_definition as update_sla_definition_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -2326,6 +2344,42 @@ def get_tool_definitions(
             DeleteEventRegistrationParams,
             str,
             "Delete a event registration in ServiceNow",
+            "json_dict",
+        ),
+        # SLA Definition Tools
+        "list_sla_definitions": (
+            list_sla_definitions_tool,
+            ListSlaDefinitionsParams,
+            Dict[str, Any],
+            "List SLA definitions (contract_sla) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_sla_definition": (
+            get_sla_definition_tool,
+            GetSlaDefinitionParams,
+            Dict[str, Any],
+            "Get a specific SLA definition from ServiceNow",
+            "raw_dict",
+        ),
+        "create_sla_definition": (
+            create_sla_definition_tool,
+            CreateSlaDefinitionParams,
+            SlaDefinitionResponse,
+            "Create a new SLA definition (contract_sla) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_sla_definition": (
+            update_sla_definition_tool,
+            UpdateSlaDefinitionParams,
+            SlaDefinitionResponse,
+            "Update an existing SLA definition in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_sla_definition": (
+            delete_sla_definition_tool,
+            DeleteSlaDefinitionParams,
+            str,
+            "Delete a SLA definition in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__

@@ -233,6 +233,12 @@ platform_developer:
   - create_event_registration
   - update_event_registration
   - delete_event_registration
+  # SLA Definition
+  - list_sla_definitions
+  - get_sla_definition
+  - create_sla_definition
+  - update_sla_definition
+  - delete_sla_definition
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -519,6 +525,12 @@ full:
   - create_event_registration
   - update_event_registration
   - delete_event_registration
+  # SLA Definition
+  - list_sla_definitions
+  - get_sla_definition
+  - create_sla_definition
+  - update_sla_definition
+  - delete_sla_definition
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base

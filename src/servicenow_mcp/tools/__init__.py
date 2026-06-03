@@ -233,6 +233,13 @@ from servicenow_mcp.tools.event_registration_tools import (
     list_event_registrations,
     update_event_registration,
 )
+from servicenow_mcp.tools.sla_definition_tools import (
+    create_sla_definition,
+    delete_sla_definition,
+    get_sla_definition,
+    list_sla_definitions,
+    update_sla_definition,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -501,6 +508,12 @@ __all__ = [
     "create_event_registration",
     "update_event_registration",
     "delete_event_registration",
+    # SLA Definition tools
+    "list_sla_definitions",
+    "get_sla_definition",
+    "create_sla_definition",
+    "update_sla_definition",
+    "delete_sla_definition",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools
