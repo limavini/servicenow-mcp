@@ -114,6 +114,34 @@ appear until it reconnects. Instruct the user to run `/mcp` and reconnect the
 ServiceNow server (or restart Claude Code). Only after that can you load the new
 tool's schema via ToolSearch (`select:mcp__ServiceNow__<tool>`) and call it.
 
+## Update set: never use any application's Default; prefer a named Global set
+
+Every create/update/delete is captured into the caller's **current update set**.
+Before mutating anything, point that at a proper named set — **never leave changes
+in any application's `Default` update set** (it is not cleanly transportable and
+must not be used).
+
+- **Set the current update set first.** Use the MCP tools `get_current_update_set`
+  and `set_current_update_set` (they write the per-user `sys_update_set`
+  preference). Point it at a **named** update set before the first
+  create/update/delete. If none exists, create one (`sys_update_set`,
+  `state=in progress`).
+- **Prefer — and prioritize — the Global application scope.** A single Global
+  named update set can hold captures from *multiple* scopes: with it current,
+  editing even a scoped record (e.g. an `sp_instance` in a scoped app) is captured
+  into that Global set. So you normally need just **one** named Global update set
+  for the whole change. Via REST the session is always Global, so a set you create
+  lands in Global scope — exactly what we want.
+- **Capture vs. move.** Routing happens at *capture* time and honors the current
+  set. You **cannot move** an already-captured `sys_update_xml` between update sets
+  of **different scopes** (HTTP 403). If something landed in the wrong set, make the
+  right set current and **re-touch** the record to re-capture it. An orphan
+  `sys_update_xml` left in `Default` can simply be DELETEd (that works cross-scope).
+  Switching a session's *application scope* is only possible via the UI app-picker,
+  not via REST.
+- Restore the current update set to its prior value when done, so later operations
+  don't leak into this change's set.
+
 ## Always send the record link
 
 Whenever you create a record via one of these tools, include a clickable link to
