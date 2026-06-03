@@ -94,11 +94,23 @@ Before reading the story or touching ServiceNow:
    which instance this session targets. If exactly one exists you may still confirm it.
 3. Call `select_instance` with the chosen name, then `get_current_instance` to verify
    the active connection is what the user picked.
+4. **Authenticate (token gate).** Call `get_auth_status`. If it returns
+   `requires_token: true`, the instance uses `oauth_authorization_code` — it performs
+   actions **as the real user via SSO** and needs a token before anything else:
+   - **Ask the user for the token.** Show them the `authorize_url` from `get_auth_status`
+     (or `get_oauth_authorize_url`) and ask them to open it in a browser, sign in through
+     SSO, and paste back the `code` from the redirect URL — or paste a `refresh_token`.
+   - Call `set_oauth_token` with that `authorization_code` (or `refresh_token`), then
+     re-run `get_auth_status` until `token_loaded: true`.
+   - If no token is provided / it never loads, **STOP** — do not read or write.
+   When `requires_token: false`, continue normally.
 
 **🚦 GATE: present the instance options, then STOP and end your turn.** Wait for the
 user to choose; only after they reply do you call `select_instance` and continue.
-Do not proceed to Phase 1 until an instance is selected and verified. If the user
-later wants to switch, re-run this phase.
+**If `get_auth_status` then reports `requires_token: true`, this is a second stop: ask
+the user for the SSO token (step 4) and wait — do not proceed until a token is loaded.**
+Do not proceed to Phase 1 until an instance is selected, verified, and authenticated.
+If the user later wants to switch, re-run this phase.
 
 ## Phase 1 — Read & restate the story
 
