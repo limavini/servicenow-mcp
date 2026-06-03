@@ -380,6 +380,24 @@ from servicenow_mcp.tools.dictionary_entry_tools import (
 from servicenow_mcp.tools.dictionary_entry_tools import (
     update_dictionary_entry as update_dictionary_entry_tool,
 )
+from servicenow_mcp.tools.choice_tools import (
+    ChoiceResponse, CreateChoiceParams, DeleteChoiceParams, GetChoiceParams, ListChoicesParams, UpdateChoiceParams,
+)
+from servicenow_mcp.tools.choice_tools import (
+    create_choice as create_choice_tool,
+)
+from servicenow_mcp.tools.choice_tools import (
+    delete_choice as delete_choice_tool,
+)
+from servicenow_mcp.tools.choice_tools import (
+    get_choice as get_choice_tool,
+)
+from servicenow_mcp.tools.choice_tools import (
+    list_choices as list_choices_tool,
+)
+from servicenow_mcp.tools.choice_tools import (
+    update_choice as update_choice_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -1516,6 +1534,42 @@ def get_tool_definitions(
             DeleteDictionaryEntryParams,
             str,
             "Delete a dictionary entry in ServiceNow",
+            "json_dict",
+        ),
+        # Choice Tools
+        "list_choices": (
+            list_choices_tool,
+            ListChoicesParams,
+            Dict[str, Any],
+            "List choices (sys_choice) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_choice": (
+            get_choice_tool,
+            GetChoiceParams,
+            Dict[str, Any],
+            "Get a specific choice from ServiceNow",
+            "raw_dict",
+        ),
+        "create_choice": (
+            create_choice_tool,
+            CreateChoiceParams,
+            ChoiceResponse,
+            "Create a new choice (sys_choice) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_choice": (
+            update_choice_tool,
+            UpdateChoiceParams,
+            ChoiceResponse,
+            "Update an existing choice in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_choice": (
+            delete_choice_tool,
+            DeleteChoiceParams,
+            str,
+            "Delete a choice in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__

@@ -143,6 +143,12 @@ platform_developer:
   - create_dictionary_entry
   - update_dictionary_entry
   - delete_dictionary_entry
+  # Choice
+  - list_choices
+  - get_choice
+  - create_choice
+  - update_choice
+  - delete_choice
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -339,6 +345,12 @@ full:
   - create_dictionary_entry
   - update_dictionary_entry
   - delete_dictionary_entry
+  # Choice
+  - list_choices
+  - get_choice
+  - create_choice
+  - update_choice
+  - delete_choice
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base

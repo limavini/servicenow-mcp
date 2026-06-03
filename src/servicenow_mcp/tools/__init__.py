@@ -128,6 +128,13 @@ from servicenow_mcp.tools.dictionary_entry_tools import (
     list_dictionary_entries,
     update_dictionary_entry,
 )
+from servicenow_mcp.tools.choice_tools import (
+    create_choice,
+    delete_choice,
+    get_choice,
+    list_choices,
+    update_choice,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -306,6 +313,12 @@ __all__ = [
     "create_dictionary_entry",
     "update_dictionary_entry",
     "delete_dictionary_entry",
+    # Choice tools
+    "list_choices",
+    "get_choice",
+    "create_choice",
+    "update_choice",
+    "delete_choice",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools
