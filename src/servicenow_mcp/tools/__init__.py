@@ -198,6 +198,13 @@ from servicenow_mcp.tools.role_tools import (
     list_roles,
     update_role,
 )
+from servicenow_mcp.tools.catalog_client_script_tools import (
+    create_catalog_client_script,
+    delete_catalog_client_script,
+    get_catalog_client_script,
+    list_catalog_client_scripts,
+    update_catalog_client_script,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -436,6 +443,12 @@ __all__ = [
     "create_role",
     "update_role",
     "delete_role",
+    # Catalog Client Script tools
+    "list_catalog_client_scripts",
+    "get_catalog_client_script",
+    "create_catalog_client_script",
+    "update_catalog_client_script",
+    "delete_catalog_client_script",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools

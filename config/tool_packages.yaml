@@ -203,6 +203,12 @@ platform_developer:
   - create_role
   - update_role
   - delete_role
+  # Catalog Client Script
+  - list_catalog_client_scripts
+  - get_catalog_client_script
+  - create_catalog_client_script
+  - update_catalog_client_script
+  - delete_catalog_client_script
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -459,6 +465,12 @@ full:
   - create_role
   - update_role
   - delete_role
+  # Catalog Client Script
+  - list_catalog_client_scripts
+  - get_catalog_client_script
+  - create_catalog_client_script
+  - update_catalog_client_script
+  - delete_catalog_client_script
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base

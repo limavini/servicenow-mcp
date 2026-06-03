@@ -560,6 +560,24 @@ from servicenow_mcp.tools.role_tools import (
 from servicenow_mcp.tools.role_tools import (
     update_role as update_role_tool,
 )
+from servicenow_mcp.tools.catalog_client_script_tools import (
+    CatalogClientScriptResponse, CreateCatalogClientScriptParams, DeleteCatalogClientScriptParams, GetCatalogClientScriptParams, ListCatalogClientScriptsParams, UpdateCatalogClientScriptParams,
+)
+from servicenow_mcp.tools.catalog_client_script_tools import (
+    create_catalog_client_script as create_catalog_client_script_tool,
+)
+from servicenow_mcp.tools.catalog_client_script_tools import (
+    delete_catalog_client_script as delete_catalog_client_script_tool,
+)
+from servicenow_mcp.tools.catalog_client_script_tools import (
+    get_catalog_client_script as get_catalog_client_script_tool,
+)
+from servicenow_mcp.tools.catalog_client_script_tools import (
+    list_catalog_client_scripts as list_catalog_client_scripts_tool,
+)
+from servicenow_mcp.tools.catalog_client_script_tools import (
+    update_catalog_client_script as update_catalog_client_script_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -2056,6 +2074,42 @@ def get_tool_definitions(
             DeleteRoleParams,
             str,
             "Delete a role in ServiceNow",
+            "json_dict",
+        ),
+        # Catalog Client Script Tools
+        "list_catalog_client_scripts": (
+            list_catalog_client_scripts_tool,
+            ListCatalogClientScriptsParams,
+            Dict[str, Any],
+            "List catalog client scripts (catalog_script_client) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_catalog_client_script": (
+            get_catalog_client_script_tool,
+            GetCatalogClientScriptParams,
+            Dict[str, Any],
+            "Get a specific catalog client script from ServiceNow",
+            "raw_dict",
+        ),
+        "create_catalog_client_script": (
+            create_catalog_client_script_tool,
+            CreateCatalogClientScriptParams,
+            CatalogClientScriptResponse,
+            "Create a new catalog client script (catalog_script_client) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_catalog_client_script": (
+            update_catalog_client_script_tool,
+            UpdateCatalogClientScriptParams,
+            CatalogClientScriptResponse,
+            "Update an existing catalog client script in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_catalog_client_script": (
+            delete_catalog_client_script_tool,
+            DeleteCatalogClientScriptParams,
+            str,
+            "Delete a catalog client script in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__
