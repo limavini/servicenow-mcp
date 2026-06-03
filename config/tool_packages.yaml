@@ -137,6 +137,12 @@ platform_developer:
   - create_ui_action
   - update_ui_action
   - delete_ui_action
+  # Dictionary Entry
+  - list_dictionary_entries
+  - get_dictionary_entry
+  - create_dictionary_entry
+  - update_dictionary_entry
+  - delete_dictionary_entry
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -327,6 +333,12 @@ full:
   - create_ui_action
   - update_ui_action
   - delete_ui_action
+  # Dictionary Entry
+  - list_dictionary_entries
+  - get_dictionary_entry
+  - create_dictionary_entry
+  - update_dictionary_entry
+  - delete_dictionary_entry
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base

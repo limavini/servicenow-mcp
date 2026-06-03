@@ -362,6 +362,24 @@ from servicenow_mcp.tools.ui_action_tools import (
 from servicenow_mcp.tools.ui_action_tools import (
     update_ui_action as update_ui_action_tool,
 )
+from servicenow_mcp.tools.dictionary_entry_tools import (
+    DictionaryEntryResponse, CreateDictionaryEntryParams, DeleteDictionaryEntryParams, GetDictionaryEntryParams, ListDictionaryEntrysParams, UpdateDictionaryEntryParams,
+)
+from servicenow_mcp.tools.dictionary_entry_tools import (
+    create_dictionary_entry as create_dictionary_entry_tool,
+)
+from servicenow_mcp.tools.dictionary_entry_tools import (
+    delete_dictionary_entry as delete_dictionary_entry_tool,
+)
+from servicenow_mcp.tools.dictionary_entry_tools import (
+    get_dictionary_entry as get_dictionary_entry_tool,
+)
+from servicenow_mcp.tools.dictionary_entry_tools import (
+    list_dictionary_entries as list_dictionary_entries_tool,
+)
+from servicenow_mcp.tools.dictionary_entry_tools import (
+    update_dictionary_entry as update_dictionary_entry_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -1462,6 +1480,42 @@ def get_tool_definitions(
             DeleteUiActionParams,
             str,
             "Delete a UI action in ServiceNow",
+            "json_dict",
+        ),
+        # Dictionary Entry Tools
+        "list_dictionary_entries": (
+            list_dictionary_entries_tool,
+            ListDictionaryEntrysParams,
+            Dict[str, Any],
+            "List dictionary entries (sys_dictionary) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_dictionary_entry": (
+            get_dictionary_entry_tool,
+            GetDictionaryEntryParams,
+            Dict[str, Any],
+            "Get a specific dictionary entry from ServiceNow",
+            "raw_dict",
+        ),
+        "create_dictionary_entry": (
+            create_dictionary_entry_tool,
+            CreateDictionaryEntryParams,
+            DictionaryEntryResponse,
+            "Create a new dictionary entry (sys_dictionary) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_dictionary_entry": (
+            update_dictionary_entry_tool,
+            UpdateDictionaryEntryParams,
+            DictionaryEntryResponse,
+            "Update an existing dictionary entry in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_dictionary_entry": (
+            delete_dictionary_entry_tool,
+            DeleteDictionaryEntryParams,
+            str,
+            "Delete a dictionary entry in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__

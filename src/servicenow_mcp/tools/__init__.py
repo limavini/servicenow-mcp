@@ -121,6 +121,13 @@ from servicenow_mcp.tools.ui_action_tools import (
     list_ui_actions,
     update_ui_action,
 )
+from servicenow_mcp.tools.dictionary_entry_tools import (
+    create_dictionary_entry,
+    delete_dictionary_entry,
+    get_dictionary_entry,
+    list_dictionary_entries,
+    update_dictionary_entry,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -293,6 +300,12 @@ __all__ = [
     "create_ui_action",
     "update_ui_action",
     "delete_ui_action",
+    # Dictionary Entry tools
+    "list_dictionary_entries",
+    "get_dictionary_entry",
+    "create_dictionary_entry",
+    "update_dictionary_entry",
+    "delete_dictionary_entry",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools
