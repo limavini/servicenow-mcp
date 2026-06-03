@@ -21,7 +21,7 @@ class CreateCatalogItemVariableParams(BaseModel):
 
     catalog_item_id: str = Field(..., description="The sys_id of the catalog item")
     name: str = Field(..., description="The name of the variable (internal name)")
-    type: str = Field(..., description="The type of variable (e.g., string, integer, boolean, reference)")
+    type: str = Field(..., description="The variable type. For record producers use the numeric type code as a string: 8=Reference, 5=Select Box, 2=Multi Line Text, 6=Single Line Text, 1=Yes/No, 7=CheckBox, 9=Date, 10=Date/Time.")
     label: str = Field(..., description="The display label for the variable")
     mandatory: bool = Field(False, description="Whether the variable is required")
     help_text: Optional[str] = Field(None, description="Help text to display with the variable")
@@ -29,10 +29,16 @@ class CreateCatalogItemVariableParams(BaseModel):
     description: Optional[str] = Field(None, description="Description of the variable")
     order: Optional[int] = Field(None, description="Display order of the variable")
     reference_table: Optional[str] = Field(None, description="For reference fields, the table to reference")
-    reference_qualifier: Optional[str] = Field(None, description="For reference fields, the query to filter reference options")
+    reference_qualifier: Optional[str] = Field(None, description="For reference fields, the query to filter reference options (e.g. 'active=true')")
     max_length: Optional[int] = Field(None, description="Maximum length for string fields")
     min: Optional[int] = Field(None, description="Minimum value for numeric fields")
     max: Optional[int] = Field(None, description="Maximum value for numeric fields")
+    # Record-producer field-mapping attributes
+    map_to_field: Optional[bool] = Field(None, description="For record producers: whether this variable maps directly to a field on the target table")
+    field: Optional[str] = Field(None, description="For record producers: the target table field this variable maps to (e.g. 'caller_id', 'priority', 'description'). Requires map_to_field=True.")
+    choice_table: Optional[str] = Field(None, description="For Select Box variables: the table whose choice list backs this variable (e.g. 'incident')")
+    choice_field: Optional[str] = Field(None, description="For Select Box variables: the field on choice_table whose choices populate this variable (e.g. 'priority')")
+    record_producer_table: Optional[str] = Field(None, description="The record producer's target table (e.g. 'incident'); set to match the producer's table_name")
 
 
 class CatalogItemVariableResponse(BaseModel):
@@ -123,6 +129,17 @@ def create_catalog_item_variable(
         data["min"] = params.min
     if params.max is not None:
         data["max"] = params.max
+    # Record-producer field-mapping attributes
+    if params.map_to_field is not None:
+        data["map_to_field"] = str(params.map_to_field).lower()
+    if params.field is not None:
+        data["field"] = params.field
+    if params.choice_table:
+        data["choice_table"] = params.choice_table
+    if params.choice_field:
+        data["choice_field"] = params.choice_field
+    if params.record_producer_table:
+        data["record_producer_table"] = params.record_producer_table
 
     # Make request
     try:

@@ -203,6 +203,29 @@ from servicenow_mcp.tools.script_include_tools import (
 from servicenow_mcp.tools.script_include_tools import (
     update_script_include as update_script_include_tool,
 )
+from servicenow_mcp.tools.record_producer_tools import (
+    CreateRecordProducerParams,
+    DeleteRecordProducerParams,
+    GetRecordProducerParams,
+    ListRecordProducersParams,
+    RecordProducerResponse,
+    UpdateRecordProducerParams,
+)
+from servicenow_mcp.tools.record_producer_tools import (
+    create_record_producer as create_record_producer_tool,
+)
+from servicenow_mcp.tools.record_producer_tools import (
+    delete_record_producer as delete_record_producer_tool,
+)
+from servicenow_mcp.tools.record_producer_tools import (
+    get_record_producer as get_record_producer_tool,
+)
+from servicenow_mcp.tools.record_producer_tools import (
+    list_record_producers as list_record_producers_tool,
+)
+from servicenow_mcp.tools.record_producer_tools import (
+    update_record_producer as update_record_producer_tool,
+)
 from servicenow_mcp.tools.client_script_tools import (
     ClientScriptResponse,
     CreateClientScriptParams,
@@ -785,6 +808,42 @@ def get_tool_definitions(
             str,  # Expects JSON string
             "Delete a script include in ServiceNow",
             "json_dict",  # Tool returns Pydantic model
+        ),
+        # Record Producer Tools
+        "list_record_producers": (
+            list_record_producers_tool,
+            ListRecordProducersParams,
+            Dict[str, Any],
+            "List record producers (sc_cat_item_producer) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_record_producer": (
+            get_record_producer_tool,
+            GetRecordProducerParams,
+            Dict[str, Any],
+            "Get a specific record producer from ServiceNow",
+            "raw_dict",
+        ),
+        "create_record_producer": (
+            create_record_producer_tool,
+            CreateRecordProducerParams,
+            RecordProducerResponse,
+            "Create a new record producer (sc_cat_item_producer) pointing at a target table",
+            "raw_pydantic",
+        ),
+        "update_record_producer": (
+            update_record_producer_tool,
+            UpdateRecordProducerParams,
+            RecordProducerResponse,
+            "Update an existing record producer in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_record_producer": (
+            delete_record_producer_tool,
+            DeleteRecordProducerParams,
+            str,
+            "Delete a record producer in ServiceNow",
+            "json_dict",
         ),
         # Client Script Tools
         "list_client_scripts": (

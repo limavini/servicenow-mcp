@@ -65,6 +65,13 @@ from servicenow_mcp.tools.script_include_tools import (
     list_script_includes,
     update_script_include,
 )
+from servicenow_mcp.tools.record_producer_tools import (
+    create_record_producer,
+    delete_record_producer,
+    get_record_producer,
+    list_record_producers,
+    update_record_producer,
+)
 from servicenow_mcp.tools.client_script_tools import (
     create_client_script,
     delete_client_script,
@@ -200,6 +207,12 @@ __all__ = [
     "create_script_include",
     "update_script_include",
     "delete_script_include",
+    # Record Producer Tools
+    "list_record_producers",
+    "get_record_producer",
+    "create_record_producer",
+    "update_record_producer",
+    "delete_record_producer",
 
     # Client Script tools
     "list_client_scripts",

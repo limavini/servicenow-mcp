@@ -41,6 +41,12 @@ catalog_builder:
   - update_catalog_item_variable
   - delete_catalog_item_variable
   - create_catalog_variable_choice
+  # Record Producers
+  - list_record_producers
+  - get_record_producer
+  - create_record_producer
+  - update_record_producer
+  - delete_record_producer
   # Basic Scripting (UI Policy & User Criteria)
   - create_ui_policy
   - create_ui_policy_action
@@ -83,6 +89,12 @@ platform_developer:
   - update_script_include
   - delete_script_include
   - execute_script_include
+  # Record Producers
+  - list_record_producers
+  - get_record_producer
+  - create_record_producer
+  - update_record_producer
+  - delete_record_producer
   # Client Scripts
   - list_client_scripts
   - get_client_script
@@ -236,6 +248,12 @@ full:
   - update_script_include
   - delete_script_include
   - execute_script_include
+  # Record Producers
+  - list_record_producers
+  - get_record_producer
+  - create_record_producer
+  - update_record_producer
+  - delete_record_producer
   # Client Scripts
   - list_client_scripts
   - get_client_script

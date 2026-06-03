@@ -55,6 +55,7 @@ class CreateCatalogCategoryParams(BaseModel):
     title: str = Field(..., description="Title of the category")
     description: Optional[str] = Field(None, description="Description of the category")
     parent: Optional[str] = Field(None, description="Parent category sys_id")
+    sc_catalog: Optional[str] = Field(None, description="sys_id of the catalog (sc_catalog) this category belongs to. Required for the category to surface in that Service Portal catalog.")
     icon: Optional[str] = Field(None, description="Icon for the category")
     active: bool = Field(True, description="Whether the category is active")
     order: Optional[int] = Field(None, description="Order of the category")
@@ -415,11 +416,13 @@ def create_catalog_category(
     body = {
         "title": params.title,
     }
-    
+
     if params.description is not None:
         body["description"] = params.description
     if params.parent is not None:
         body["parent"] = params.parent
+    if params.sc_catalog is not None:
+        body["sc_catalog"] = params.sc_catalog
     if params.icon is not None:
         body["icon"] = params.icon
     if params.active is not None:
