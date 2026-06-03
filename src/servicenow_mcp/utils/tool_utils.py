@@ -326,6 +326,24 @@ from servicenow_mcp.tools.ui_policy_tools import (
 from servicenow_mcp.tools.ui_policy_tools import (
     update_ui_policy as update_ui_policy_tool,
 )
+from servicenow_mcp.tools.ui_policy_action_tools import (
+    UiPolicyActionResponse, CreateUiPolicyActionParams, DeleteUiPolicyActionParams, GetUiPolicyActionParams, ListUiPolicyActionsParams, UpdateUiPolicyActionParams,
+)
+from servicenow_mcp.tools.ui_policy_action_tools import (
+    create_ui_policy_action as create_ui_policy_action_tool,
+)
+from servicenow_mcp.tools.ui_policy_action_tools import (
+    delete_ui_policy_action as delete_ui_policy_action_tool,
+)
+from servicenow_mcp.tools.ui_policy_action_tools import (
+    get_ui_policy_action as get_ui_policy_action_tool,
+)
+from servicenow_mcp.tools.ui_policy_action_tools import (
+    list_ui_policy_actions as list_ui_policy_actions_tool,
+)
+from servicenow_mcp.tools.ui_policy_action_tools import (
+    update_ui_policy_action as update_ui_policy_action_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -1354,6 +1372,42 @@ def get_tool_definitions(
             DeleteUiPolicyParams,
             str,
             "Delete a UI policy in ServiceNow",
+            "json_dict",
+        ),
+        # UI Policy Action Tools
+        "list_ui_policy_actions": (
+            list_ui_policy_actions_tool,
+            ListUiPolicyActionsParams,
+            Dict[str, Any],
+            "List UI policy actions (sys_ui_policy_action) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_ui_policy_action": (
+            get_ui_policy_action_tool,
+            GetUiPolicyActionParams,
+            Dict[str, Any],
+            "Get a specific UI policy action from ServiceNow",
+            "raw_dict",
+        ),
+        "create_ui_policy_action": (
+            create_ui_policy_action_tool,
+            CreateUiPolicyActionParams,
+            UiPolicyActionResponse,
+            "Create a new UI policy action (sys_ui_policy_action) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_ui_policy_action": (
+            update_ui_policy_action_tool,
+            UpdateUiPolicyActionParams,
+            UiPolicyActionResponse,
+            "Update an existing UI policy action in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_ui_policy_action": (
+            delete_ui_policy_action_tool,
+            DeleteUiPolicyActionParams,
+            str,
+            "Delete a UI policy action in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__

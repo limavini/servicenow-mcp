@@ -125,6 +125,12 @@ platform_developer:
   - create_ui_policy
   - update_ui_policy
   - delete_ui_policy
+  # UI Policy Action
+  - list_ui_policy_actions
+  - get_ui_policy_action
+  - create_ui_policy_action
+  - update_ui_policy_action
+  - delete_ui_policy_action
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -303,6 +309,12 @@ full:
   - create_ui_policy
   - update_ui_policy
   - delete_ui_policy
+  # UI Policy Action
+  - list_ui_policy_actions
+  - get_ui_policy_action
+  - create_ui_policy_action
+  - update_ui_policy_action
+  - delete_ui_policy_action
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base

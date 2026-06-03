@@ -107,6 +107,13 @@ from servicenow_mcp.tools.ui_policy_tools import (
     list_ui_policies,
     update_ui_policy,
 )
+from servicenow_mcp.tools.ui_policy_action_tools import (
+    create_ui_policy_action,
+    delete_ui_policy_action,
+    get_ui_policy_action,
+    list_ui_policy_actions,
+    update_ui_policy_action,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -267,6 +274,12 @@ __all__ = [
     "create_ui_policy",
     "update_ui_policy",
     "delete_ui_policy",
+    # UI Policy Action tools
+    "list_ui_policy_actions",
+    "get_ui_policy_action",
+    "create_ui_policy_action",
+    "update_ui_policy_action",
+    "delete_ui_policy_action",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools
