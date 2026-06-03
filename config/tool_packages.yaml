@@ -215,6 +215,12 @@ platform_developer:
   - create_catalog_ui_policy
   - update_catalog_ui_policy
   - delete_catalog_ui_policy
+  # Catalog UI Policy Action
+  - list_catalog_ui_policy_actions
+  - get_catalog_ui_policy_action
+  - create_catalog_ui_policy_action
+  - update_catalog_ui_policy_action
+  - delete_catalog_ui_policy_action
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -483,6 +489,12 @@ full:
   - create_catalog_ui_policy
   - update_catalog_ui_policy
   - delete_catalog_ui_policy
+  # Catalog UI Policy Action
+  - list_catalog_ui_policy_actions
+  - get_catalog_ui_policy_action
+  - create_catalog_ui_policy_action
+  - update_catalog_ui_policy_action
+  - delete_catalog_ui_policy_action
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base

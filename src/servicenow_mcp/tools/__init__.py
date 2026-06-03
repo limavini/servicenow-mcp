@@ -212,6 +212,13 @@ from servicenow_mcp.tools.catalog_ui_policy_tools import (
     list_catalog_ui_policies,
     update_catalog_ui_policy,
 )
+from servicenow_mcp.tools.catalog_ui_policy_action_tools import (
+    create_catalog_ui_policy_action,
+    delete_catalog_ui_policy_action,
+    get_catalog_ui_policy_action,
+    list_catalog_ui_policy_actions,
+    update_catalog_ui_policy_action,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -462,6 +469,12 @@ __all__ = [
     "create_catalog_ui_policy",
     "update_catalog_ui_policy",
     "delete_catalog_ui_policy",
+    # Catalog UI Policy Action tools
+    "list_catalog_ui_policy_actions",
+    "get_catalog_ui_policy_action",
+    "create_catalog_ui_policy_action",
+    "update_catalog_ui_policy_action",
+    "delete_catalog_ui_policy_action",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools

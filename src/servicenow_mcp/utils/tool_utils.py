@@ -596,6 +596,24 @@ from servicenow_mcp.tools.catalog_ui_policy_tools import (
 from servicenow_mcp.tools.catalog_ui_policy_tools import (
     update_catalog_ui_policy as update_catalog_ui_policy_tool,
 )
+from servicenow_mcp.tools.catalog_ui_policy_action_tools import (
+    CatalogUiPolicyActionResponse, CreateCatalogUiPolicyActionParams, DeleteCatalogUiPolicyActionParams, GetCatalogUiPolicyActionParams, ListCatalogUiPolicyActionsParams, UpdateCatalogUiPolicyActionParams,
+)
+from servicenow_mcp.tools.catalog_ui_policy_action_tools import (
+    create_catalog_ui_policy_action as create_catalog_ui_policy_action_tool,
+)
+from servicenow_mcp.tools.catalog_ui_policy_action_tools import (
+    delete_catalog_ui_policy_action as delete_catalog_ui_policy_action_tool,
+)
+from servicenow_mcp.tools.catalog_ui_policy_action_tools import (
+    get_catalog_ui_policy_action as get_catalog_ui_policy_action_tool,
+)
+from servicenow_mcp.tools.catalog_ui_policy_action_tools import (
+    list_catalog_ui_policy_actions as list_catalog_ui_policy_actions_tool,
+)
+from servicenow_mcp.tools.catalog_ui_policy_action_tools import (
+    update_catalog_ui_policy_action as update_catalog_ui_policy_action_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -2164,6 +2182,42 @@ def get_tool_definitions(
             DeleteCatalogUiPolicyParams,
             str,
             "Delete a catalog UI policy in ServiceNow",
+            "json_dict",
+        ),
+        # Catalog UI Policy Action Tools
+        "list_catalog_ui_policy_actions": (
+            list_catalog_ui_policy_actions_tool,
+            ListCatalogUiPolicyActionsParams,
+            Dict[str, Any],
+            "List catalog UI policy actions (catalog_ui_policy_action) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_catalog_ui_policy_action": (
+            get_catalog_ui_policy_action_tool,
+            GetCatalogUiPolicyActionParams,
+            Dict[str, Any],
+            "Get a specific catalog UI policy action from ServiceNow",
+            "raw_dict",
+        ),
+        "create_catalog_ui_policy_action": (
+            create_catalog_ui_policy_action_tool,
+            CreateCatalogUiPolicyActionParams,
+            CatalogUiPolicyActionResponse,
+            "Create a new catalog UI policy action (catalog_ui_policy_action) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_catalog_ui_policy_action": (
+            update_catalog_ui_policy_action_tool,
+            UpdateCatalogUiPolicyActionParams,
+            CatalogUiPolicyActionResponse,
+            "Update an existing catalog UI policy action in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_catalog_ui_policy_action": (
+            delete_catalog_ui_policy_action_tool,
+            DeleteCatalogUiPolicyActionParams,
+            str,
+            "Delete a catalog UI policy action in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__
