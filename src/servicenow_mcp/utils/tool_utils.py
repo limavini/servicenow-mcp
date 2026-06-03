@@ -272,6 +272,25 @@ from servicenow_mcp.tools.sp_widget_tools import (
 from servicenow_mcp.tools.sp_widget_tools import (
     update_sp_widget as update_sp_widget_tool,
 )
+from servicenow_mcp.tools.business_rule_tools import (
+    BusinessRuleResponse, CreateBusinessRuleParams, DeleteBusinessRuleParams, GetBusinessRuleParams, ListBusinessRulesParams, UpdateBusinessRuleParams,
+)
+from servicenow_mcp.tools.business_rule_tools import (
+    create_business_rule as create_business_rule_tool,
+)
+from servicenow_mcp.tools.business_rule_tools import (
+    delete_business_rule as delete_business_rule_tool,
+)
+from servicenow_mcp.tools.business_rule_tools import (
+    get_business_rule as get_business_rule_tool,
+)
+from servicenow_mcp.tools.business_rule_tools import (
+    list_business_rules as list_business_rules_tool,
+)
+from servicenow_mcp.tools.business_rule_tools import (
+    update_business_rule as update_business_rule_tool,
+)
+# __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
     GetCurrentUpdateSetParams,
@@ -1193,5 +1212,42 @@ def get_tool_definitions(
             "List projects from ServiceNow",
             "json",  # Tool returns list/dict
         ),
+        # Business Rule Tools
+        "list_business_rules": (
+            list_business_rules_tool,
+            ListBusinessRulesParams,
+            Dict[str, Any],
+            "List business rules (sys_script) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_business_rule": (
+            get_business_rule_tool,
+            GetBusinessRuleParams,
+            Dict[str, Any],
+            "Get a specific business rule from ServiceNow",
+            "raw_dict",
+        ),
+        "create_business_rule": (
+            create_business_rule_tool,
+            CreateBusinessRuleParams,
+            BusinessRuleResponse,
+            "Create a new business rule (sys_script) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_business_rule": (
+            update_business_rule_tool,
+            UpdateBusinessRuleParams,
+            BusinessRuleResponse,
+            "Update an existing business rule in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_business_rule": (
+            delete_business_rule_tool,
+            DeleteBusinessRuleParams,
+            str,
+            "Delete a business rule in ServiceNow",
+            "json_dict",
+        ),
+        # __GEN_TU_DEFS__
     }
     return tool_definitions

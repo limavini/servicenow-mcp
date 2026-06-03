@@ -107,6 +107,13 @@ platform_developer:
   - create_sp_widget
   - update_sp_widget
   - delete_sp_widget
+  # Business Rule
+  - list_business_rules
+  - get_business_rule
+  - create_business_rule
+  - update_business_rule
+  - delete_business_rule
+  # __GEN_PLATDEV__
   # Workflows
   - list_workflows
   - get_workflow_details
@@ -266,6 +273,13 @@ full:
   - create_sp_widget
   - update_sp_widget
   - delete_sp_widget
+  # Business Rule
+  - list_business_rules
+  - get_business_rule
+  - create_business_rule
+  - update_business_rule
+  - delete_business_rule
+  # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base
   - list_knowledge_bases

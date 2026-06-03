@@ -86,6 +86,14 @@ from servicenow_mcp.tools.sp_widget_tools import (
     list_sp_widgets,
     update_sp_widget,
 )
+from servicenow_mcp.tools.business_rule_tools import (
+    create_business_rule,
+    delete_business_rule,
+    get_business_rule,
+    list_business_rules,
+    update_business_rule,
+)
+# __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
     set_current_update_set,
@@ -227,6 +235,13 @@ __all__ = [
     "create_sp_widget",
     "update_sp_widget",
     "delete_sp_widget",
+    # Business Rule tools
+    "list_business_rules",
+    "get_business_rule",
+    "create_business_rule",
+    "update_business_rule",
+    "delete_business_rule",
+    # __GEN_INIT_ALL__
 
     # Current Update Set tools
     "get_current_update_set",
