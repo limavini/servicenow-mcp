@@ -221,6 +221,12 @@ platform_developer:
   - create_catalog_ui_policy_action
   - update_catalog_ui_policy_action
   - delete_catalog_ui_policy_action
+  # Table (sys_db_object)
+  - list_db_tables
+  - get_db_table
+  - create_db_table
+  - update_db_table
+  - delete_db_table
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -495,6 +501,12 @@ full:
   - create_catalog_ui_policy_action
   - update_catalog_ui_policy_action
   - delete_catalog_ui_policy_action
+  # Table (sys_db_object)
+  - list_db_tables
+  - get_db_table
+  - create_db_table
+  - update_db_table
+  - delete_db_table
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base

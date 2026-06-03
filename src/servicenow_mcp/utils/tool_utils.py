@@ -614,6 +614,24 @@ from servicenow_mcp.tools.catalog_ui_policy_action_tools import (
 from servicenow_mcp.tools.catalog_ui_policy_action_tools import (
     update_catalog_ui_policy_action as update_catalog_ui_policy_action_tool,
 )
+from servicenow_mcp.tools.db_table_tools import (
+    DbTableResponse, CreateDbTableParams, DeleteDbTableParams, GetDbTableParams, ListDbTablesParams, UpdateDbTableParams,
+)
+from servicenow_mcp.tools.db_table_tools import (
+    create_db_table as create_db_table_tool,
+)
+from servicenow_mcp.tools.db_table_tools import (
+    delete_db_table as delete_db_table_tool,
+)
+from servicenow_mcp.tools.db_table_tools import (
+    get_db_table as get_db_table_tool,
+)
+from servicenow_mcp.tools.db_table_tools import (
+    list_db_tables as list_db_tables_tool,
+)
+from servicenow_mcp.tools.db_table_tools import (
+    update_db_table as update_db_table_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -2218,6 +2236,42 @@ def get_tool_definitions(
             DeleteCatalogUiPolicyActionParams,
             str,
             "Delete a catalog UI policy action in ServiceNow",
+            "json_dict",
+        ),
+        # Table (sys_db_object) Tools
+        "list_db_tables": (
+            list_db_tables_tool,
+            ListDbTablesParams,
+            Dict[str, Any],
+            "List tables (sys_db_object) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_db_table": (
+            get_db_table_tool,
+            GetDbTableParams,
+            Dict[str, Any],
+            "Get a specific table from ServiceNow",
+            "raw_dict",
+        ),
+        "create_db_table": (
+            create_db_table_tool,
+            CreateDbTableParams,
+            DbTableResponse,
+            "Create a new table (sys_db_object) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_db_table": (
+            update_db_table_tool,
+            UpdateDbTableParams,
+            DbTableResponse,
+            "Update an existing table in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_db_table": (
+            delete_db_table_tool,
+            DeleteDbTableParams,
+            str,
+            "Delete a table in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__

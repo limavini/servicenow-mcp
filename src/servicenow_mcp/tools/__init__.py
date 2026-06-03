@@ -219,6 +219,13 @@ from servicenow_mcp.tools.catalog_ui_policy_action_tools import (
     list_catalog_ui_policy_actions,
     update_catalog_ui_policy_action,
 )
+from servicenow_mcp.tools.db_table_tools import (
+    create_db_table,
+    delete_db_table,
+    get_db_table,
+    list_db_tables,
+    update_db_table,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -475,6 +482,12 @@ __all__ = [
     "create_catalog_ui_policy_action",
     "update_catalog_ui_policy_action",
     "delete_catalog_ui_policy_action",
+    # Table (sys_db_object) tools
+    "list_db_tables",
+    "get_db_table",
+    "create_db_table",
+    "update_db_table",
+    "delete_db_table",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools
