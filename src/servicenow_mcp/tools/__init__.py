@@ -100,6 +100,13 @@ from servicenow_mcp.tools.system_property_tools import (
     list_system_properties,
     update_system_property,
 )
+from servicenow_mcp.tools.ui_policy_tools import (
+    create_ui_policy,
+    delete_ui_policy,
+    get_ui_policy,
+    list_ui_policies,
+    update_ui_policy,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -254,6 +261,12 @@ __all__ = [
     "create_system_property",
     "update_system_property",
     "delete_system_property",
+    # UI Policy tools
+    "list_ui_policies",
+    "get_ui_policy",
+    "create_ui_policy",
+    "update_ui_policy",
+    "delete_ui_policy",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools

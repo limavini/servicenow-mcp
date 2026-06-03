@@ -119,6 +119,12 @@ platform_developer:
   - create_system_property
   - update_system_property
   - delete_system_property
+  # UI Policy
+  - list_ui_policies
+  - get_ui_policy
+  - create_ui_policy
+  - update_ui_policy
+  - delete_ui_policy
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -291,6 +297,12 @@ full:
   - create_system_property
   - update_system_property
   - delete_system_property
+  # UI Policy
+  - list_ui_policies
+  - get_ui_policy
+  - create_ui_policy
+  - update_ui_policy
+  - delete_ui_policy
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base

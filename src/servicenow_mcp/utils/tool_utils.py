@@ -308,6 +308,24 @@ from servicenow_mcp.tools.system_property_tools import (
 from servicenow_mcp.tools.system_property_tools import (
     update_system_property as update_system_property_tool,
 )
+from servicenow_mcp.tools.ui_policy_tools import (
+    UiPolicyResponse, CreateUiPolicyParams, DeleteUiPolicyParams, GetUiPolicyParams, ListUiPolicysParams, UpdateUiPolicyParams,
+)
+from servicenow_mcp.tools.ui_policy_tools import (
+    create_ui_policy as create_ui_policy_tool,
+)
+from servicenow_mcp.tools.ui_policy_tools import (
+    delete_ui_policy as delete_ui_policy_tool,
+)
+from servicenow_mcp.tools.ui_policy_tools import (
+    get_ui_policy as get_ui_policy_tool,
+)
+from servicenow_mcp.tools.ui_policy_tools import (
+    list_ui_policies as list_ui_policies_tool,
+)
+from servicenow_mcp.tools.ui_policy_tools import (
+    update_ui_policy as update_ui_policy_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -1300,6 +1318,42 @@ def get_tool_definitions(
             DeleteSystemPropertyParams,
             str,
             "Delete a system property in ServiceNow",
+            "json_dict",
+        ),
+        # UI Policy Tools
+        "list_ui_policies": (
+            list_ui_policies_tool,
+            ListUiPolicysParams,
+            Dict[str, Any],
+            "List UI policies (sys_ui_policy) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_ui_policy": (
+            get_ui_policy_tool,
+            GetUiPolicyParams,
+            Dict[str, Any],
+            "Get a specific UI policy from ServiceNow",
+            "raw_dict",
+        ),
+        "create_ui_policy": (
+            create_ui_policy_tool,
+            CreateUiPolicyParams,
+            UiPolicyResponse,
+            "Create a new UI policy (sys_ui_policy) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_ui_policy": (
+            update_ui_policy_tool,
+            UpdateUiPolicyParams,
+            UiPolicyResponse,
+            "Update an existing UI policy in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_ui_policy": (
+            delete_ui_policy_tool,
+            DeleteUiPolicyParams,
+            str,
+            "Delete a UI policy in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__
