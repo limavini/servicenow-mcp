@@ -113,6 +113,12 @@ platform_developer:
   - create_business_rule
   - update_business_rule
   - delete_business_rule
+  # System Property
+  - list_system_properties
+  - get_system_property
+  - create_system_property
+  - update_system_property
+  - delete_system_property
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -279,6 +285,12 @@ full:
   - create_business_rule
   - update_business_rule
   - delete_business_rule
+  # System Property
+  - list_system_properties
+  - get_system_property
+  - create_system_property
+  - update_system_property
+  - delete_system_property
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base

@@ -93,6 +93,13 @@ from servicenow_mcp.tools.business_rule_tools import (
     list_business_rules,
     update_business_rule,
 )
+from servicenow_mcp.tools.system_property_tools import (
+    create_system_property,
+    delete_system_property,
+    get_system_property,
+    list_system_properties,
+    update_system_property,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -241,6 +248,12 @@ __all__ = [
     "create_business_rule",
     "update_business_rule",
     "delete_business_rule",
+    # System Property tools
+    "list_system_properties",
+    "get_system_property",
+    "create_system_property",
+    "update_system_property",
+    "delete_system_property",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools

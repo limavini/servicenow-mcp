@@ -290,6 +290,24 @@ from servicenow_mcp.tools.business_rule_tools import (
 from servicenow_mcp.tools.business_rule_tools import (
     update_business_rule as update_business_rule_tool,
 )
+from servicenow_mcp.tools.system_property_tools import (
+    SystemPropertyResponse, CreateSystemPropertyParams, DeleteSystemPropertyParams, GetSystemPropertyParams, ListSystemPropertysParams, UpdateSystemPropertyParams,
+)
+from servicenow_mcp.tools.system_property_tools import (
+    create_system_property as create_system_property_tool,
+)
+from servicenow_mcp.tools.system_property_tools import (
+    delete_system_property as delete_system_property_tool,
+)
+from servicenow_mcp.tools.system_property_tools import (
+    get_system_property as get_system_property_tool,
+)
+from servicenow_mcp.tools.system_property_tools import (
+    list_system_properties as list_system_properties_tool,
+)
+from servicenow_mcp.tools.system_property_tools import (
+    update_system_property as update_system_property_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -1246,6 +1264,42 @@ def get_tool_definitions(
             DeleteBusinessRuleParams,
             str,
             "Delete a business rule in ServiceNow",
+            "json_dict",
+        ),
+        # System Property Tools
+        "list_system_properties": (
+            list_system_properties_tool,
+            ListSystemPropertysParams,
+            Dict[str, Any],
+            "List system properties (sys_properties) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_system_property": (
+            get_system_property_tool,
+            GetSystemPropertyParams,
+            Dict[str, Any],
+            "Get a specific system property from ServiceNow",
+            "raw_dict",
+        ),
+        "create_system_property": (
+            create_system_property_tool,
+            CreateSystemPropertyParams,
+            SystemPropertyResponse,
+            "Create a new system property (sys_properties) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_system_property": (
+            update_system_property_tool,
+            UpdateSystemPropertyParams,
+            SystemPropertyResponse,
+            "Update an existing system property in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_system_property": (
+            delete_system_property_tool,
+            DeleteSystemPropertyParams,
+            str,
+            "Delete a system property in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__
