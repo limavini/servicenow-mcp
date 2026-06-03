@@ -416,6 +416,24 @@ from servicenow_mcp.tools.email_notification_tools import (
 from servicenow_mcp.tools.email_notification_tools import (
     update_email_notification as update_email_notification_tool,
 )
+from servicenow_mcp.tools.acl_tools import (
+    AclResponse, CreateAclParams, DeleteAclParams, GetAclParams, ListAclsParams, UpdateAclParams,
+)
+from servicenow_mcp.tools.acl_tools import (
+    create_acl as create_acl_tool,
+)
+from servicenow_mcp.tools.acl_tools import (
+    delete_acl as delete_acl_tool,
+)
+from servicenow_mcp.tools.acl_tools import (
+    get_acl as get_acl_tool,
+)
+from servicenow_mcp.tools.acl_tools import (
+    list_acls as list_acls_tool,
+)
+from servicenow_mcp.tools.acl_tools import (
+    update_acl as update_acl_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -1624,6 +1642,42 @@ def get_tool_definitions(
             DeleteEmailNotificationParams,
             str,
             "Delete a email notification in ServiceNow",
+            "json_dict",
+        ),
+        # ACL Tools
+        "list_acls": (
+            list_acls_tool,
+            ListAclsParams,
+            Dict[str, Any],
+            "List ACLs (sys_security_acl) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_acl": (
+            get_acl_tool,
+            GetAclParams,
+            Dict[str, Any],
+            "Get a specific ACL from ServiceNow",
+            "raw_dict",
+        ),
+        "create_acl": (
+            create_acl_tool,
+            CreateAclParams,
+            AclResponse,
+            "Create a new ACL (sys_security_acl) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "update_acl": (
+            update_acl_tool,
+            UpdateAclParams,
+            AclResponse,
+            "Update an existing ACL in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_acl": (
+            delete_acl_tool,
+            DeleteAclParams,
+            str,
+            "Delete a ACL in ServiceNow",
             "json_dict",
         ),
         # __GEN_TU_DEFS__

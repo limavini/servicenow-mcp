@@ -155,6 +155,12 @@ platform_developer:
   - create_email_notification
   - update_email_notification
   - delete_email_notification
+  # ACL
+  - list_acls
+  - get_acl
+  - create_acl
+  - update_acl
+  - delete_acl
   # __GEN_PLATDEV__
   # Workflows
   - list_workflows
@@ -363,6 +369,12 @@ full:
   - create_email_notification
   - update_email_notification
   - delete_email_notification
+  # ACL
+  - list_acls
+  - get_acl
+  - create_acl
+  - update_acl
+  - delete_acl
   # __GEN_FULL__
   # Knowledge Base
   - create_knowledge_base

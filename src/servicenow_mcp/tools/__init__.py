@@ -142,6 +142,13 @@ from servicenow_mcp.tools.email_notification_tools import (
     list_email_notifications,
     update_email_notification,
 )
+from servicenow_mcp.tools.acl_tools import (
+    create_acl,
+    delete_acl,
+    get_acl,
+    list_acls,
+    update_acl,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -332,6 +339,12 @@ __all__ = [
     "create_email_notification",
     "update_email_notification",
     "delete_email_notification",
+    # ACL tools
+    "list_acls",
+    "get_acl",
+    "create_acl",
+    "update_acl",
+    "delete_acl",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools
