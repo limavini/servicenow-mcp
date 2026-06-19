@@ -880,6 +880,12 @@ from servicenow_mcp.tools.project_tools import (
     update_project as update_project_tool,
     list_projects as list_projects_tool,
 )
+from servicenow_mcp.tools.generic_tools import (
+    QueryTableParams,
+)
+from servicenow_mcp.tools.generic_tools import (
+    query_table as query_table_tool,
+)
 
 # Define a type alias for the Pydantic models or dataclasses used for params
 ParamsModel = Type[Any]  # Use Type[Any] for broader compatibility initially
@@ -2526,6 +2532,14 @@ def get_tool_definitions(
             SetOAuthTokenResponse,
             "Inject an OAuth token (authorization_code, refresh_token, or access_token) so calls act as the user",
             "raw_pydantic",
+        ),
+        # Generic read-only escape hatch
+        "query_table": (
+            query_table_tool,
+            QueryTableParams,
+            str,
+            "Read records from any ServiceNow table via the Table API (read-only escape hatch for tables without a dedicated tool)",
+            "json",
         ),
         # __GEN_TU_DEFS__
     }

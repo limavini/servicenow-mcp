@@ -82,6 +82,8 @@ knowledge_author:
   - get_article
 
 platform_developer:
+  # Generic read-only escape hatch
+  - query_table
   # Script Includes
   - list_script_includes
   - get_script_include
@@ -325,6 +327,21 @@ system_administrator:
   # System Logs
   - list_syslog_entries
   - get_syslog_entry
+
+read_only:
+  # Generic read-only escape hatch — read any table via the Table API
+  - query_table
+  # Common typed read tools
+  - list_incidents
+  - get_incident_by_number
+  - list_change_requests
+  - get_change_request_details
+  - list_catalog_items
+  - get_catalog_item
+  - get_user
+  - list_users
+  - get_article
+  - list_articles
 
 full:
   # Incident Management
@@ -612,3 +629,5 @@ full:
   - create_project
   - update_project
   - list_projects
+  # Generic read-only escape hatch
+  - query_table
