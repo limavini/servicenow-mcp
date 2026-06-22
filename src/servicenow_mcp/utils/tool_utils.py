@@ -704,6 +704,15 @@ from servicenow_mcp.tools.transform_entry_tools import (
 from servicenow_mcp.tools.transform_entry_tools import (
     update_transform_entry as update_transform_entry_tool,
 )
+from servicenow_mcp.tools.flow_tools import (
+    GetFlowParams, ListFlowsParams,
+)
+from servicenow_mcp.tools.flow_tools import (
+    get_flow as get_flow_tool,
+)
+from servicenow_mcp.tools.flow_tools import (
+    list_flows as list_flows_tool,
+)
 from servicenow_mcp.tools.oauth_tools import (
     GetAuthStatusParams,
     GetOAuthAuthorizeUrlParams,
@@ -2510,6 +2519,21 @@ def get_tool_definitions(
             str,
             "Delete a transform map field in ServiceNow",
             "json_dict",
+        ),
+        # Flow Designer Tools (read-only)
+        "list_flows": (
+            list_flows_tool,
+            ListFlowsParams,
+            Dict[str, Any],
+            "List Flow Designer flows/subflows (sys_hub_flow) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_flow": (
+            get_flow_tool,
+            GetFlowParams,
+            Dict[str, Any],
+            "Get a Flow Designer flow and its design-time structure (trigger, actions, logic). Read-only; see docs/flow_designer.md",
+            "raw_dict",
         ),
         # OAuth Session Tools
         "get_auth_status": (

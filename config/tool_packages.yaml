@@ -253,6 +253,9 @@ platform_developer:
   - create_transform_entry
   - update_transform_entry
   - delete_transform_entry
+  # Flow Designer (read-only)
+  - list_flows
+  - get_flow
   # OAuth Session
   - get_auth_status
   - get_oauth_authorize_url
@@ -576,6 +579,9 @@ full:
   - create_transform_entry
   - update_transform_entry
   - delete_transform_entry
+  # Flow Designer (read-only)
+  - list_flows
+  - get_flow
   # OAuth Session
   - get_auth_status
   - get_oauth_authorize_url

@@ -254,6 +254,10 @@ from servicenow_mcp.tools.transform_entry_tools import (
     list_transform_entries,
     update_transform_entry,
 )
+from servicenow_mcp.tools.flow_tools import (
+    get_flow,
+    list_flows,
+)
 from servicenow_mcp.tools.oauth_tools import (
     get_auth_status,
     get_oauth_authorize_url,
@@ -545,6 +549,9 @@ __all__ = [
     "create_transform_entry",
     "update_transform_entry",
     "delete_transform_entry",
+    # Flow Designer tools (read-only)
+    "list_flows",
+    "get_flow",
     # OAuth session tools
     "get_auth_status",
     "get_oauth_authorize_url",
