@@ -164,6 +164,17 @@ already exposes a tool:
   invoke that skill, then have the user reconnect the MCP (`/mcp`) so the new tool
   loads, then resume here. If no, replan around available tools or stop.
 
+- **Flow Designer flow / subflow / action is a special case — never treat it as a
+  "missing tool".** A flow runs a compiled snapshot and cannot be created/edited
+  through the Table API/MCP (and you can't build a tool to do it). If any artifact
+  is a Flow Designer flow, **hand that part off to the `servicenow-flow-builder`
+  skill**, which builds it in the Flow Designer UI (with field-by-field coaching)
+  and transports it via the Update Set. Coordinate so the flow uses **this story's
+  Update Set** (Phase 5): create/select the named set here, then have
+  `servicenow-flow-builder` build under it. Do the non-flow artifacts via the MCP as
+  usual; only the flow part is delegated. (Reading/auditing existing flows via
+  `list_flows`/`get_flow` stays inline — only authoring is delegated.)
+
 ## Phase 5 — Update-set-first plan (the update set is step 1)
 
 Draft the development plan. **Step 1 is always: create the update set, set it current,
