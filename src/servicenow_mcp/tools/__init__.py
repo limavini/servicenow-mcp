@@ -65,6 +65,13 @@ from servicenow_mcp.tools.script_include_tools import (
     list_script_includes,
     update_script_include,
 )
+from servicenow_mcp.tools.vcna_return_request_tools import (
+    create_vcna_return_request,
+    delete_vcna_return_request,
+    get_vcna_return_request,
+    list_vcna_return_requests,
+    update_vcna_return_request,
+)
 from servicenow_mcp.tools.record_producer_tools import (
     create_record_producer,
     delete_record_producer,
@@ -385,6 +392,13 @@ __all__ = [
     "create_script_include",
     "update_script_include",
     "delete_script_include",
+
+    # VCNA Return Request tools
+    "list_vcna_return_requests",
+    "get_vcna_return_request",
+    "create_vcna_return_request",
+    "update_vcna_return_request",
+    "delete_vcna_return_request",
     # Record Producer Tools
     "list_record_producers",
     "get_record_producer",

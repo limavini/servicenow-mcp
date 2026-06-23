@@ -203,6 +203,29 @@ from servicenow_mcp.tools.script_include_tools import (
 from servicenow_mcp.tools.script_include_tools import (
     update_script_include as update_script_include_tool,
 )
+from servicenow_mcp.tools.vcna_return_request_tools import (
+    CreateVcnaReturnRequestParams,
+    DeleteVcnaReturnRequestParams,
+    GetVcnaReturnRequestParams,
+    ListVcnaReturnRequestsParams,
+    UpdateVcnaReturnRequestParams,
+    VcnaReturnRequestResponse,
+)
+from servicenow_mcp.tools.vcna_return_request_tools import (
+    create_vcna_return_request as create_vcna_return_request_tool,
+)
+from servicenow_mcp.tools.vcna_return_request_tools import (
+    delete_vcna_return_request as delete_vcna_return_request_tool,
+)
+from servicenow_mcp.tools.vcna_return_request_tools import (
+    get_vcna_return_request as get_vcna_return_request_tool,
+)
+from servicenow_mcp.tools.vcna_return_request_tools import (
+    list_vcna_return_requests as list_vcna_return_requests_tool,
+)
+from servicenow_mcp.tools.vcna_return_request_tools import (
+    update_vcna_return_request as update_vcna_return_request_tool,
+)
 from servicenow_mcp.tools.record_producer_tools import (
     CreateRecordProducerParams,
     DeleteRecordProducerParams,
@@ -1270,6 +1293,42 @@ def get_tool_definitions(
             DeleteScriptIncludeParams,
             str,  # Expects JSON string
             "Delete a script include in ServiceNow",
+            "json_dict",  # Tool returns Pydantic model
+        ),
+        # VCNA Return Request Tools
+        "list_vcna_return_requests": (
+            list_vcna_return_requests_tool,
+            ListVcnaReturnRequestsParams,
+            Dict[str, Any],  # Expects dict
+            "List Return Requests (x_visa_vcna_hr_return_request) from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "get_vcna_return_request": (
+            get_vcna_return_request_tool,
+            GetVcnaReturnRequestParams,
+            Dict[str, Any],  # Expects dict
+            "Get a specific Return Request (x_visa_vcna_hr_return_request) from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "create_vcna_return_request": (
+            create_vcna_return_request_tool,
+            CreateVcnaReturnRequestParams,
+            VcnaReturnRequestResponse,  # Expects Pydantic model
+            "Create a Return Request (x_visa_vcna_hr_return_request) in ServiceNow",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "update_vcna_return_request": (
+            update_vcna_return_request_tool,
+            UpdateVcnaReturnRequestParams,
+            VcnaReturnRequestResponse,  # Expects Pydantic model
+            "Update a Return Request (x_visa_vcna_hr_return_request) in ServiceNow",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "delete_vcna_return_request": (
+            delete_vcna_return_request_tool,
+            DeleteVcnaReturnRequestParams,
+            str,  # Expects JSON string
+            "Delete a Return Request (x_visa_vcna_hr_return_request) in ServiceNow",
             "json_dict",  # Tool returns Pydantic model
         ),
         # Record Producer Tools

@@ -91,6 +91,12 @@ platform_developer:
   - update_script_include
   - delete_script_include
   - execute_script_include
+  # VCNA Return Request tools
+  - list_vcna_return_requests
+  - get_vcna_return_request
+  - create_vcna_return_request
+  - update_vcna_return_request
+  - delete_vcna_return_request
   # Record Producers
   - list_record_producers
   - get_record_producer
@@ -417,6 +423,12 @@ full:
   - update_script_include
   - delete_script_include
   - execute_script_include
+  # VCNA Return Request tools
+  - list_vcna_return_requests
+  - get_vcna_return_request
+  - create_vcna_return_request
+  - update_vcna_return_request
+  - delete_vcna_return_request
   # Record Producers
   - list_record_producers
   - get_record_producer
