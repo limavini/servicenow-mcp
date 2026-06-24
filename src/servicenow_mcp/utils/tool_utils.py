@@ -226,6 +226,29 @@ from servicenow_mcp.tools.vcna_return_request_tools import (
 from servicenow_mcp.tools.vcna_return_request_tools import (
     update_vcna_return_request as update_vcna_return_request_tool,
 )
+from servicenow_mcp.tools.vcna_hr_task_tools import (
+    CreateVcnaHrTaskParams,
+    DeleteVcnaHrTaskParams,
+    GetVcnaHrTaskParams,
+    ListVcnaHrTasksParams,
+    UpdateVcnaHrTaskParams,
+    VcnaHrTaskResponse,
+)
+from servicenow_mcp.tools.vcna_hr_task_tools import (
+    create_vcna_hr_task as create_vcna_hr_task_tool,
+)
+from servicenow_mcp.tools.vcna_hr_task_tools import (
+    delete_vcna_hr_task as delete_vcna_hr_task_tool,
+)
+from servicenow_mcp.tools.vcna_hr_task_tools import (
+    get_vcna_hr_task as get_vcna_hr_task_tool,
+)
+from servicenow_mcp.tools.vcna_hr_task_tools import (
+    list_vcna_hr_tasks as list_vcna_hr_tasks_tool,
+)
+from servicenow_mcp.tools.vcna_hr_task_tools import (
+    update_vcna_hr_task as update_vcna_hr_task_tool,
+)
 from servicenow_mcp.tools.record_producer_tools import (
     CreateRecordProducerParams,
     DeleteRecordProducerParams,
@@ -1329,6 +1352,42 @@ def get_tool_definitions(
             DeleteVcnaReturnRequestParams,
             str,  # Expects JSON string
             "Delete a Return Request (x_visa_vcna_hr_return_request) in ServiceNow",
+            "json_dict",  # Tool returns Pydantic model
+        ),
+        # VCNA HR Task Tools
+        "list_vcna_hr_tasks": (
+            list_vcna_hr_tasks_tool,
+            ListVcnaHrTasksParams,
+            Dict[str, Any],  # Expects dict
+            "List HR Tasks (x_visa_vcna_hr_task) from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "get_vcna_hr_task": (
+            get_vcna_hr_task_tool,
+            GetVcnaHrTaskParams,
+            Dict[str, Any],  # Expects dict
+            "Get a specific HR Task (x_visa_vcna_hr_task) from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "create_vcna_hr_task": (
+            create_vcna_hr_task_tool,
+            CreateVcnaHrTaskParams,
+            VcnaHrTaskResponse,  # Expects Pydantic model
+            "Create an HR Task (x_visa_vcna_hr_task) in ServiceNow",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "update_vcna_hr_task": (
+            update_vcna_hr_task_tool,
+            UpdateVcnaHrTaskParams,
+            VcnaHrTaskResponse,  # Expects Pydantic model
+            "Update an HR Task (x_visa_vcna_hr_task) in ServiceNow",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "delete_vcna_hr_task": (
+            delete_vcna_hr_task_tool,
+            DeleteVcnaHrTaskParams,
+            str,  # Expects JSON string
+            "Delete an HR Task (x_visa_vcna_hr_task) in ServiceNow",
             "json_dict",  # Tool returns Pydantic model
         ),
         # Record Producer Tools

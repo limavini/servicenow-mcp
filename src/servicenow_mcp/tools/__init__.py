@@ -72,6 +72,13 @@ from servicenow_mcp.tools.vcna_return_request_tools import (
     list_vcna_return_requests,
     update_vcna_return_request,
 )
+from servicenow_mcp.tools.vcna_hr_task_tools import (
+    create_vcna_hr_task,
+    delete_vcna_hr_task,
+    get_vcna_hr_task,
+    list_vcna_hr_tasks,
+    update_vcna_hr_task,
+)
 from servicenow_mcp.tools.record_producer_tools import (
     create_record_producer,
     delete_record_producer,
@@ -399,6 +406,12 @@ __all__ = [
     "create_vcna_return_request",
     "update_vcna_return_request",
     "delete_vcna_return_request",
+    # VCNA HR Task tools
+    "list_vcna_hr_tasks",
+    "get_vcna_hr_task",
+    "create_vcna_hr_task",
+    "update_vcna_hr_task",
+    "delete_vcna_hr_task",
     # Record Producer Tools
     "list_record_producers",
     "get_record_producer",

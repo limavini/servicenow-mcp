@@ -97,6 +97,12 @@ platform_developer:
   - create_vcna_return_request
   - update_vcna_return_request
   - delete_vcna_return_request
+  # VCNA HR Task tools
+  - list_vcna_hr_tasks
+  - get_vcna_hr_task
+  - create_vcna_hr_task
+  - update_vcna_hr_task
+  - delete_vcna_hr_task
   # Record Producers
   - list_record_producers
   - get_record_producer
@@ -429,6 +435,12 @@ full:
   - create_vcna_return_request
   - update_vcna_return_request
   - delete_vcna_return_request
+  # VCNA HR Task tools
+  - list_vcna_hr_tasks
+  - get_vcna_hr_task
+  - create_vcna_hr_task
+  - update_vcna_hr_task
+  - delete_vcna_hr_task
   # Record Producers
   - list_record_producers
   - get_record_producer

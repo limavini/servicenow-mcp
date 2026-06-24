@@ -16,6 +16,15 @@ from servicenow_mcp.utils.config import ServerConfig
 logger = logging.getLogger(__name__)
 
 
+def _dv(value):
+    """Return a reference field's display value whether it came back as a dict
+    (sysparm_display_value=all) or a plain string (sysparm_display_value=true with
+    exclude_reference_link)."""
+    if isinstance(value, dict):
+        return value.get("display_value")
+    return value
+
+
 class ListScriptIncludesParams(BaseModel):
     """Parameters for listing script includes."""
     
@@ -241,8 +250,8 @@ def get_script_include(
             "access": item.get("access"),
             "created_on": item.get("sys_created_on"),
             "updated_on": item.get("sys_updated_on"),
-            "created_by": item.get("sys_created_by", {}).get("display_value"),
-            "updated_by": item.get("sys_updated_by", {}).get("display_value"),
+            "created_by": _dv(item.get("sys_created_by")),
+            "updated_by": _dv(item.get("sys_updated_by")),
         }
         
         return {
