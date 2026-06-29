@@ -65,6 +65,13 @@ from servicenow_mcp.tools.script_include_tools import (
     list_script_includes,
     update_script_include,
 )
+from servicenow_mcp.tools.io_set_item_tools import (
+    create_io_set_item,
+    delete_io_set_item,
+    get_io_set_item,
+    list_io_set_items,
+    update_io_set_item,
+)
 from servicenow_mcp.tools.vcna_return_request_tools import (
     create_vcna_return_request,
     delete_vcna_return_request,
@@ -399,6 +406,13 @@ __all__ = [
     "create_script_include",
     "update_script_include",
     "delete_script_include",
+
+    # io_set_item tools
+    "list_io_set_items",
+    "get_io_set_item",
+    "create_io_set_item",
+    "update_io_set_item",
+    "delete_io_set_item",
 
     # VCNA Return Request tools
     "list_vcna_return_requests",

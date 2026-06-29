@@ -203,6 +203,29 @@ from servicenow_mcp.tools.script_include_tools import (
 from servicenow_mcp.tools.script_include_tools import (
     update_script_include as update_script_include_tool,
 )
+from servicenow_mcp.tools.io_set_item_tools import (
+    CreateIoSetItemParams,
+    DeleteIoSetItemParams,
+    GetIoSetItemParams,
+    IoSetItemResponse,
+    ListIoSetItemsParams,
+    UpdateIoSetItemParams,
+)
+from servicenow_mcp.tools.io_set_item_tools import (
+    create_io_set_item as create_io_set_item_tool,
+)
+from servicenow_mcp.tools.io_set_item_tools import (
+    delete_io_set_item as delete_io_set_item_tool,
+)
+from servicenow_mcp.tools.io_set_item_tools import (
+    get_io_set_item as get_io_set_item_tool,
+)
+from servicenow_mcp.tools.io_set_item_tools import (
+    list_io_set_items as list_io_set_items_tool,
+)
+from servicenow_mcp.tools.io_set_item_tools import (
+    update_io_set_item as update_io_set_item_tool,
+)
 from servicenow_mcp.tools.vcna_return_request_tools import (
     CreateVcnaReturnRequestParams,
     DeleteVcnaReturnRequestParams,
@@ -1316,6 +1339,42 @@ def get_tool_definitions(
             DeleteScriptIncludeParams,
             str,  # Expects JSON string
             "Delete a script include in ServiceNow",
+            "json_dict",  # Tool returns Pydantic model
+        ),
+        # io_set_item Tools
+        "list_io_set_items": (
+            list_io_set_items_tool,
+            ListIoSetItemsParams,
+            Dict[str, Any],  # Expects dict
+            "List io_set_item records (catalog item to variable set links) from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "get_io_set_item": (
+            get_io_set_item_tool,
+            GetIoSetItemParams,
+            Dict[str, Any],  # Expects dict
+            "Get a specific io_set_item record from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "create_io_set_item": (
+            create_io_set_item_tool,
+            CreateIoSetItemParams,
+            IoSetItemResponse,  # Expects Pydantic model
+            "Attach a variable set to a catalog item / record producer (create io_set_item)",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "update_io_set_item": (
+            update_io_set_item_tool,
+            UpdateIoSetItemParams,
+            IoSetItemResponse,  # Expects Pydantic model
+            "Update an existing io_set_item record in ServiceNow",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "delete_io_set_item": (
+            delete_io_set_item_tool,
+            DeleteIoSetItemParams,
+            str,  # Expects JSON string
+            "Delete an io_set_item record in ServiceNow",
             "json_dict",  # Tool returns Pydantic model
         ),
         # VCNA Return Request Tools

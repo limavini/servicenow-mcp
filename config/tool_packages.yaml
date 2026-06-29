@@ -91,6 +91,12 @@ platform_developer:
   - update_script_include
   - delete_script_include
   - execute_script_include
+  # io_set_item (attach variable set to catalog item)
+  - list_io_set_items
+  - get_io_set_item
+  - create_io_set_item
+  - update_io_set_item
+  - delete_io_set_item
   # VCNA Return Request tools
   - list_vcna_return_requests
   - get_vcna_return_request
@@ -429,6 +435,12 @@ full:
   - update_script_include
   - delete_script_include
   - execute_script_include
+  # io_set_item (attach variable set to catalog item)
+  - list_io_set_items
+  - get_io_set_item
+  - create_io_set_item
+  - update_io_set_item
+  - delete_io_set_item
   # VCNA Return Request tools
   - list_vcna_return_requests
   - get_vcna_return_request
