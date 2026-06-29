@@ -18,6 +18,21 @@ logger = logging.getLogger(__name__)
 _FIELDS = "sys_id,name,cat_item,variable_set,type,script,ui_type,active,applies_to,cat_variable,order,sys_created_on,sys_updated_on,sys_created_by,sys_updated_by"
 
 
+def _normalize_io(value: str) -> str:
+    """Normalize a variable binding to ServiceNow's 'IO:<sys_id>' form.
+
+    Passes through values that already start with 'IO:'. Wraps a bare
+    sys_id (e.g. a 32-char sys_id) as 'IO:<sys_id>'. Empty values are
+    returned unchanged.
+    """
+    if value is None:
+        return value
+    stripped = value.strip()
+    if not stripped or stripped.startswith("IO:"):
+        return stripped
+    return f"IO:{stripped}"
+
+
 class ListCatalogClientScriptsParams(BaseModel):
     """Parameters for listing catalog client scripts."""
 
@@ -228,7 +243,7 @@ def _build_body(params: BaseModel) -> Dict[str, Any]:
         body["applies_to"] = value
     value = getattr(params, "cat_variable", None)
     if value is not None:
-        body["cat_variable"] = value
+        body["cat_variable"] = _normalize_io(value)
     value = getattr(params, "order", None)
     if value is not None:
         body["order"] = str(value)

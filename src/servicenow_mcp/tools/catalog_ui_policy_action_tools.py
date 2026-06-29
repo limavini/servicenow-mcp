@@ -15,7 +15,22 @@ from servicenow_mcp.utils.config import ServerConfig
 
 logger = logging.getLogger(__name__)
 
-_FIELDS = "sys_id,name,ui_policy,catalog_variable,mandatory,visible,disabled,cleared,sys_created_on,sys_updated_on,sys_created_by,sys_updated_by"
+_FIELDS = "sys_id,name,ui_policy,catalog_variable,catalog_item,mandatory,visible,disabled,cleared,sys_created_on,sys_updated_on,sys_created_by,sys_updated_by"
+
+
+def _normalize_io(value: str) -> str:
+    """Normalize a variable binding to ServiceNow's 'IO:<sys_id>' form.
+
+    Passes through values that already start with 'IO:'. Wraps a bare
+    sys_id (e.g. a 32-char sys_id) as 'IO:<sys_id>'. Empty values are
+    returned unchanged.
+    """
+    if value is None:
+        return value
+    stripped = value.strip()
+    if not stripped or stripped.startswith("IO:"):
+        return stripped
+    return f"IO:{stripped}"
 
 
 class ListCatalogUiPolicyActionsParams(BaseModel):
@@ -37,7 +52,8 @@ class CreateCatalogUiPolicyActionParams(BaseModel):
     """Parameters for creating a catalog UI policy action."""
 
     ui_policy: str = Field(..., description="Parent catalog UI policy sys_id")
-    catalog_variable: str = Field(..., description="Variable the action targets")
+    catalog_variable: str = Field(..., description="Variable the action targets (bare sys_id or 'IO:<sys_id>')")
+    catalog_item: Optional[str] = Field(None, description="Catalog item sys_id")
     mandatory: Optional[str] = Field(None, description="Mandatory: true, false, ignore")
     visible: Optional[str] = Field(None, description="Visible: true, false, ignore")
     disabled: Optional[str] = Field(None, description="Disabled: true, false, ignore")
@@ -49,7 +65,8 @@ class UpdateCatalogUiPolicyActionParams(BaseModel):
 
     catalog_ui_policy_action_id: str = Field(..., description="CatalogUiPolicyAction sys_id (prefix with 'sys_id:')")
     ui_policy: Optional[str] = Field(None, description="Parent catalog UI policy sys_id")
-    catalog_variable: Optional[str] = Field(None, description="Variable the action targets")
+    catalog_variable: Optional[str] = Field(None, description="Variable the action targets (bare sys_id or 'IO:<sys_id>')")
+    catalog_item: Optional[str] = Field(None, description="Catalog item sys_id")
     mandatory: Optional[str] = Field(None, description="Mandatory: true, false, ignore")
     visible: Optional[str] = Field(None, description="Visible: true, false, ignore")
     disabled: Optional[str] = Field(None, description="Disabled: true, false, ignore")
@@ -85,6 +102,7 @@ def _serialize(item: Dict[str, Any]) -> Dict[str, Any]:
         "name": item.get("name"),
         "ui_policy": _display(item.get("ui_policy")),
         "catalog_variable": _display(item.get("catalog_variable")),
+        "catalog_item": _display(item.get("catalog_item")),
         "mandatory": _display(item.get("mandatory")),
         "visible": _display(item.get("visible")),
         "disabled": _display(item.get("disabled")),
@@ -192,7 +210,10 @@ def _build_body(params: BaseModel) -> Dict[str, Any]:
         body["ui_policy"] = value
     value = getattr(params, "catalog_variable", None)
     if value is not None:
-        body["catalog_variable"] = value
+        body["catalog_variable"] = _normalize_io(value)
+    value = getattr(params, "catalog_item", None)
+    if value is not None:
+        body["catalog_item"] = value
     value = getattr(params, "mandatory", None)
     if value is not None:
         body["mandatory"] = value
