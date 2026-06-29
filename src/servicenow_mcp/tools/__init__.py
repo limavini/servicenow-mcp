@@ -17,6 +17,7 @@ from servicenow_mcp.tools.catalog_tools import (
 )
 from servicenow_mcp.tools.catalog_variables import (
     create_catalog_item_variable,
+    delete_catalog_item_variable,
     list_catalog_item_variables,
     update_catalog_item_variable,
 )
@@ -364,6 +365,7 @@ __all__ = [
     "get_optimization_recommendations",
     "update_catalog_item",
     "create_catalog_item_variable",
+    "delete_catalog_item_variable",
     "list_catalog_item_variables",
     "update_catalog_item_variable",
     

@@ -84,6 +84,12 @@ class UpdateCatalogItemVariableParams(BaseModel):
     max: Optional[int] = Field(None, description="Maximum value for numeric fields")
 
 
+class DeleteCatalogItemVariableParams(BaseModel):
+    """Parameters for deleting a catalog item variable."""
+
+    variable_id: str = Field(..., description="The sys_id of the variable to delete (accepts a 'sys_id:' prefix)")
+
+
 def create_catalog_item_variable(
     config: ServerConfig,
     auth_manager: AuthManager,
@@ -303,4 +309,48 @@ def update_catalog_item_variable(
         return CatalogItemVariableResponse(
             success=False,
             message=f"Failed to update catalog item variable: {str(e)}",
-        ) 
+        )
+
+
+def delete_catalog_item_variable(
+    config: ServerConfig,
+    auth_manager: AuthManager,
+    params: DeleteCatalogItemVariableParams,
+) -> CatalogItemVariableResponse:
+    """
+    Delete a variable (form field) from a catalog item.
+
+    Args:
+        config: Server configuration.
+        auth_manager: Authentication manager.
+        params: Parameters for deleting a catalog item variable.
+
+    Returns:
+        Response indicating whether the deletion succeeded.
+    """
+    sys_id = params.variable_id
+    if sys_id.startswith("sys_id:"):
+        sys_id = sys_id[len("sys_id:"):]
+
+    api_url = f"{config.instance_url}/api/now/table/item_option_new/{sys_id}"
+
+    try:
+        response = requests.delete(
+            api_url,
+            headers=auth_manager.get_headers(),
+            timeout=config.timeout,
+        )
+        response.raise_for_status()
+
+        return CatalogItemVariableResponse(
+            success=True,
+            message="Catalog item variable deleted successfully",
+            variable_id=sys_id,
+        )
+
+    except requests.RequestException as e:
+        logger.error(f"Failed to delete catalog item variable: {e}")
+        return CatalogItemVariableResponse(
+            success=False,
+            message=f"Failed to delete catalog item variable: {str(e)}",
+        )
