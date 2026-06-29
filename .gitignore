@@ -185,3 +185,5 @@ cython_debug/
 # ServiceNow instance credentials (real secrets) — never commit.
 # instances.example.json (template) stays tracked.
 /instances.json
+# Per-instance OAuth tokens (real secrets) under instances/<inst>/ — never commit.
+**/.oauth_token.json
