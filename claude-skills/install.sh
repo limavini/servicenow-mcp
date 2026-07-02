@@ -11,7 +11,10 @@
 set -euo pipefail
 
 SKILLS_SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SKILLS_DEST="${CLAUDE_SKILLS_DIR:-$HOME/.claude/skills}"
+# Claude Code reads skills from $CLAUDE_CONFIG_DIR/skills (falls back to ~/.claude).
+# Honor CLAUDE_CONFIG_DIR so skills land where the running Claude actually looks —
+# e.g. a personal account may set CLAUDE_CONFIG_DIR=~/.claude-personal.
+SKILLS_DEST="${CLAUDE_SKILLS_DIR:-${CLAUDE_CONFIG_DIR:-$HOME/.claude}/skills}"
 
 mkdir -p "$SKILLS_DEST"
 
