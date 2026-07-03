@@ -285,6 +285,18 @@ from servicenow_mcp.tools.oauth_tools import (
     get_oauth_authorize_url,
     set_oauth_token,
 )
+from servicenow_mcp.tools.payout_request_tools import (
+    create_payout_request,
+    delete_payout_request,
+    get_payout_request,
+    list_payout_requests,
+    update_payout_request,
+)
+from servicenow_mcp.tools.approval_tools import (
+    get_approval,
+    list_approvals,
+    update_approval,
+)
 # __GEN_INIT_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     get_current_update_set,
@@ -599,6 +611,16 @@ __all__ = [
     "get_auth_status",
     "get_oauth_authorize_url",
     "set_oauth_token",
+    # Payout Request tools
+    "list_payout_requests",
+    "get_payout_request",
+    "create_payout_request",
+    "update_payout_request",
+    "delete_payout_request",
+    # Approval (sysapproval_approver) tools
+    "list_approvals",
+    "get_approval",
+    "update_approval",
     # __GEN_INIT_ALL__
 
     # Current Update Set tools

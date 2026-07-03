@@ -801,6 +801,44 @@ from servicenow_mcp.tools.oauth_tools import (
 from servicenow_mcp.tools.oauth_tools import (
     set_oauth_token as set_oauth_token_tool,
 )
+from servicenow_mcp.tools.payout_request_tools import (
+    CreatePayoutRequestParams,
+    DeletePayoutRequestParams,
+    GetPayoutRequestParams,
+    ListPayoutRequestsParams,
+    PayoutRequestResponse,
+    UpdatePayoutRequestParams,
+)
+from servicenow_mcp.tools.payout_request_tools import (
+    create_payout_request as create_payout_request_tool,
+)
+from servicenow_mcp.tools.payout_request_tools import (
+    delete_payout_request as delete_payout_request_tool,
+)
+from servicenow_mcp.tools.payout_request_tools import (
+    get_payout_request as get_payout_request_tool,
+)
+from servicenow_mcp.tools.payout_request_tools import (
+    list_payout_requests as list_payout_requests_tool,
+)
+from servicenow_mcp.tools.payout_request_tools import (
+    update_payout_request as update_payout_request_tool,
+)
+from servicenow_mcp.tools.approval_tools import (
+    ApprovalResponse,
+    GetApprovalParams,
+    ListApprovalsParams,
+    UpdateApprovalParams,
+)
+from servicenow_mcp.tools.approval_tools import (
+    get_approval as get_approval_tool,
+)
+from servicenow_mcp.tools.approval_tools import (
+    list_approvals as list_approvals_tool,
+)
+from servicenow_mcp.tools.approval_tools import (
+    update_approval as update_approval_tool,
+)
 # __GEN_TU_IMPORTS__
 from servicenow_mcp.tools.current_update_set_tools import (
     CurrentUpdateSetResponse,
@@ -2752,6 +2790,64 @@ def get_tool_definitions(
             str,
             "Read records from any ServiceNow table via the Table API (read-only escape hatch for tables without a dedicated tool)",
             "json",
+        ),
+        # Payout Request Tools
+        "list_payout_requests": (
+            list_payout_requests_tool,
+            ListPayoutRequestsParams,
+            Dict[str, Any],
+            "List Payout Requests (x_visa_vcna_hr_payout_request) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_payout_request": (
+            get_payout_request_tool,
+            GetPayoutRequestParams,
+            Dict[str, Any],
+            "Get a specific Payout Request (x_visa_vcna_hr_payout_request) from ServiceNow",
+            "raw_dict",
+        ),
+        "create_payout_request": (
+            create_payout_request_tool,
+            CreatePayoutRequestParams,
+            PayoutRequestResponse,
+            "Create a Payout Request (x_visa_vcna_hr_payout_request) in ServiceNow (fires the Payout flow)",
+            "raw_pydantic",
+        ),
+        "update_payout_request": (
+            update_payout_request_tool,
+            UpdatePayoutRequestParams,
+            PayoutRequestResponse,
+            "Update a Payout Request (x_visa_vcna_hr_payout_request) in ServiceNow",
+            "raw_pydantic",
+        ),
+        "delete_payout_request": (
+            delete_payout_request_tool,
+            DeletePayoutRequestParams,
+            str,
+            "Delete a Payout Request (x_visa_vcna_hr_payout_request) from ServiceNow",
+            "json_dict",
+        ),
+        # Approval (sysapproval_approver) Tools
+        "list_approvals": (
+            list_approvals_tool,
+            ListApprovalsParams,
+            Dict[str, Any],
+            "List approval records (sysapproval_approver) from ServiceNow",
+            "raw_dict",
+        ),
+        "get_approval": (
+            get_approval_tool,
+            GetApprovalParams,
+            Dict[str, Any],
+            "Get a specific approval record (sysapproval_approver) from ServiceNow",
+            "raw_dict",
+        ),
+        "update_approval": (
+            update_approval_tool,
+            UpdateApprovalParams,
+            ApprovalResponse,
+            "Update/action an approval (sysapproval_approver) — set state approved/rejected",
+            "raw_pydantic",
         ),
         # __GEN_TU_DEFS__
     }

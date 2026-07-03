@@ -109,6 +109,16 @@ platform_developer:
   - create_vcna_hr_task
   - update_vcna_hr_task
   - delete_vcna_hr_task
+  # Payout Request
+  - list_payout_requests
+  - get_payout_request
+  - create_payout_request
+  - update_payout_request
+  - delete_payout_request
+  # Approvals (sysapproval_approver)
+  - list_approvals
+  - get_approval
+  - update_approval
   # Record Producers
   - list_record_producers
   - get_record_producer
@@ -453,6 +463,16 @@ full:
   - create_vcna_hr_task
   - update_vcna_hr_task
   - delete_vcna_hr_task
+  # Payout Request
+  - list_payout_requests
+  - get_payout_request
+  - create_payout_request
+  - update_payout_request
+  - delete_payout_request
+  # Approvals (sysapproval_approver)
+  - list_approvals
+  - get_approval
+  - update_approval
   # Record Producers
   - list_record_producers
   - get_record_producer
