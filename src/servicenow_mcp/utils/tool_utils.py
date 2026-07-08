@@ -253,6 +253,29 @@ from servicenow_mcp.tools.vcna_return_request_tools import (
 from servicenow_mcp.tools.vcna_return_request_tools import (
     update_vcna_return_request as update_vcna_return_request_tool,
 )
+from servicenow_mcp.tools.vcna_employee_move_tools import (
+    CreateVcnaEmployeeMoveParams,
+    DeleteVcnaEmployeeMoveParams,
+    GetVcnaEmployeeMoveParams,
+    ListVcnaEmployeeMovesParams,
+    UpdateVcnaEmployeeMoveParams,
+    VcnaEmployeeMoveResponse,
+)
+from servicenow_mcp.tools.vcna_employee_move_tools import (
+    create_vcna_employee_move as create_vcna_employee_move_tool,
+)
+from servicenow_mcp.tools.vcna_employee_move_tools import (
+    delete_vcna_employee_move as delete_vcna_employee_move_tool,
+)
+from servicenow_mcp.tools.vcna_employee_move_tools import (
+    get_vcna_employee_move as get_vcna_employee_move_tool,
+)
+from servicenow_mcp.tools.vcna_employee_move_tools import (
+    list_vcna_employee_moves as list_vcna_employee_moves_tool,
+)
+from servicenow_mcp.tools.vcna_employee_move_tools import (
+    update_vcna_employee_move as update_vcna_employee_move_tool,
+)
 from servicenow_mcp.tools.vcna_hr_task_tools import (
     CreateVcnaHrTaskParams,
     DeleteVcnaHrTaskParams,
@@ -1460,6 +1483,42 @@ def get_tool_definitions(
             DeleteVcnaReturnRequestParams,
             str,  # Expects JSON string
             "Delete a Return Request (x_visa_vcna_hr_return_request) in ServiceNow",
+            "json_dict",  # Tool returns Pydantic model
+        ),
+        # VCNA Employee Move Tools
+        "list_vcna_employee_moves": (
+            list_vcna_employee_moves_tool,
+            ListVcnaEmployeeMovesParams,
+            Dict[str, Any],  # Expects dict
+            "List Employee Moves (x_visa_vcna_hr_other_employee_change_request) from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "get_vcna_employee_move": (
+            get_vcna_employee_move_tool,
+            GetVcnaEmployeeMoveParams,
+            Dict[str, Any],  # Expects dict
+            "Get a specific Employee Move (x_visa_vcna_hr_other_employee_change_request) from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "create_vcna_employee_move": (
+            create_vcna_employee_move_tool,
+            CreateVcnaEmployeeMoveParams,
+            VcnaEmployeeMoveResponse,  # Expects Pydantic model
+            "Create an Employee Move (x_visa_vcna_hr_other_employee_change_request) in ServiceNow",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "update_vcna_employee_move": (
+            update_vcna_employee_move_tool,
+            UpdateVcnaEmployeeMoveParams,
+            VcnaEmployeeMoveResponse,  # Expects Pydantic model
+            "Update an Employee Move (x_visa_vcna_hr_other_employee_change_request) in ServiceNow",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "delete_vcna_employee_move": (
+            delete_vcna_employee_move_tool,
+            DeleteVcnaEmployeeMoveParams,
+            str,  # Expects JSON string
+            "Delete an Employee Move (x_visa_vcna_hr_other_employee_change_request) in ServiceNow",
             "json_dict",  # Tool returns Pydantic model
         ),
         # VCNA HR Task Tools

@@ -103,6 +103,12 @@ platform_developer:
   - create_vcna_return_request
   - update_vcna_return_request
   - delete_vcna_return_request
+  # VCNA Employee Move tools
+  - list_vcna_employee_moves
+  - get_vcna_employee_move
+  - create_vcna_employee_move
+  - update_vcna_employee_move
+  - delete_vcna_employee_move
   # VCNA HR Task tools
   - list_vcna_hr_tasks
   - get_vcna_hr_task
@@ -457,6 +463,12 @@ full:
   - create_vcna_return_request
   - update_vcna_return_request
   - delete_vcna_return_request
+  # VCNA Employee Move tools
+  - list_vcna_employee_moves
+  - get_vcna_employee_move
+  - create_vcna_employee_move
+  - update_vcna_employee_move
+  - delete_vcna_employee_move
   # VCNA HR Task tools
   - list_vcna_hr_tasks
   - get_vcna_hr_task

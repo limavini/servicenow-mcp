@@ -80,6 +80,13 @@ from servicenow_mcp.tools.vcna_return_request_tools import (
     list_vcna_return_requests,
     update_vcna_return_request,
 )
+from servicenow_mcp.tools.vcna_employee_move_tools import (
+    create_vcna_employee_move,
+    delete_vcna_employee_move,
+    get_vcna_employee_move,
+    list_vcna_employee_moves,
+    update_vcna_employee_move,
+)
 from servicenow_mcp.tools.vcna_hr_task_tools import (
     create_vcna_hr_task,
     delete_vcna_hr_task,
@@ -434,6 +441,12 @@ __all__ = [
     "create_vcna_return_request",
     "update_vcna_return_request",
     "delete_vcna_return_request",
+    # VCNA Employee Move Tools
+    "list_vcna_employee_moves",
+    "get_vcna_employee_move",
+    "create_vcna_employee_move",
+    "update_vcna_employee_move",
+    "delete_vcna_employee_move",
     # VCNA HR Task tools
     "list_vcna_hr_tasks",
     "get_vcna_hr_task",
