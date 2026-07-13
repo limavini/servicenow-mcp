@@ -15,7 +15,11 @@ from servicenow_mcp.utils.config import ServerConfig
 
 logger = logging.getLogger(__name__)
 
-_FIELDS = "sys_id,name,label,super_class,is_extendable,sys_scope,sys_created_on,sys_updated_on,sys_created_by,sys_updated_by"
+_FIELDS = (
+    "sys_id,name,label,super_class,is_extendable,sys_scope,"
+    "access,read_access,create_access,update_access,delete_access,ws_access,"
+    "sys_created_on,sys_updated_on,sys_created_by,sys_updated_by"
+)
 
 
 class ListDbTablesParams(BaseModel):
@@ -34,13 +38,24 @@ class GetDbTableParams(BaseModel):
 
 
 class CreateDbTableParams(BaseModel):
-    """Parameters for creating a table."""
+    """Parameters for creating a table.
+
+    The Application Access flags default to what the ServiceNow UI sets when a table
+    is created there. The Table API defaults them to false, which silently breaks the
+    table for every non-admin user (admins bypass the check), so they are set here.
+    """
 
     name: str = Field(..., description="Table name (internal)")
     label: Optional[str] = Field(None, description="Table label")
     super_class: Optional[str] = Field(None, description="Parent table sys_id (extends)")
     is_extendable: Optional[bool] = Field(None, description="Whether the table is extendable")
     sys_scope: Optional[str] = Field(None, description="Application scope sys_id")
+    access: Optional[str] = Field("public", description="Application access: 'public' or 'package_private'")
+    read_access: Optional[bool] = Field(True, description="Application access: Can read")
+    create_access: Optional[bool] = Field(True, description="Application access: Can create")
+    update_access: Optional[bool] = Field(True, description="Application access: Can update")
+    delete_access: Optional[bool] = Field(False, description="Application access: Can delete")
+    ws_access: Optional[bool] = Field(True, description="Allow access to this table via web services")
 
 
 class UpdateDbTableParams(BaseModel):
@@ -52,6 +67,12 @@ class UpdateDbTableParams(BaseModel):
     super_class: Optional[str] = Field(None, description="Parent table sys_id (extends)")
     is_extendable: Optional[bool] = Field(None, description="Whether the table is extendable")
     sys_scope: Optional[str] = Field(None, description="Application scope sys_id")
+    access: Optional[str] = Field(None, description="Application access: 'public' or 'package_private'")
+    read_access: Optional[bool] = Field(None, description="Application access: Can read")
+    create_access: Optional[bool] = Field(None, description="Application access: Can create")
+    update_access: Optional[bool] = Field(None, description="Application access: Can update")
+    delete_access: Optional[bool] = Field(None, description="Application access: Can delete")
+    ws_access: Optional[bool] = Field(None, description="Allow access to this table via web services")
 
 
 class DeleteDbTableParams(BaseModel):
@@ -85,6 +106,12 @@ def _serialize(item: Dict[str, Any]) -> Dict[str, Any]:
         "super_class": _display(item.get("super_class")),
         "is_extendable": item.get("is_extendable") == "true",
         "sys_scope": _display(item.get("sys_scope")),
+        "access": item.get("access"),
+        "read_access": item.get("read_access") == "true",
+        "create_access": item.get("create_access") == "true",
+        "update_access": item.get("update_access") == "true",
+        "delete_access": item.get("delete_access") == "true",
+        "ws_access": item.get("ws_access") == "true",
         "created_on": item.get("sys_created_on"),
         "updated_on": item.get("sys_updated_on"),
         "created_by": _display(item.get("sys_created_by")),
@@ -202,6 +229,13 @@ def _build_body(params: BaseModel) -> Dict[str, Any]:
     value = getattr(params, "is_extendable", None)
     if value is not None:
         body["is_extendable"] = str(value).lower()
+    value = getattr(params, "access", None)
+    if value is not None:
+        body["access"] = value
+    for flag in ("read_access", "create_access", "update_access", "delete_access", "ws_access"):
+        value = getattr(params, flag, None)
+        if value is not None:
+            body[flag] = str(value).lower()
     return body
 
 
