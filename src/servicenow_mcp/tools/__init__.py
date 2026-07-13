@@ -73,6 +73,13 @@ from servicenow_mcp.tools.io_set_item_tools import (
     list_io_set_items,
     update_io_set_item,
 )
+from servicenow_mcp.tools.dictionary_override_tools import (
+    create_dictionary_override,
+    delete_dictionary_override,
+    get_dictionary_override,
+    list_dictionary_overrides,
+    update_dictionary_override,
+)
 from servicenow_mcp.tools.form_layout_tools import (
     create_ui_element,
     create_ui_form,
@@ -465,6 +472,13 @@ __all__ = [
     "create_io_set_item",
     "update_io_set_item",
     "delete_io_set_item",
+
+    # Dictionary override tools (sys_dictionary_override)
+    "list_dictionary_overrides",
+    "get_dictionary_override",
+    "create_dictionary_override",
+    "update_dictionary_override",
+    "delete_dictionary_override",
 
     # Form layout tools (sys_ui_view / sys_ui_form / sys_ui_section / sys_ui_element)
     "list_ui_views",

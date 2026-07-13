@@ -230,6 +230,29 @@ from servicenow_mcp.tools.io_set_item_tools import (
 from servicenow_mcp.tools.io_set_item_tools import (
     update_io_set_item as update_io_set_item_tool,
 )
+from servicenow_mcp.tools.dictionary_override_tools import (
+    CreateDictionaryOverrideParams,
+    DeleteDictionaryOverrideParams,
+    DictionaryOverrideResponse,
+    GetDictionaryOverrideParams,
+    ListDictionaryOverridesParams,
+    UpdateDictionaryOverrideParams,
+)
+from servicenow_mcp.tools.dictionary_override_tools import (
+    create_dictionary_override as create_dictionary_override_tool,
+)
+from servicenow_mcp.tools.dictionary_override_tools import (
+    delete_dictionary_override as delete_dictionary_override_tool,
+)
+from servicenow_mcp.tools.dictionary_override_tools import (
+    get_dictionary_override as get_dictionary_override_tool,
+)
+from servicenow_mcp.tools.dictionary_override_tools import (
+    list_dictionary_overrides as list_dictionary_overrides_tool,
+)
+from servicenow_mcp.tools.dictionary_override_tools import (
+    update_dictionary_override as update_dictionary_override_tool,
+)
 from servicenow_mcp.tools.form_layout_tools import (
     CreateUiElementParams,
     CreateUiFormParams,
@@ -1561,6 +1584,42 @@ def get_tool_definitions(
             DeleteIoSetItemParams,
             str,  # Expects JSON string
             "Delete an io_set_item record in ServiceNow",
+            "json_dict",  # Tool returns Pydantic model
+        ),
+        # Dictionary Override Tools (sys_dictionary_override)
+        "list_dictionary_overrides": (
+            list_dictionary_overrides_tool,
+            ListDictionaryOverridesParams,
+            Dict[str, Any],  # Expects dict
+            "List dictionary overrides (sys_dictionary_override) from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "get_dictionary_override": (
+            get_dictionary_override_tool,
+            GetDictionaryOverrideParams,
+            Dict[str, Any],  # Expects dict
+            "Get a specific dictionary override (sys_dictionary_override) from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "create_dictionary_override": (
+            create_dictionary_override_tool,
+            CreateDictionaryOverrideParams,
+            DictionaryOverrideResponse,  # Expects Pydantic model
+            "Override an inherited field on one child table only (default value, mandatory, read only, reference qualifier)",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "update_dictionary_override": (
+            update_dictionary_override_tool,
+            UpdateDictionaryOverrideParams,
+            DictionaryOverrideResponse,  # Expects Pydantic model
+            "Update an existing dictionary override in ServiceNow",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "delete_dictionary_override": (
+            delete_dictionary_override_tool,
+            DeleteDictionaryOverrideParams,
+            str,  # Expects JSON string
+            "Delete a dictionary override in ServiceNow",
             "json_dict",  # Tool returns Pydantic model
         ),
         # Form Layout Tools (sys_ui_view / sys_ui_form / sys_ui_section / sys_ui_element)

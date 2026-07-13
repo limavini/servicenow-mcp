@@ -97,6 +97,12 @@ platform_developer:
   - create_io_set_item
   - update_io_set_item
   - delete_io_set_item
+  # Dictionary overrides (sys_dictionary_override)
+  - list_dictionary_overrides
+  - get_dictionary_override
+  - create_dictionary_override
+  - update_dictionary_override
+  - delete_dictionary_override
   # Form layout (sys_ui_view / sys_ui_form / sys_ui_section / sys_ui_element)
   - list_ui_views
   - create_ui_view
@@ -486,6 +492,12 @@ full:
   - create_io_set_item
   - update_io_set_item
   - delete_io_set_item
+  # Dictionary overrides (sys_dictionary_override)
+  - list_dictionary_overrides
+  - get_dictionary_override
+  - create_dictionary_override
+  - update_dictionary_override
+  - delete_dictionary_override
   # Form layout (sys_ui_view / sys_ui_form / sys_ui_section / sys_ui_element)
   - list_ui_views
   - create_ui_view
