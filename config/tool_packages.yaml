@@ -97,6 +97,35 @@ platform_developer:
   - create_io_set_item
   - update_io_set_item
   - delete_io_set_item
+  # Form layout (sys_ui_view / sys_ui_form / sys_ui_section / sys_ui_element)
+  - list_ui_views
+  - create_ui_view
+  - list_ui_forms
+  - create_ui_form
+  - list_ui_form_sections
+  - create_ui_form_section
+  - update_ui_form_section
+  - delete_ui_form_section
+  - list_ui_sections
+  - get_ui_section
+  - create_ui_section
+  - update_ui_section
+  - delete_ui_section
+  - list_ui_elements
+  - create_ui_element
+  - update_ui_element
+  - delete_ui_element
+  # Workspace lists (sys_ux_list / sys_ux_list_category)
+  - list_ux_list_categories
+  - get_ux_list_category
+  - create_ux_list_category
+  - update_ux_list_category
+  - delete_ux_list_category
+  - list_ux_lists
+  - get_ux_list
+  - create_ux_list
+  - update_ux_list
+  - delete_ux_list
   # VCNA Return Request tools
   - list_vcna_return_requests
   - get_vcna_return_request
@@ -457,6 +486,35 @@ full:
   - create_io_set_item
   - update_io_set_item
   - delete_io_set_item
+  # Form layout (sys_ui_view / sys_ui_form / sys_ui_section / sys_ui_element)
+  - list_ui_views
+  - create_ui_view
+  - list_ui_forms
+  - create_ui_form
+  - list_ui_form_sections
+  - create_ui_form_section
+  - update_ui_form_section
+  - delete_ui_form_section
+  - list_ui_sections
+  - get_ui_section
+  - create_ui_section
+  - update_ui_section
+  - delete_ui_section
+  - list_ui_elements
+  - create_ui_element
+  - update_ui_element
+  - delete_ui_element
+  # Workspace lists (sys_ux_list / sys_ux_list_category)
+  - list_ux_list_categories
+  - get_ux_list_category
+  - create_ux_list_category
+  - update_ux_list_category
+  - delete_ux_list_category
+  - list_ux_lists
+  - get_ux_list
+  - create_ux_list
+  - update_ux_list
+  - delete_ux_list
   # VCNA Return Request tools
   - list_vcna_return_requests
   - get_vcna_return_request

@@ -230,6 +230,120 @@ from servicenow_mcp.tools.io_set_item_tools import (
 from servicenow_mcp.tools.io_set_item_tools import (
     update_io_set_item as update_io_set_item_tool,
 )
+from servicenow_mcp.tools.form_layout_tools import (
+    CreateUiElementParams,
+    CreateUiFormParams,
+    CreateUiFormSectionParams,
+    CreateUiSectionParams,
+    CreateUiViewParams,
+    DeleteUiElementParams,
+    DeleteUiFormSectionParams,
+    DeleteUiSectionParams,
+    FormLayoutResponse,
+    GetUiSectionParams,
+    ListUiElementsParams,
+    ListUiFormSectionsParams,
+    ListUiFormsParams,
+    ListUiSectionsParams,
+    ListUiViewsParams,
+    UpdateUiElementParams,
+    UpdateUiFormSectionParams,
+    UpdateUiSectionParams,
+)
+from servicenow_mcp.tools.form_layout_tools import (
+    create_ui_element as create_ui_element_tool,
+)
+from servicenow_mcp.tools.form_layout_tools import (
+    create_ui_form as create_ui_form_tool,
+)
+from servicenow_mcp.tools.form_layout_tools import (
+    create_ui_form_section as create_ui_form_section_tool,
+)
+from servicenow_mcp.tools.form_layout_tools import (
+    create_ui_section as create_ui_section_tool,
+)
+from servicenow_mcp.tools.form_layout_tools import (
+    create_ui_view as create_ui_view_tool,
+)
+from servicenow_mcp.tools.form_layout_tools import (
+    delete_ui_element as delete_ui_element_tool,
+)
+from servicenow_mcp.tools.form_layout_tools import (
+    delete_ui_form_section as delete_ui_form_section_tool,
+)
+from servicenow_mcp.tools.form_layout_tools import (
+    delete_ui_section as delete_ui_section_tool,
+)
+from servicenow_mcp.tools.form_layout_tools import (
+    get_ui_section as get_ui_section_tool,
+)
+from servicenow_mcp.tools.form_layout_tools import (
+    list_ui_elements as list_ui_elements_tool,
+)
+from servicenow_mcp.tools.form_layout_tools import (
+    list_ui_form_sections as list_ui_form_sections_tool,
+)
+from servicenow_mcp.tools.form_layout_tools import (
+    list_ui_forms as list_ui_forms_tool,
+)
+from servicenow_mcp.tools.form_layout_tools import (
+    list_ui_sections as list_ui_sections_tool,
+)
+from servicenow_mcp.tools.form_layout_tools import (
+    list_ui_views as list_ui_views_tool,
+)
+from servicenow_mcp.tools.form_layout_tools import (
+    update_ui_element as update_ui_element_tool,
+)
+from servicenow_mcp.tools.form_layout_tools import (
+    update_ui_form_section as update_ui_form_section_tool,
+)
+from servicenow_mcp.tools.form_layout_tools import (
+    update_ui_section as update_ui_section_tool,
+)
+from servicenow_mcp.tools.ux_list_tools import (
+    CreateUxListCategoryParams,
+    CreateUxListParams,
+    DeleteUxListCategoryParams,
+    DeleteUxListParams,
+    GetUxListCategoryParams,
+    GetUxListParams,
+    ListUxListCategoriesParams,
+    ListUxListsParams,
+    UpdateUxListCategoryParams,
+    UpdateUxListParams,
+    UxListResponse,
+)
+from servicenow_mcp.tools.ux_list_tools import (
+    create_ux_list as create_ux_list_tool,
+)
+from servicenow_mcp.tools.ux_list_tools import (
+    create_ux_list_category as create_ux_list_category_tool,
+)
+from servicenow_mcp.tools.ux_list_tools import (
+    delete_ux_list as delete_ux_list_tool,
+)
+from servicenow_mcp.tools.ux_list_tools import (
+    delete_ux_list_category as delete_ux_list_category_tool,
+)
+from servicenow_mcp.tools.ux_list_tools import (
+    get_ux_list as get_ux_list_tool,
+)
+from servicenow_mcp.tools.ux_list_tools import (
+    get_ux_list_category as get_ux_list_category_tool,
+)
+from servicenow_mcp.tools.ux_list_tools import (
+    list_ux_list_categories as list_ux_list_categories_tool,
+)
+from servicenow_mcp.tools.ux_list_tools import (
+    list_ux_lists as list_ux_lists_tool,
+)
+from servicenow_mcp.tools.ux_list_tools import (
+    update_ux_list as update_ux_list_tool,
+)
+from servicenow_mcp.tools.ux_list_tools import (
+    update_ux_list_category as update_ux_list_category_tool,
+)
 from servicenow_mcp.tools.vcna_return_request_tools import (
     CreateVcnaReturnRequestParams,
     DeleteVcnaReturnRequestParams,
@@ -1447,6 +1561,197 @@ def get_tool_definitions(
             DeleteIoSetItemParams,
             str,  # Expects JSON string
             "Delete an io_set_item record in ServiceNow",
+            "json_dict",  # Tool returns Pydantic model
+        ),
+        # Form Layout Tools (sys_ui_view / sys_ui_form / sys_ui_section / sys_ui_element)
+        "list_ui_views": (
+            list_ui_views_tool,
+            ListUiViewsParams,
+            Dict[str, Any],  # Expects dict
+            "List UI views (sys_ui_view) from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "create_ui_view": (
+            create_ui_view_tool,
+            CreateUiViewParams,
+            FormLayoutResponse,  # Expects Pydantic model
+            "Create a new UI view (sys_ui_view), e.g. a workspace form view",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "list_ui_forms": (
+            list_ui_forms_tool,
+            ListUiFormsParams,
+            Dict[str, Any],  # Expects dict
+            "List UI forms (sys_ui_form) for a table/view from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "create_ui_form": (
+            create_ui_form_tool,
+            CreateUiFormParams,
+            FormLayoutResponse,  # Expects Pydantic model
+            "Create a UI form (sys_ui_form) for a table and view",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "list_ui_form_sections": (
+            list_ui_form_sections_tool,
+            ListUiFormSectionsParams,
+            Dict[str, Any],  # Expects dict
+            "List the sections attached to a form (sys_ui_form_section)",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "create_ui_form_section": (
+            create_ui_form_section_tool,
+            CreateUiFormSectionParams,
+            FormLayoutResponse,  # Expects Pydantic model
+            "Attach a section to a form at a position (sys_ui_form_section)",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "update_ui_form_section": (
+            update_ui_form_section_tool,
+            UpdateUiFormSectionParams,
+            FormLayoutResponse,  # Expects Pydantic model
+            "Update a form-to-section link, e.g. reorder it (sys_ui_form_section)",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "delete_ui_form_section": (
+            delete_ui_form_section_tool,
+            DeleteUiFormSectionParams,
+            str,  # Expects JSON string
+            "Remove a section from a form (delete sys_ui_form_section)",
+            "json_dict",  # Tool returns Pydantic model
+        ),
+        "list_ui_sections": (
+            list_ui_sections_tool,
+            ListUiSectionsParams,
+            Dict[str, Any],  # Expects dict
+            "List form sections (sys_ui_section) from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "get_ui_section": (
+            get_ui_section_tool,
+            GetUiSectionParams,
+            Dict[str, Any],  # Expects dict
+            "Get a specific form section (sys_ui_section) from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "create_ui_section": (
+            create_ui_section_tool,
+            CreateUiSectionParams,
+            FormLayoutResponse,  # Expects Pydantic model
+            "Create a form section (sys_ui_section) for a table and view",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "update_ui_section": (
+            update_ui_section_tool,
+            UpdateUiSectionParams,
+            FormLayoutResponse,  # Expects Pydantic model
+            "Update a form section (sys_ui_section) in ServiceNow",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "delete_ui_section": (
+            delete_ui_section_tool,
+            DeleteUiSectionParams,
+            str,  # Expects JSON string
+            "Delete a form section (sys_ui_section) in ServiceNow",
+            "json_dict",  # Tool returns Pydantic model
+        ),
+        "list_ui_elements": (
+            list_ui_elements_tool,
+            ListUiElementsParams,
+            Dict[str, Any],  # Expects dict
+            "List the fields placed on a form section (sys_ui_element)",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "create_ui_element": (
+            create_ui_element_tool,
+            CreateUiElementParams,
+            FormLayoutResponse,  # Expects Pydantic model
+            "Place a field on a form section at a position (sys_ui_element)",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "update_ui_element": (
+            update_ui_element_tool,
+            UpdateUiElementParams,
+            FormLayoutResponse,  # Expects Pydantic model
+            "Update a field placement on a form section (sys_ui_element)",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "delete_ui_element": (
+            delete_ui_element_tool,
+            DeleteUiElementParams,
+            str,  # Expects JSON string
+            "Remove a field from a form section (delete sys_ui_element)",
+            "json_dict",  # Tool returns Pydantic model
+        ),
+        # Workspace List Tools (sys_ux_list / sys_ux_list_category)
+        "list_ux_list_categories": (
+            list_ux_list_categories_tool,
+            ListUxListCategoriesParams,
+            Dict[str, Any],  # Expects dict
+            "List workspace list categories (sys_ux_list_category) from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "get_ux_list_category": (
+            get_ux_list_category_tool,
+            GetUxListCategoryParams,
+            Dict[str, Any],  # Expects dict
+            "Get a specific workspace list category (sys_ux_list_category)",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "create_ux_list_category": (
+            create_ux_list_category_tool,
+            CreateUxListCategoryParams,
+            UxListResponse,  # Expects Pydantic model
+            "Create a workspace list category (sys_ux_list_category)",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "update_ux_list_category": (
+            update_ux_list_category_tool,
+            UpdateUxListCategoryParams,
+            UxListResponse,  # Expects Pydantic model
+            "Update a workspace list category (sys_ux_list_category)",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "delete_ux_list_category": (
+            delete_ux_list_category_tool,
+            DeleteUxListCategoryParams,
+            str,  # Expects JSON string
+            "Delete a workspace list category (sys_ux_list_category)",
+            "json_dict",  # Tool returns Pydantic model
+        ),
+        "list_ux_lists": (
+            list_ux_lists_tool,
+            ListUxListsParams,
+            Dict[str, Any],  # Expects dict
+            "List workspace lists (sys_ux_list) from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "get_ux_list": (
+            get_ux_list_tool,
+            GetUxListParams,
+            Dict[str, Any],  # Expects dict
+            "Get a specific workspace list (sys_ux_list) from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "create_ux_list": (
+            create_ux_list_tool,
+            CreateUxListParams,
+            UxListResponse,  # Expects Pydantic model
+            "Create a workspace list (sys_ux_list) in a category",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "update_ux_list": (
+            update_ux_list_tool,
+            UpdateUxListParams,
+            UxListResponse,  # Expects Pydantic model
+            "Update a workspace list (sys_ux_list) in ServiceNow",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "delete_ux_list": (
+            delete_ux_list_tool,
+            DeleteUxListParams,
+            str,  # Expects JSON string
+            "Delete a workspace list (sys_ux_list) in ServiceNow",
             "json_dict",  # Tool returns Pydantic model
         ),
         # VCNA Return Request Tools
