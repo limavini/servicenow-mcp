@@ -101,11 +101,15 @@ from servicenow_mcp.tools.form_layout_tools import (
 )
 from servicenow_mcp.tools.ux_list_tools import (
     create_ux_list,
+    create_ux_list_audience,
     create_ux_list_category,
     delete_ux_list,
+    delete_ux_list_audience,
     delete_ux_list_category,
     get_ux_list,
     get_ux_list_category,
+    list_ux_applicabilities,
+    list_ux_list_audiences,
     list_ux_list_categories,
     list_ux_lists,
     update_ux_list,
@@ -510,6 +514,10 @@ __all__ = [
     "create_ux_list",
     "update_ux_list",
     "delete_ux_list",
+    "list_ux_applicabilities",
+    "list_ux_list_audiences",
+    "create_ux_list_audience",
+    "delete_ux_list_audience",
 
     # VCNA Return Request tools
     "list_vcna_return_requests",

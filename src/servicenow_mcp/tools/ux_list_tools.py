@@ -4,13 +4,21 @@ Workspace list tools for the ServiceNow MCP server.
 This module provides tools for managing the lists shown in a Configurable
 Workspace:
 
-- ``sys_ux_list_category`` - a group of lists in the workspace list menu
-- ``sys_ux_list``          - one list (title, table, columns, condition) inside a category
+- ``sys_ux_list_category``          - a group of lists in the workspace list menu
+- ``sys_ux_list``                   - one list (title, table, columns, condition) inside a category
+- ``sys_ux_applicability_m2m_list`` - links a list to an *audience* (``sys_ux_applicability``)
 
 Both records belong to a workspace list *configuration*
-(``sys_ux_list_configuration``), referenced by the ``configuration`` field. To add
+(``sys_ux_list_menu_config``), referenced by the ``configuration`` field. To add
 a new process to an existing workspace, reuse that workspace's configuration
 sys_id, create a category for the process, then create the lists under it.
+
+**A list is not finished until it has an audience.** Every list in a workspace must
+be linked to that workspace's applicability ("Audience for app <workspace>") via
+``sys_ux_applicability_m2m_list``. Without the link the list still shows in the menu,
+but only admins (who bypass the audience roles) get the right table: every other
+role falls back to the parent table's records and columns. Use
+`list_ux_applicabilities` to find the audience, then `create_ux_list_audience`.
 """
 
 import logging
@@ -30,6 +38,8 @@ _LIST_FIELDS = (
     f"category,configuration,group_by_column,{_AUDIT}"
 )
 _CATEGORY_FIELDS = f"sys_id,title,description,order,active,configuration,{_AUDIT}"
+_APPLICABILITY_FIELDS = f"sys_id,name,api_name,active,roles,{_AUDIT}"
+_AUDIENCE_FIELDS = f"sys_id,list,applicability,order,active,{_AUDIT}"
 
 
 def _dv(value):
@@ -649,3 +659,231 @@ def delete_ux_list(
     except Exception as e:
         logger.error(f"Error deleting workspace list: {e}")
         return UxListResponse(success=False, message=f"Error deleting workspace list: {str(e)}")
+
+
+# ---------------------------------------------------------------------------
+# sys_ux_applicability / sys_ux_applicability_m2m_list (the list's audience)
+# ---------------------------------------------------------------------------
+
+
+class ListUxApplicabilitiesParams(BaseModel):
+    """Parameters for listing UX applicabilities (audiences)."""
+
+    limit: int = Field(20, description="Maximum number of applicabilities to return")
+    offset: int = Field(0, description="Offset for pagination")
+    query: Optional[str] = Field(None, description="Search query matched against the name (LIKE)")
+
+
+class ListUxListAudiencesParams(BaseModel):
+    """Parameters for listing the audience links of workspace lists."""
+
+    limit: int = Field(30, description="Maximum number of links to return")
+    offset: int = Field(0, description="Offset for pagination")
+    list_id: Optional[str] = Field(None, description="Filter by workspace list sys_id (sys_ux_list)")
+    applicability: Optional[str] = Field(
+        None, description="Filter by applicability sys_id (sys_ux_applicability)"
+    )
+
+
+class CreateUxListAudienceParams(BaseModel):
+    """Parameters for giving a workspace list its audience."""
+
+    list_id: str = Field(..., description="Workspace list sys_id (sys_ux_list)")
+    applicability: str = Field(
+        ...,
+        description="Applicability sys_id (sys_ux_applicability), e.g. the workspace's 'Audience for app <name>'",
+    )
+    order: Optional[int] = Field(None, description="Order of the link")
+    active: Optional[bool] = Field(None, description="Whether the link is active")
+
+
+class DeleteUxListAudienceParams(BaseModel):
+    """Parameters for removing a list's audience link."""
+
+    audience_id: str = Field(
+        ..., description="sys_ux_applicability_m2m_list sys_id (optionally prefixed with 'sys_id:')"
+    )
+
+
+def _serialize_applicability(item: Dict[str, Any]) -> Dict[str, Any]:
+    return {
+        "sys_id": item.get("sys_id"),
+        "name": item.get("name"),
+        "api_name": item.get("api_name"),
+        "active": item.get("active") == "true",
+        "roles": item.get("roles"),
+    }
+
+
+def _serialize_audience(item: Dict[str, Any]) -> Dict[str, Any]:
+    return {
+        "sys_id": item.get("sys_id"),
+        "list": _dv(item.get("list")),
+        "applicability": _dv(item.get("applicability")),
+        "order": item.get("order"),
+        "active": item.get("active") == "true",
+    }
+
+
+def list_ux_applicabilities(
+    config: ServerConfig,
+    auth_manager: AuthManager,
+    params: ListUxApplicabilitiesParams,
+) -> Dict[str, Any]:
+    """List UX applicabilities / audiences (sys_ux_applicability) from ServiceNow."""
+    try:
+        query_params = {
+            "sysparm_limit": params.limit,
+            "sysparm_offset": params.offset,
+            "sysparm_display_value": "true",
+            "sysparm_exclude_reference_link": "true",
+            "sysparm_fields": _APPLICABILITY_FIELDS,
+        }
+        if params.query:
+            query_params["sysparm_query"] = f"nameLIKE{params.query}"
+
+        response = requests.get(
+            f"{config.instance_url}/api/now/table/sys_ux_applicability",
+            params=query_params,
+            headers=auth_manager.get_headers(),
+            timeout=30,
+        )
+        response.raise_for_status()
+
+        items = [_serialize_applicability(i) for i in response.json().get("result", [])]
+        return {
+            "success": True,
+            "message": f"Found {len(items)} applicabilities",
+            "ux_applicabilities": items,
+            "total": len(items),
+            "limit": params.limit,
+            "offset": params.offset,
+        }
+    except Exception as e:
+        logger.error(f"Error listing applicabilities: {e}")
+        return {
+            "success": False,
+            "message": f"Error listing applicabilities: {str(e)}",
+            "ux_applicabilities": [],
+            "total": 0,
+            "limit": params.limit,
+            "offset": params.offset,
+        }
+
+
+def list_ux_list_audiences(
+    config: ServerConfig,
+    auth_manager: AuthManager,
+    params: ListUxListAudiencesParams,
+) -> Dict[str, Any]:
+    """List the audience links of workspace lists (sys_ux_applicability_m2m_list)."""
+    try:
+        query_parts = []
+        if params.list_id:
+            query_parts.append(f"list={params.list_id}")
+        if params.applicability:
+            query_parts.append(f"applicability={params.applicability}")
+
+        items = _list_records(
+            config,
+            auth_manager,
+            "sys_ux_applicability_m2m_list",
+            _AUDIENCE_FIELDS,
+            "^".join(query_parts) if query_parts else None,
+            params.limit,
+            params.offset,
+        )
+        audiences = [_serialize_audience(i) for i in items]
+        return {
+            "success": True,
+            "message": f"Found {len(audiences)} list audience links",
+            "ux_list_audiences": audiences,
+            "total": len(audiences),
+            "limit": params.limit,
+            "offset": params.offset,
+        }
+    except Exception as e:
+        logger.error(f"Error listing list audiences: {e}")
+        return {
+            "success": False,
+            "message": f"Error listing list audiences: {str(e)}",
+            "ux_list_audiences": [],
+            "total": 0,
+            "limit": params.limit,
+            "offset": params.offset,
+        }
+
+
+def create_ux_list_audience(
+    config: ServerConfig,
+    auth_manager: AuthManager,
+    params: CreateUxListAudienceParams,
+) -> UxListResponse:
+    """Link a workspace list to an audience (create sys_ux_applicability_m2m_list).
+
+    Required for every list: without it, non-admin users fall back to the parent
+    table's records and columns.
+    """
+    body: Dict[str, Any] = {
+        "list": params.list_id,
+        "applicability": params.applicability,
+    }
+    if params.order is not None:
+        body["order"] = str(params.order)
+    if params.active is not None:
+        body["active"] = str(params.active).lower()
+
+    try:
+        response = requests.post(
+            f"{config.instance_url}/api/now/table/sys_ux_applicability_m2m_list",
+            json=body,
+            headers=auth_manager.get_headers(),
+            timeout=30,
+        )
+        response.raise_for_status()
+        result = response.json().get("result", {})
+
+        label = f"{params.list_id} -> {params.applicability}"
+        return UxListResponse(
+            success=True,
+            message=f"Linked list to audience: {label}",
+            record_id=result.get("sys_id"),
+            record_name=label,
+        )
+    except Exception as e:
+        logger.error(f"Error creating list audience: {e}")
+        return UxListResponse(success=False, message=f"Error creating list audience: {str(e)}")
+
+
+def delete_ux_list_audience(
+    config: ServerConfig,
+    auth_manager: AuthManager,
+    params: DeleteUxListAudienceParams,
+) -> UxListResponse:
+    """Remove a list's audience link (delete sys_ux_applicability_m2m_list)."""
+    try:
+        record = _get_by_sys_id(
+            config,
+            auth_manager,
+            "sys_ux_applicability_m2m_list",
+            params.audience_id,
+            _AUDIENCE_FIELDS,
+        )
+        sys_id = record["sys_id"]
+
+        response = requests.delete(
+            f"{config.instance_url}/api/now/table/sys_ux_applicability_m2m_list/{sys_id}",
+            headers=auth_manager.get_headers(),
+            timeout=30,
+        )
+        response.raise_for_status()
+
+        return UxListResponse(
+            success=True,
+            message=f"Deleted list audience link: {sys_id}",
+            record_id=sys_id,
+            record_name=sys_id,
+        )
+    except Exception as e:
+        logger.error(f"Error deleting list audience: {e}")
+        return UxListResponse(success=False, message=f"Error deleting list audience: {str(e)}")

@@ -325,17 +325,33 @@ from servicenow_mcp.tools.form_layout_tools import (
     update_ui_section as update_ui_section_tool,
 )
 from servicenow_mcp.tools.ux_list_tools import (
+    CreateUxListAudienceParams,
     CreateUxListCategoryParams,
     CreateUxListParams,
+    DeleteUxListAudienceParams,
     DeleteUxListCategoryParams,
     DeleteUxListParams,
     GetUxListCategoryParams,
     GetUxListParams,
+    ListUxApplicabilitiesParams,
+    ListUxListAudiencesParams,
     ListUxListCategoriesParams,
     ListUxListsParams,
     UpdateUxListCategoryParams,
     UpdateUxListParams,
     UxListResponse,
+)
+from servicenow_mcp.tools.ux_list_tools import (
+    create_ux_list_audience as create_ux_list_audience_tool,
+)
+from servicenow_mcp.tools.ux_list_tools import (
+    delete_ux_list_audience as delete_ux_list_audience_tool,
+)
+from servicenow_mcp.tools.ux_list_tools import (
+    list_ux_applicabilities as list_ux_applicabilities_tool,
+)
+from servicenow_mcp.tools.ux_list_tools import (
+    list_ux_list_audiences as list_ux_list_audiences_tool,
 )
 from servicenow_mcp.tools.ux_list_tools import (
     create_ux_list as create_ux_list_tool,
@@ -1811,6 +1827,34 @@ def get_tool_definitions(
             DeleteUxListParams,
             str,  # Expects JSON string
             "Delete a workspace list (sys_ux_list) in ServiceNow",
+            "json_dict",  # Tool returns Pydantic model
+        ),
+        "list_ux_applicabilities": (
+            list_ux_applicabilities_tool,
+            ListUxApplicabilitiesParams,
+            Dict[str, Any],  # Expects dict
+            "List UX applicabilities / audiences (sys_ux_applicability) from ServiceNow",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "list_ux_list_audiences": (
+            list_ux_list_audiences_tool,
+            ListUxListAudiencesParams,
+            Dict[str, Any],  # Expects dict
+            "List the audience links of workspace lists (sys_ux_applicability_m2m_list)",
+            "raw_dict",  # Tool returns raw dict
+        ),
+        "create_ux_list_audience": (
+            create_ux_list_audience_tool,
+            CreateUxListAudienceParams,
+            UxListResponse,  # Expects Pydantic model
+            "Link a workspace list to an audience — required, or non-admins fall back to the parent table",
+            "raw_pydantic",  # Tool returns Pydantic model
+        ),
+        "delete_ux_list_audience": (
+            delete_ux_list_audience_tool,
+            DeleteUxListAudienceParams,
+            str,  # Expects JSON string
+            "Remove a workspace list's audience link (sys_ux_applicability_m2m_list)",
             "json_dict",  # Tool returns Pydantic model
         ),
         # VCNA Return Request Tools

@@ -132,6 +132,10 @@ platform_developer:
   - create_ux_list
   - update_ux_list
   - delete_ux_list
+  - list_ux_applicabilities
+  - list_ux_list_audiences
+  - create_ux_list_audience
+  - delete_ux_list_audience
   # VCNA Return Request tools
   - list_vcna_return_requests
   - get_vcna_return_request
@@ -527,6 +531,10 @@ full:
   - create_ux_list
   - update_ux_list
   - delete_ux_list
+  - list_ux_applicabilities
+  - list_ux_list_audiences
+  - create_ux_list_audience
+  - delete_ux_list_audience
   # VCNA Return Request tools
   - list_vcna_return_requests
   - get_vcna_return_request
