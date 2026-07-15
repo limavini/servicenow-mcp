@@ -1177,10 +1177,14 @@ from servicenow_mcp.tools.project_tools import (
     list_projects as list_projects_tool,
 )
 from servicenow_mcp.tools.generic_tools import (
+    InsertTableParams,
     QueryTableParams,
+    UpdateTableParams,
 )
 from servicenow_mcp.tools.generic_tools import (
+    insert_table as insert_table_tool,
     query_table as query_table_tool,
+    update_table as update_table_tool,
 )
 
 # Define a type alias for the Pydantic models or dataclasses used for params
@@ -3256,6 +3260,21 @@ def get_tool_definitions(
             QueryTableParams,
             str,
             "Read records from any ServiceNow table via the Table API (read-only escape hatch for tables without a dedicated tool)",
+            "json",
+        ),
+        # Generic write escape hatches (for fields/tables without a dedicated typed tool)
+        "insert_table": (
+            insert_table_tool,
+            InsertTableParams,
+            str,
+            "Insert a record into any ServiceNow table via the Table API with an arbitrary field map (write escape hatch for tables without a dedicated tool)",
+            "json",
+        ),
+        "update_table": (
+            update_table_tool,
+            UpdateTableParams,
+            str,
+            "Patch arbitrary fields on any ServiceNow record via the Table API (write escape hatch for fields the dedicated tools cannot set)",
             "json",
         ),
         # Payout Request Tools

@@ -84,6 +84,9 @@ knowledge_author:
 platform_developer:
   # Generic read-only escape hatch
   - query_table
+  # Generic write escape hatches
+  - insert_table
+  - update_table
   # Script Includes
   - list_script_includes
   - get_script_include
@@ -783,3 +786,6 @@ full:
   - list_projects
   # Generic read-only escape hatch
   - query_table
+  # Generic write escape hatches
+  - insert_table
+  - update_table

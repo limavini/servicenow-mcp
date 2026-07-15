@@ -1,18 +1,25 @@
 """
-Generic read-only tools for the ServiceNow MCP server.
+Generic escape-hatch tools for the ServiceNow MCP server.
 
-This module provides a single escape-hatch tool, ``query_table``, that reads
-records from *any* ServiceNow table via the REST Table API. It exists to cover
-the long tail of tables that do not have a dedicated, typed toolset.
+This module provides escape-hatch tools that operate on *any* ServiceNow table
+via the REST Table API, to cover the long tail of tables/fields that do not have
+a dedicated, typed toolset:
 
-It is intentionally **read-only**: there is no generic create/update/delete.
-Writes should go through a dedicated, typed tool so the field contract and any
-business rules stay explicit and auditable.
+- ``query_table``  — read records (read-only).
+- ``insert_table`` — insert a record with an arbitrary field map.
+- ``update_table`` — patch arbitrary fields on an existing record.
+
+Prefer a dedicated, typed tool when one exists, so the field contract and any
+business rules stay explicit and auditable. ``insert_table`` / ``update_table``
+exist for fields the typed tools cannot set (e.g. ``catalog_script_client.cat_variable``,
+``item_option_new.use_reference_qualifier``) and for tables with no typed toolset
+(e.g. m2m and variable-set tables). The same env guard-rails as ``query_table``
+apply.
 """
 
 import logging
 import os
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 import requests
 from pydantic import BaseModel, Field
@@ -126,4 +133,171 @@ def query_table(
         "table": params.table,
         "count": len(records),
         "records": records,
+    }
+
+
+class InsertTableParams(BaseModel):
+    """Parameters for a generic record insert."""
+
+    table: str = Field(
+        ...,
+        description="Table name to insert into, e.g. 'sc_cat_item_user_criteria_mtom', 'item_option_new_set'.",
+    )
+    fields: Dict[str, Any] = Field(
+        ...,
+        description=(
+            "Map of column name -> value for the new record, e.g. "
+            "{'sc_cat_item': '<sys_id>', 'user_criteria': '<sys_id>'}. "
+            "Booleans/numbers are accepted; they are sent to ServiceNow as-is."
+        ),
+    )
+
+
+class UpdateTableParams(BaseModel):
+    """Parameters for a generic record update (PATCH)."""
+
+    table: str = Field(
+        ...,
+        description="Table name of the record to update, e.g. 'catalog_script_client', 'item_option_new'.",
+    )
+    sys_id: str = Field(
+        ...,
+        description="sys_id of the record to update.",
+    )
+    fields: Dict[str, Any] = Field(
+        ...,
+        description=(
+            "Map of column name -> value to patch, e.g. "
+            "{'use_reference_qualifier': 'advanced', 'reference_qual': 'javascript:...'}. "
+            "Only the provided columns are changed."
+        ),
+    )
+
+
+def insert_table(
+    config: ServerConfig,
+    auth_manager: AuthManager,
+    params: InsertTableParams,
+) -> dict:
+    """
+    Insert a record into any ServiceNow table via the REST Table API.
+
+    Escape hatch for tables without a dedicated, typed create tool (e.g. m2m
+    tables, variable sets). Prefer a typed tool when one exists.
+
+    Args:
+        config: Server configuration.
+        auth_manager: Authentication manager.
+        params: Parameters for the insert (table + field map).
+
+    Returns:
+        Dictionary with the created record's sys_id (or an error message).
+    """
+    blocked = _table_blocked(params.table)
+    if blocked:
+        logger.warning("insert_table denied: %s", blocked)
+        return {"success": False, "message": blocked, "record": None}
+
+    api_url = f"{config.api_url}/table/{params.table}"
+
+    try:
+        response = requests.post(
+            api_url,
+            json=params.fields,
+            headers=auth_manager.get_headers(),
+            timeout=config.timeout,
+        )
+        response.raise_for_status()
+    except requests.RequestException as e:
+        logger.error("Error inserting into table '%s': %s", params.table, e)
+        return {
+            "success": False,
+            "message": f"Error inserting into table '{params.table}': {e}",
+            "record": None,
+        }
+
+    try:
+        record = response.json().get("result", {})
+    except ValueError:
+        return {
+            "success": False,
+            "message": f"Non-JSON response from insert into '{params.table}' (HTTP {response.status_code}).",
+            "status_code": response.status_code,
+            "body": response.text[:1000],
+            "record": None,
+        }
+    return {
+        "success": True,
+        "message": f"Inserted record into '{params.table}'.",
+        "table": params.table,
+        "sys_id": record.get("sys_id"),
+        "record": record,
+    }
+
+
+def update_table(
+    config: ServerConfig,
+    auth_manager: AuthManager,
+    params: UpdateTableParams,
+) -> dict:
+    """
+    Patch arbitrary fields on an existing record in any ServiceNow table.
+
+    Escape hatch for fields the dedicated, typed tools cannot set (e.g.
+    ``catalog_script_client.cat_variable``, ``item_option_new.use_reference_qualifier``).
+    Prefer a typed tool when it covers the field you need.
+
+    Args:
+        config: Server configuration.
+        auth_manager: Authentication manager.
+        params: Parameters for the update (table + sys_id + field map).
+
+    Returns:
+        Dictionary with the updated record (or an error message).
+    """
+    blocked = _table_blocked(params.table)
+    if blocked:
+        logger.warning("update_table denied: %s", blocked)
+        return {"success": False, "message": blocked, "record": None}
+
+    api_url = f"{config.api_url}/table/{params.table}/{params.sys_id}"
+
+    # Some ServiceNow front-ends / proxies reject a raw HTTP PATCH. Route the partial
+    # update through POST with the standard method override, which follows the same
+    # path as the working typed create tools.
+    headers = dict(auth_manager.get_headers())
+    headers["X-HTTP-Method-Override"] = "PATCH"
+
+    try:
+        response = requests.post(
+            api_url,
+            json=params.fields,
+            headers=headers,
+            timeout=config.timeout,
+        )
+        response.raise_for_status()
+    except requests.RequestException as e:
+        logger.error("Error updating table '%s' record '%s': %s", params.table, params.sys_id, e)
+        return {
+            "success": False,
+            "message": f"Error updating table '{params.table}' record '{params.sys_id}': {e}",
+            "record": None,
+        }
+
+    try:
+        record = response.json().get("result", {})
+    except ValueError:
+        return {
+            "success": False,
+            "message": f"Non-JSON response updating '{params.table}' (HTTP {response.status_code}).",
+            "status_code": response.status_code,
+            "body": response.text[:1000],
+            "record": None,
+        }
+    return {
+        "success": True,
+        "message": f"Updated record '{params.sys_id}' in '{params.table}'.",
+        "table": params.table,
+        "sys_id": params.sys_id,
+        "record": record,
     }
